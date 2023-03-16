@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SplitProject.Domain.Models;
+using System.Runtime.InteropServices;
 
 namespace SplitProject.DAL
 {
@@ -29,6 +30,9 @@ namespace SplitProject.DAL
                 .WithMany(u => u.Benefiters)
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<User>().Property(u => u.UserBalance).HasPrecision(13, 2);
+            modelBuilder.Entity<Expense>().Property(e=>e.ExpenseAmount).HasPrecision(13, 2); //12345678901.23
         }
     }
 }
