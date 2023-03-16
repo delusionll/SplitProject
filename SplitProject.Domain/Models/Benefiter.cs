@@ -6,7 +6,7 @@ namespace SplitProject.Domain.Models
     public class Benefiter
     {
         [Key]
-        public int BenefiterId { get; set; }
+        public int Id { get; set; }
 
         public int BenefiterPercent { get; set; }
         public int UserId { get; set; } //Внешний ключ к Юзерам

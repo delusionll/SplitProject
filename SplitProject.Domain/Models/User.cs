@@ -2,10 +2,10 @@
 {
     public class User
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         public string? UserName { get; set; }
-        public double UserBalance { get; set; }
+        public decimal UserBalance { get; set; }
 
         public List<Expense> Expenses { get; set; } //Какие траты совершил
         public List<Benefiter> Benefiters { get; set; } //В каких тратах участвует
