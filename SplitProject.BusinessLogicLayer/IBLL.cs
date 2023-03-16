@@ -1,5 +1,5 @@
-﻿using SplitProject.DataBase;
-using SplitProject.Models;
+﻿using SplitProject.DAL;
+using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL
 {

@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SplitProject.DataBase;
 
 #nullable disable
 
-namespace SplitProject.Migrations
+namespace SplitProject.DAL.Migrations
 {
     [DbContext(typeof(SplitContext))]
     [Migration("20230217002655_Initial")]

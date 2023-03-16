@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SplitProject.BLL;
-using SplitProject.DataBase;
-using SplitProject.Models;
+using SplitProject.DAL;
+using SplitProject.Domain.Models;
 
 namespace SplitProject.API.Controllers
 {

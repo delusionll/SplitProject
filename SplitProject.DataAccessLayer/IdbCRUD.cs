@@ -1,4 +1,4 @@
-﻿using SplitProject.Models;
+﻿using SplitProject.Domain.Models;
 
 namespace SplitProject.DAL
 {
