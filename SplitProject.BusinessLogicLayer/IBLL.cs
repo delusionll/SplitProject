@@ -5,7 +5,7 @@ namespace SplitProject.BLL
 {
     public interface IBLL
     {
-        public static void CountExpense(double amount, int userIdFrom, List<Benefiter> benefitersList) //Учитывает трату, меняет баланс в базе
+        public static void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList) //Counting expense, updates DB
         {
             using (SplitContext _db = new())
             {

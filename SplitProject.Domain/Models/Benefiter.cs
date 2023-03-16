@@ -5,18 +5,17 @@ namespace SplitProject.Domain.Models
 {
     public class Benefiter
     {
-        [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public int BenefiterPercent { get; set; }
-        public int UserId { get; set; } //Внешний ключ к Юзерам
-        public int ExpenseId { get; set; } //Внешний ключ к таблице Expense
+        public Guid UserId { get; set; } //Внешний ключ к Юзерам
+        public Guid ExpenseId { get; set; } //Внешний ключ к таблице Expense
         [JsonIgnore]
         public Expense Expense { get; set; }
         [JsonIgnore]
         public User User { get; set; }
 
-        public Benefiter(int percent, int userToBenefitId)
+        public Benefiter(int percent, Guid userToBenefitId)
         {
             BenefiterPercent = percent;
             UserId = userToBenefitId;
