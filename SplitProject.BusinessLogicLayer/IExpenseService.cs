@@ -9,6 +9,6 @@ namespace SplitProject.BLL
 {
     public interface IExpenseService
     {
-        public void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList);
+        void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList);
     }
 }

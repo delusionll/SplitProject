@@ -16,12 +16,12 @@ namespace SplitProject.API.Controllers
             {
                 //Expense newexpense = jsonFormDeserialized; //Приведение к объекту класса Экспенс, Бенефитерсы включены
 
-                db.Expenses.Add(newexpense);
+                db.Expenses.Add(newExpense);
                 db.SaveChanges();
             }
             IExpenseService expenseService = new ExpenseService();
             expenseService.CountExpense(newExpense.ExpenseAmount, newExpense.UserId, newExpense.Benefiters);
-            return $"Expense counted with Id #{newExpense.ExpenseId}";
+            return newExpense.ExpenseId;
         }
     }
 }
