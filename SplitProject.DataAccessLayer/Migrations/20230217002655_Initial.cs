@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace SplitProject.Migrations
+namespace SplitProject.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

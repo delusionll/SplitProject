@@ -10,14 +10,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.API", "SplitPr
 		{E4C9D08B-F7B2-4B27-8631-0AD251E34F02} = {E4C9D08B-F7B2-4B27-8631-0AD251E34F02}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.DataAccessLayer", "SplitProject.DataAccessLayer\SplitProject.DataAccessLayer.csproj", "{B1663A01-4134-41F0-AFA9-55FF8B6CA2C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.DAL", "SplitProject.DataAccessLayer\SplitProject.DAL.csproj", "{B1663A01-4134-41F0-AFA9-55FF8B6CA2C7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.Domain", "SplitProject.Domain\SplitProject.Domain.csproj", "{045F627E-B723-464E-9C2D-71E370BAD207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.BusinessLogicLayer", "SplitProject.BusinessLogicLayer\SplitProject.BusinessLogicLayer.csproj", "{E4C9D08B-F7B2-4B27-8631-0AD251E34F02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.BLL", "SplitProject.BusinessLogicLayer\SplitProject.BLL.csproj", "{E4C9D08B-F7B2-4B27-8631-0AD251E34F02}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 		{B1663A01-4134-41F0-AFA9-55FF8B6CA2C7} = {B1663A01-4134-41F0-AFA9-55FF8B6CA2C7}

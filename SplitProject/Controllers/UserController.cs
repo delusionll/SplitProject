@@ -2,7 +2,7 @@
 using SplitProject.DataBase;
 using SplitProject.Models;
 
-namespace SplitProject.Controllers
+namespace SplitProject.API.Controllers
 {
     [ApiController]
     public class UserController : Controller

@@ -8,7 +8,7 @@ using SplitProject.DataBase;
 
 #nullable disable
 
-namespace SplitProject.Migrations
+namespace SplitProject.DAL.Migrations
 {
     [DbContext(typeof(SplitContext))]
     partial class SplitContextModelSnapshot : ModelSnapshot

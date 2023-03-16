@@ -1,4 +1,4 @@
-﻿namespace SplitProject.Models
+﻿namespace SplitProject.Domain.Models
 {
     public class User
     {

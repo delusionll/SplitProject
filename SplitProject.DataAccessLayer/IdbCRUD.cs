@@ -1,6 +1,6 @@
 ﻿using SplitProject.Models;
 
-namespace SplitProject.DataBase
+namespace SplitProject.DAL
 {
     public interface IDbCRUD
     {

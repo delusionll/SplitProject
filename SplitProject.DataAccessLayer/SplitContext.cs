@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SplitProject.Models;
 
-namespace SplitProject.DataBase
+namespace SplitProject.DAL
 {
     public class SplitContext : DbContext
     {

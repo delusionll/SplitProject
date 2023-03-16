@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
-namespace SplitProject.Models
+namespace SplitProject.Domain.Models
 {
     public class Benefiter
     {

@@ -1,4 +1,4 @@
-namespace SplitProject
+namespace SplitProject.API
 {
 
     public class Program
