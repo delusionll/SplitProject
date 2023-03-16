@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using SplitProject.BLL;
+using SplitProject.DAL;
+
 namespace SplitProject.API
 {
 
@@ -8,9 +12,12 @@ namespace SplitProject.API
             WebApplicationBuilder builder = WebApplication.CreateBuilder();
 
             IServiceCollection services = builder.Services; //Services collection adding
+            services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddDbContext<SplitContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings: Default"],
+                builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 
-            builder.Services.AddControllers(); ////Controllers support adding
-            builder.Services.AddSwaggerGen();
+            services.AddControllers(); ////Controllers support adding
+            services.AddSwaggerGen();
             var app = builder.Build();
             if (app.Environment.IsDevelopment())
             {
@@ -22,27 +29,10 @@ namespace SplitProject.API
                 options.SwaggerEndpoint("/Swagger/v1/Swagger.json", "v1");
                 options.RoutePrefix = string.Empty;
             });
-
-            //app.MapControllerRoute(
-            //    name: "user",
-            //    pattern: "{controller=User}/{action=NewUser}"); //Маршрутизация User-NewUser
-
-            //app.MapControllerRoute(
-            //    name: "user",
-            //    pattern: "{controller=User}/{action=DeleteAllUsers}"); //Маршрутизация User-deleteallusers
-
-            //app.MapControllerRoute(
-            //    name: "user",
-            //    pattern: "{controller=User}/{action=DeleteUserById}"); //Маршрутизация User-deleteUserById
-
-            //app.MapControllerRoute(
-            //    name: "expense",
-            //    pattern: "{controller=Expense}/{action=NewExpense}"); //Маршрутизация User-deleteUserById
             app.MapControllers();
 
             app.Run();
 
-            //builder.Services.AddDbContext<SplitWebAPIContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SplitWebAPIContext")));
         }
     }
 }

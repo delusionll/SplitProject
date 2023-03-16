@@ -5,7 +5,7 @@
         public Guid ExpenseId { get; set; }
 
         public DateTime ExpenseDate { get; set; } = DateTime.Now;
-        public string? ExpenseTitle { get; set; } = "Unknown Expense";
+        public string? ExpenseTitle { get; set; }
         public decimal ExpenseAmount { get; set; }
         public Guid UserId { get; set; } //Внешний ключ для Юзеров (ByUser)
         public User User { get; set; } //Кто совершил трату

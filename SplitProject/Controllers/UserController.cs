@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SplitProject.DAL;
-using SplitProject.Domain.Models;
+using SplitProject.BLL;
 
 namespace SplitProject.API.Controllers
 {
@@ -37,7 +36,7 @@ namespace SplitProject.API.Controllers
             {
                 return BadRequest();
             }
-            using (SplitContext _db = new())
+            using (SplitContext _db = new()) //Move to BLL
             {
                 _db.Users.Add(user);
                 await _db.SaveChangesAsync();

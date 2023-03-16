@@ -3,9 +3,9 @@ using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL
 {
-    public interface IBLL
+    public class ExpenseService : IExpenseService
     {
-        public static void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList) //Counting expense, updates DB
+        public void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList) //Counting expense, updates DB
         {
             using (SplitContext _db = new())
             {

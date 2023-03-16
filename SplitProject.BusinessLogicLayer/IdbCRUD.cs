@@ -1,7 +1,7 @@
-﻿
+﻿using SplitProject.DAL;
 using SplitProject.Domain.Models;
 
-namespace SplitProject.DAL
+namespace SplitProject.BLL
 {
     public interface IDbCRUD
     {

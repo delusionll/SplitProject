@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SplitProject.BLL;
-using SplitProject.DAL;
-using SplitProject.Domain.Models;
 
 namespace SplitProject.API.Controllers
 {
@@ -12,7 +10,7 @@ namespace SplitProject.API.Controllers
         [HttpPost("NewExpense")]
         public string NewExpense(string jsonForm)
         {
-            Expense newexpense = JsonConvert.DeserializeObject<Expense>(jsonForm);
+            Expense newExpense = JsonConvert.DeserializeObject<Expense>(jsonForm);
 
             using (SplitContext db = new())
             {
@@ -21,8 +19,9 @@ namespace SplitProject.API.Controllers
                 db.Expenses.Add(newexpense);
                 db.SaveChanges();
             }
-            IBLL.CountExpense(newexpense.ExpenseAmount, newexpense.UserId, newexpense.Benefiters);
-            return $"Expense counted with Id #{newexpense.ExpenseId}";
+            IExpenseService expenseService = new ExpenseService();
+            expenseService.CountExpense(newExpense.ExpenseAmount, newExpense.UserId, newExpense.Benefiters);
+            return $"Expense counted with Id #{newExpense.ExpenseId}";
         }
     }
 }
