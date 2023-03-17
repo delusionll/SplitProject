@@ -12,7 +12,7 @@ namespace SplitProject.API
             WebApplicationBuilder builder = WebApplication.CreateBuilder();
 
             IServiceCollection services = builder.Services; //Services collection adding
-            services.AddScoped<IExpenseService, ExpenseService>();
+            services.AddTransient<IExpenseService, ExpenseService>();
             services.AddDbContext<SplitContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings: Default"],
                 builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 
