@@ -10,34 +10,31 @@ namespace SplitProject.BLL
 {
     public class DbCrudService : IDbCrudService
     {
+        private readonly SplitContext _context;
+        public DbCrudService(SplitContext context)
+        {
+            _context = context;
+        }
+
         public User GetUserById(Guid id)
         {
-            using (SplitContext _db = new())
-            {
-                User entity = _db.Users.Find(id);
-                return entity;
-            }
+            User entity = _context.Users.Find(id);
+            return entity;
         }
 
         public void DeleteUserById(Guid id)
         {
-            using (SplitContext _db = new())
-            {
-                _db.Users.Remove(GetUserById(id));
-                _db.SaveChanges();
-            }
+                _context.Users.Remove(GetUserById(id));
+                _context.SaveChanges();
         }
 
         public void DeleteAllUsers()
         {
-            using (SplitContext _db = new())
-            {
-                foreach (User u in _db.Users)
+                foreach (User u in _context.Users)
                 {
-                    _db.Users.Remove(u);
+                    _context.Users.Remove(u);
                 }
-                _db.SaveChanges();
-            }
+                _context.SaveChanges();
         }
     }
 }
