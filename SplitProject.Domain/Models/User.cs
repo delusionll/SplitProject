@@ -2,13 +2,13 @@
 {
     public class User
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public string? UserName { get; set; }
         public decimal UserBalance { get; set; }
         //
-        public List<Expense> Expenses { get; set; } //Какие траты совершил
-        public List<Benefiter> Benefiters { get; set; } //В каких тратах участвует
+        public List<Expense> Expenses { get; set; }
+        public List<Benefiter> Benefiters { get; set; }
 
         public User(string username)
         {

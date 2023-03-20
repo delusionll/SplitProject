@@ -45,7 +45,7 @@ namespace SplitProject.BLL
             SaveChanges();
         }
 
-        public void AddExpense(Expense expense)
+        public virtual void AddExpense(Expense expense)
         {
             _context.Expenses.Add(expense);
             SaveChanges();

@@ -2,11 +2,11 @@
 {
     public class Benefiter
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
 
         public int BenefiterPercent { get; set; }
-        public Guid UserId { get; set; } //Внешний ключ к Юзерам
-        public Guid ExpenseId { get; set; } //Внешний ключ к таблице Expense
+        public Guid UserId { get; set; } 
+        public Guid ExpenseId { get; set; }
         //
         public Expense Expense { get; set; }
         public User User { get; set; }
