@@ -16,7 +16,7 @@ namespace SplitProject.API.Controllers
         }
 
         [HttpPost("NewExpense")]
-        public Guid NewExpense(Expense newExpense)
+        public Guid NewExpense(ExpenseDTO newExpense)
         {
             _dbCrudService.AddExpense(newExpense);
             _expenseService.CountExpense(newExpense.ExpenseAmount, newExpense.UserId, newExpense.Benefiters);
