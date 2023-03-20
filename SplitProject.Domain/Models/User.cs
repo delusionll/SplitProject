@@ -18,7 +18,7 @@
             UserBalance = 0;
         }
 
-        public User()
-        { }
+        //public User()
+        //{ }
     }
 }

@@ -11,8 +11,8 @@
         public User User { get; set; } //Кто совершил трату
         public List<Benefiter> Benefiters { get; set; } //На кого делят
 
-        public Expense()
-        { }
+        //public Expense()
+        //{ }
 
         //public Expense(string expenseTitle, double expenseAmount, int byUserId)
         //{

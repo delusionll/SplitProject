@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.API", "SplitProject\SplitProject.API.csproj", "{87F1D461-117E-41D4-9872-CDB7E2A4DF7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.API", "SplitProject\SplitProject.API.csproj", "{87F1D461-117E-41D4-9872-CDB7E2A4DF7B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E} = {3492F379-1AA9-4F25-B47A-E6DE22E41E3E}
@@ -11,22 +11,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.API", "SplitPr
 		{E4C9D08B-F7B2-4B27-8631-0AD251E34F02} = {E4C9D08B-F7B2-4B27-8631-0AD251E34F02}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.DAL", "SplitProject.DataAccessLayer\SplitProject.DAL.csproj", "{B1663A01-4134-41F0-AFA9-55FF8B6CA2C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.DAL", "SplitProject.DataAccessLayer\SplitProject.DAL.csproj", "{B1663A01-4134-41F0-AFA9-55FF8B6CA2C7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E} = {3492F379-1AA9-4F25-B47A-E6DE22E41E3E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.Domain", "SplitProject.Domain\SplitProject.Domain.csproj", "{045F627E-B723-464E-9C2D-71E370BAD207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.Domain", "SplitProject.Domain\SplitProject.Domain.csproj", "{045F627E-B723-464E-9C2D-71E370BAD207}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.BLL", "SplitProject.BusinessLogicLayer\SplitProject.BLL.csproj", "{E4C9D08B-F7B2-4B27-8631-0AD251E34F02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.BLL", "SplitProject.BusinessLogicLayer\SplitProject.BLL.csproj", "{E4C9D08B-F7B2-4B27-8631-0AD251E34F02}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E} = {3492F379-1AA9-4F25-B47A-E6DE22E41E3E}
 		{B1663A01-4134-41F0-AFA9-55FF8B6CA2C7} = {B1663A01-4134-41F0-AFA9-55FF8B6CA2C7}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.Tests", "SplitProject.Tests\SplitProject.Tests.csproj", "{6ABC9F19-2C7C-4DA7-BD1B-2778CE99B63F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.Tests", "SplitProject.Tests\SplitProject.Tests.csproj", "{6ABC9F19-2C7C-4DA7-BD1B-2778CE99B63F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E} = {3492F379-1AA9-4F25-B47A-E6DE22E41E3E}
@@ -35,10 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.Tests", "Split
 		{E4C9D08B-F7B2-4B27-8631-0AD251E34F02} = {E4C9D08B-F7B2-4B27-8631-0AD251E34F02}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplitProject.Common", "SplitProject.Common\SplitProject.Common.csproj", "{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.Common", "SplitProject.Common\SplitProject.Common.csproj", "{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{8DC76F73-F1F7-4485-AD80-A3AD662E766D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +72,10 @@ Global
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC76F73-F1F7-4485-AD80-A3AD662E766D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC76F73-F1F7-4485-AD80-A3AD662E766D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC76F73-F1F7-4485-AD80-A3AD662E766D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC76F73-F1F7-4485-AD80-A3AD662E766D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

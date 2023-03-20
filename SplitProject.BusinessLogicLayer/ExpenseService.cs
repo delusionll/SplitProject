@@ -14,7 +14,7 @@ namespace SplitProject.BLL
         {
             User userFrom = _dbCrud.GetUserById(userIdFrom);
             userFrom.UserBalance += amount;
-            double totalPercent = 0;
+            int totalPercent = 0;
             foreach (Benefiter b in benefitersList)
             {
                 User userToBenefit = _dbCrud.GetUserById(b.Id);
