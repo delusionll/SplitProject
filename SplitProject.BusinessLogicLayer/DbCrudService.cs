@@ -36,5 +36,10 @@ namespace SplitProject.BLL
                 }
                 _context.SaveChanges();
         }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }
