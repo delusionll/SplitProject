@@ -1,5 +1,4 @@
-﻿using SplitProject.DAL;
-using SplitProject.Domain.Models;
+﻿using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL
 {

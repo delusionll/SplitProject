@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace SplitProject.Domain.Models
 {
     public class Benefiter
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public int BenefiterPercent { get; set; }
         public Guid UserId { get; set; } //Внешний ключ к Юзерам

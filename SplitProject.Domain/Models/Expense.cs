@@ -2,7 +2,7 @@
 {
     public class Expense
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public DateTime ExpenseDate { get; set; } = DateTime.Now;
         public string? ExpenseTitle { get; set; }
