@@ -1,12 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SplitProject.BLL;
+using SplitProject.DAL;
+using SplitProject.Domain.Models;
 
 namespace SplitProject.API.Controllers
 {
     [ApiController]
     public class ExpenseController : Controller
     {
+        private readonly IExpenseService _expenseService;
+        private readonly IDbCrudService _dbCrudService;
+        public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService)
+        {
+            _expenseService = expenseService;
+            _dbCrudService = dbCrudService;
+        }
+
+        [HttpPost("NewExpense")]
+        public Guid NewExpense(Expense newExpense)
+        {
+            _dbCrudService.AddExpense(newExpense);
+            _expenseService.CountExpense(newExpense.ExpenseAmount, newExpense.UserId, newExpense.Benefiters);
+            return newExpense.Id;
+        }
+
+        /*
         [HttpPost("NewExpense")]
         public string NewExpense(string jsonForm)
         {
@@ -22,6 +41,6 @@ namespace SplitProject.API.Controllers
             IExpenseService expenseService = new ExpenseService();
             expenseService.CountExpense(newExpense.ExpenseAmount, newExpense.UserId, newExpense.Benefiters);
             return newExpense.ExpenseId;
-        }
+        } */
     }
 }

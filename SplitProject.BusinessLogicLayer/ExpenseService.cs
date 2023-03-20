@@ -6,7 +6,7 @@ namespace SplitProject.BLL
     public class ExpenseService : IExpenseService
     {
         private readonly SplitContext _context;
-        private readonly DbCrudService _dbCrud;
+        private readonly IDbCrudService _dbCrud;
         public ExpenseService(SplitContext context, DbCrudService dbCrud)
         {
             _context = context;

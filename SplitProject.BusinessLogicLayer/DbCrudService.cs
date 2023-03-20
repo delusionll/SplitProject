@@ -1,10 +1,5 @@
 ﻿using SplitProject.DAL;
 using SplitProject.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SplitProject.BLL
 {
@@ -24,17 +19,23 @@ namespace SplitProject.BLL
 
         public void DeleteUserById(Guid id)
         {
-                _context.Users.Remove(GetUserById(id));
-                _context.SaveChanges();
+            _context.Users.Remove(GetUserById(id));
+            SaveChanges();
         }
 
         public void DeleteAllUsers()
         {
-                foreach (User u in _context.Users)
-                {
-                    _context.Users.Remove(u);
-                }
-                _context.SaveChanges();
+            foreach (User u in _context.Users)
+            {
+                _context.Users.Remove(u);
+            }
+            SaveChanges();
+        }
+
+        public void AddExpense(Expense expense)
+        {
+            _context.Expenses.Add(expense);
+            SaveChanges();
         }
 
         public void SaveChanges()
