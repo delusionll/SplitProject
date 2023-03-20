@@ -9,7 +9,7 @@ namespace SplitProject.API.Controllers
         [HttpGet("/GetUserById")]
         public ActionResult<User> GetUserById(int id)
         {
-            User user = IDbCRUD.GetUserById(id);
+            User user = IDbCrudService.GetUserById(id);
             if (user == null)
             {
                 return NotFound();
@@ -47,7 +47,7 @@ namespace SplitProject.API.Controllers
         [HttpDelete("/DeleteAllUsers")]
         public async Task DeleteAllUsers()
         {
-            IDbCRUD.DeleteAllUsers();
+            IDbCrudService.DeleteAllUsers();
             await Response.WriteAsync("All users are deleted.");
         }
 
@@ -65,9 +65,9 @@ namespace SplitProject.API.Controllers
         [HttpDelete("/DeleteUserById")]
         public string DeleteUserById([FromForm] int userid)
         {
-            if (IDbCRUD.GetUserById(userid) != null)
+            if (IDbCrudService.GetUserById(userid) != null)
             {
-                IDbCRUD.DeleteUserById(userid);
+                IDbCrudService.DeleteUserById(userid);
                 return $"User with {userid} id removed from DB";
             }
             else

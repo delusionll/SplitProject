@@ -1,11 +1,16 @@
 ﻿using SplitProject.DAL;
 using SplitProject.Domain.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SplitProject.BLL
 {
-    public interface IDbCRUD
+    public class DbCrudService : IDbCrudService
     {
-        public static User GetUserById(int id)
+        public User GetUserById(Guid id)
         {
             using (SplitContext _db = new())
             {
@@ -14,7 +19,7 @@ namespace SplitProject.BLL
             }
         }
 
-        public static void DeleteUserById(int id)
+        public void DeleteUserById(Guid id)
         {
             using (SplitContext _db = new())
             {
@@ -23,7 +28,7 @@ namespace SplitProject.BLL
             }
         }
 
-        public static void DeleteAllUsers()
+        public void DeleteAllUsers()
         {
             using (SplitContext _db = new())
             {
