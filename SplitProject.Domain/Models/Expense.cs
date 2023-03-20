@@ -7,7 +7,8 @@
         public DateTime ExpenseDate { get; set; } = DateTime.Now;
         public string? ExpenseTitle { get; set; }
         public decimal ExpenseAmount { get; set; }
-        public Guid UserId { get; set; } //Внешний ключ для Юзеров (ByUser)
+        public Guid UserId { get; set; } //Foreign key for Users (byUser)
+        //
         public User User { get; set; } //Кто совершил трату
         public List<Benefiter> Benefiters { get; set; } //На кого делят
 
