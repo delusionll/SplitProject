@@ -6,7 +6,7 @@ namespace SplitProject.BLL.Services
     public class ExpenseService : IExpenseService
     {
         private readonly IDbCrudService _dbCrud;
-        public ExpenseService(DbCrudService dbCrud)
+        public ExpenseService(IDbCrudService dbCrud)
         {
             _dbCrud = dbCrud;
         }

@@ -4,7 +4,7 @@ using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL.Services
 {
-    internal class UserDtoService : IDtoService<User, UserDTO>
+    public class UserDtoService : IDtoService<User, UserDTO>
     {
         public UserDTO ToDto(User user)
         {

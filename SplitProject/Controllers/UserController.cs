@@ -24,17 +24,6 @@ namespace SplitProject.API.Controllers
             return user;
         }
 
-        //[HttpGet]
-        //[Route("/NewUser")]
-        //public async Task NewUser()
-        //{
-        //    Response.ContentType = "text/html; charset=utf-8";
-        //    string content = @"<form method = 'post'>
-        //                    <label>Name: </label><br />
-        //                    <input name = 'username' /<br /
-        //                    <input type='text' value=''/> </form>";
-        //    await Response.WriteAsync(content);
-        //}
 
         [HttpPost("/NewUser")]
         public ActionResult NewUser(string name)
@@ -49,36 +38,50 @@ namespace SplitProject.API.Controllers
         }
 
         [HttpDelete("/DeleteAllUsers")]
-        public async Task DeleteAllUsers()
+        public ActionResult DeleteAllUsers()
         {
-            IDbCrudService.DeleteAllUsers();
-            await Response.WriteAsync("All users are deleted.");
+            _dbCrudService.DeleteAllUsers();
+            return Ok();
         }
 
-        [HttpGet("/DeleteUserById")]
-        public async Task DeleteUserById()
-        {
-            Response.ContentType = "text/html; charset=utf-8";
-            string content = @"<form method = 'post'>
-                            <label>UserId: </label><br />
-                            <input name = 'userid' /<br /
-                            <input type='number' value='Enter User ID (int)'/> </form>";
-            await Response.WriteAsync(content);
-        }
 
         [HttpDelete("/DeleteUserById")]
-        public string DeleteUserById([FromForm] int userid)
+        public ActionResult DeleteUserById(Guid Id)
         {
-            if (IDbCrudService.GetUserById(userid) != null)
+            if (_dbCrudService.GetUserById != null)
             {
-                IDbCrudService.DeleteUserById(userid);
-                return $"User with {userid} id removed from DB";
+                _dbCrudService.DeleteUserById(Id);
+                return Ok();
             }
             else
             {
-                return "User not found";
+                return BadRequest();
             }
         }
+
+        //[HttpGet]
+        //[Route("/NewUser")]
+        //public async Task NewUser()
+        //{
+        //    Response.ContentType = "text/html; charset=utf-8";
+        //    string content = @"<form method = 'post'>
+        //                    <label>Name: </label><br />
+        //                    <input name = 'username' /<br /
+        //                    <input type='text' value=''/> </form>";
+        //    await Response.WriteAsync(content);
+        //}
+
+
+        //[HttpGet("/DeleteUserById")]
+        //public async Task DeleteUserById()
+        //{
+        //    Response.ContentType = "text/html; charset=utf-8";
+        //    string content = @"<form method = 'post'>
+        //                    <label>UserId: </label><br />
+        //                    <input name = 'userid' /<br /
+        //                    <input type='number' value='Enter User ID (int)'/> </form>";
+        //    await Response.WriteAsync(content);
+        //}
 
         //[HttpGet("/GetUserById")]
         //public async Task GetUserById()
