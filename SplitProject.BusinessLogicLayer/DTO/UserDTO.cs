@@ -1,6 +1,4 @@
-﻿using SplitProject.Domain.Models;
-
-namespace SplitProject.BLL.DTO
+﻿namespace SplitProject.BLL.DTO
 {
     public class UserDTO
     {
