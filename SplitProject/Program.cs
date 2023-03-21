@@ -4,6 +4,7 @@ using SplitProject.BLL.IServices;
 using SplitProject.BLL.Services;
 using SplitProject.DAL;
 using SplitProject.Domain.Models;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace SplitProject.API
 {
