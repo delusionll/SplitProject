@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using SplitProject.BLL;
+using SplitProject.BLL.IServices;
+using SplitProject.BLL.Services;
 using SplitProject.DAL;
 
 namespace SplitProject.API
@@ -14,7 +15,7 @@ namespace SplitProject.API
             IServiceCollection services = builder.Services; //Services collection adding
             services.AddTransient<IExpenseService, ExpenseService>();
             services.AddTransient<IDbCrudService, DbCrudService>();
-            services.AddTransient<IDtoService, DtoService>();
+            services.AddTransient<IDtoService, ExpenseDtoService>();
             services.AddDbContext<SplitContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings: Default"],
                 builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 

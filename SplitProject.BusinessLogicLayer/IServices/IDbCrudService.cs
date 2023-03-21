@@ -1,6 +1,6 @@
 ﻿using SplitProject.Domain.Models;
 
-namespace SplitProject.BLL
+namespace SplitProject.BLL.IServices
 {
     public interface IDbCrudService
     {

@@ -1,11 +1,12 @@
 ﻿using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
 using SplitProject.Domain.Models;
 
-namespace SplitProject.BLL
+namespace SplitProject.BLL.Services
 {
-    public class DtoService : IDtoService
+    public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
     {
-        public Expense ExpenseDtoToEntity(ExpenseDTO expenseDto)
+        public Expense ToEntity(ExpenseDTO expenseDto)
         {
             List<Benefiter> benefiters = new();
             foreach (BenefiterDTO b in expenseDto.Benefiters)
@@ -22,7 +23,7 @@ namespace SplitProject.BLL
             return entity;
         }
 
-        public Benefiter BenefiterDtoToEntity(BenefiterDTO benefiterDto)
+        public static Benefiter BenefiterDtoToEntity(BenefiterDTO benefiterDto)
         {
             Benefiter benefiter = new()
             {
@@ -33,7 +34,7 @@ namespace SplitProject.BLL
             return benefiter;
         }
 
-        public ExpenseDTO ExpenseToDto(Expense expense)
+        public ExpenseDTO ToDto(Expense expense)
         {
             List<BenefiterDTO> benefitersDTO = new();
             foreach (Benefiter b in expense.Benefiters)
@@ -49,7 +50,7 @@ namespace SplitProject.BLL
             };
         }
 
-        public BenefiterDTO BenefiterToDto(Benefiter benefiter)
+        public static BenefiterDTO BenefiterToDto(Benefiter benefiter)
         {
             return new BenefiterDTO()
             {

@@ -1,6 +1,7 @@
-﻿using SplitProject.Domain.Models;
+﻿using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
-namespace SplitProject.BLL
+namespace SplitProject.BLL.Services
 {
     public class ExpenseService : IExpenseService
     {

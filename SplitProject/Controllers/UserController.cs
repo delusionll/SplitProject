@@ -1,47 +1,51 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SplitProject.BLL;
+using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
 namespace SplitProject.API.Controllers
 {
     [ApiController]
     public class UserController : Controller
     {
-        [HttpGet("/GetUserById")]
-        public ActionResult<User> GetUserById(int id)
+        private readonly IDbCrudService _dbCrudService;
+        private readonly IDtoService<User, UserDTO> _dtoService;
+        public UserController(IDbCrudService dbCrudService, IDtoService<User, UserDTO> dtoService)
         {
-            User user = IDbCrudService.GetUserById(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(user);
+            _dbCrudService = dbCrudService;
+            _dtoService = dtoService;
         }
 
-        [HttpGet]
-        [Route("/NewUser")]
-        public async Task NewUser()
+        [HttpGet("/GetUserById")]
+        public UserDTO GetUserById(Guid id)
         {
-            Response.ContentType = "text/html; charset=utf-8";
-            string content = @"<form method = 'post'>
-                            <label>Name: </label><br />
-                            <input name = 'username' /<br /
-                            <input type='text' value=''/> </form>";
-            await Response.WriteAsync(content);
+            User entity = _dbCrudService.GetUserById(id);
+            UserDTO user = _dtoService.ToDto(entity);
+            return user;
         }
+
+        //[HttpGet]
+        //[Route("/NewUser")]
+        //public async Task NewUser()
+        //{
+        //    Response.ContentType = "text/html; charset=utf-8";
+        //    string content = @"<form method = 'post'>
+        //                    <label>Name: </label><br />
+        //                    <input name = 'username' /<br /
+        //                    <input type='text' value=''/> </form>";
+        //    await Response.WriteAsync(content);
+        //}
 
         [HttpPost("/NewUser")]
-        public async Task<ActionResult<User>> Post(User user)
+        public ActionResult NewUser(string name)
         {
-            if (user == null)
+            if (name == null)
             {
                 return BadRequest();
             }
-            using (SplitContext _db = new()) //Move to BLL
-            {
-                _db.Users.Add(user);
-                await _db.SaveChangesAsync();
-                return Ok(user);
-            }
+            User newuser = _dtoService.ToEntity(new UserDTO() { UserName = name });
+            _dbCrudService.AddUser(newuser);
+            return Ok();
         }
 
         [HttpDelete("/DeleteAllUsers")]

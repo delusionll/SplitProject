@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SplitProject.BLL;
 using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
 using SplitProject.Domain.Models;
 
 namespace SplitProject.API.Controllers
@@ -10,8 +10,8 @@ namespace SplitProject.API.Controllers
     {
         private readonly IExpenseService _expenseService;
         private readonly IDbCrudService _dbCrudService;
-        private readonly IDtoService _dtoService;
-        public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService, IDtoService dtoService)
+        private readonly IDtoService<Expense, ExpenseDTO> _dtoService;
+        public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService, IDtoService<Expense, ExpenseDTO> dtoService)
         {
             _expenseService = expenseService;
             _dbCrudService = dbCrudService;
@@ -19,12 +19,12 @@ namespace SplitProject.API.Controllers
         }
 
         [HttpPost("NewExpense")]
-        public Guid NewExpense(ExpenseDTO newExpense)
+        public ActionResult NewExpense(ExpenseDTO newExpense)
         {
-            Expense entityExpense = _dtoService.ExpenseDtoToEntity(newExpense);
+            Expense entityExpense = _dtoService.ToEntity(newExpense);
             _dbCrudService.AddExpense(entityExpense);
             _expenseService.CountExpense(entityExpense.ExpenseAmount, entityExpense.UserId, entityExpense.Benefiters);
-            return entityExpense.Id;
+            return Ok();
         }
 
         [HttpGet("GetExpense")]
@@ -33,7 +33,7 @@ namespace SplitProject.API.Controllers
             if (Id != null)
             {
                 Expense expense = _dbCrudService.GetExpenseById(Id);
-                ExpenseDTO expenseDto = _dtoService.ExpenseToDto(expense);
+                ExpenseDTO expenseDto = _dtoService.ToDto(expense);
                 return expenseDto;
             }
             else

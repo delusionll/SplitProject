@@ -1,7 +1,8 @@
-﻿using SplitProject.DAL;
+﻿using SplitProject.BLL.IServices;
+using SplitProject.DAL;
 using SplitProject.Domain.Models;
 
-namespace SplitProject.BLL
+namespace SplitProject.BLL.Services
 {
     public class DbCrudService : IDbCrudService
     {
