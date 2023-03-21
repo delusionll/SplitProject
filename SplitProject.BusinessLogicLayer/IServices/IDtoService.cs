@@ -1,7 +1,4 @@
-﻿using SplitProject.BLL.DTO;
-using SplitProject.Domain.Models;
-
-namespace SplitProject.BLL.IServices
+﻿namespace SplitProject.BLL.IServices
 {
     public interface IDtoService<E, D>
     {

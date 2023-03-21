@@ -19,7 +19,8 @@ namespace SplitProject.API
             services.AddScoped<IDbCrudService, DbCrudService>();
             services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
             services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
-            services.AddDbContext<SplitContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings: Default"],
+            services.AddDbContext<SplitContext>
+                (options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True",
                 builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 
             services.AddControllers(); ////Controllers support adding
