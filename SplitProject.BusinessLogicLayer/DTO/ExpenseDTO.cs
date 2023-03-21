@@ -1,10 +1,9 @@
-﻿namespace SplitProject.BLL.DTO
+﻿namespace SplitProject.BLL.DTO;
+
+public class ExpenseDTO
 {
-    public class ExpenseDTO
-    {
-        public string? ExpenseTitle { get; set; }
-        public decimal ExpenseAmount { get; set; }
-        public Guid UserId { get; set; }
-        public List<BenefiterDTO> Benefiters { get; set; } = new List<BenefiterDTO>();
-    }
+    public string? ExpenseTitle { get; set; }
+    public decimal ExpenseAmount { get; set; }
+    public Guid UserId { get; set; }
+    public List<BenefiterDTO> Benefiters { get; set; } = new List<BenefiterDTO>();
 }

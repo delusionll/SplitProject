@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SplitProject.BLL;
+using SplitProject.BLL.DTO;
 using SplitProject.Domain.Models;
 
 namespace SplitProject.API.Controllers
@@ -37,7 +38,7 @@ namespace SplitProject.API.Controllers
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Wrong Id");
             }
         }
 
