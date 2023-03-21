@@ -1,4 +1,5 @@
-﻿using SplitProject.Domain.Models;
+﻿using SplitProject.BLL.DTO;
+using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL
 {
@@ -7,5 +8,6 @@ namespace SplitProject.BLL
         public Benefiter BenefiterDtoToEntity(BenefiterDTO benefiterDto);
         public Expense ExpenseDtoToEntity(ExpenseDTO expenseDto);
         public ExpenseDTO ExpenseToDto(Expense expense);
+        public BenefiterDTO BenefiterToDto(Benefiter benefiter);
     }
 }

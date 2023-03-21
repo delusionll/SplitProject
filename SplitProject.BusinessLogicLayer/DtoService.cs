@@ -1,4 +1,5 @@
-﻿using SplitProject.Domain.Models;
+﻿using SplitProject.BLL.DTO;
+using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL
 {
@@ -6,12 +7,12 @@ namespace SplitProject.BLL
     {
         public Expense ExpenseDtoToEntity(ExpenseDTO expenseDto)
         {
-            List<Benefiter> benefiters = new List<Benefiter>();
+            List<Benefiter> benefiters = new();
             foreach (BenefiterDTO b in expenseDto.Benefiters)
             {
                 benefiters.Add(BenefiterDtoToEntity(b));
             }
-            Expense entity = new Expense()
+            Expense entity = new()
             {
                 ExpenseTitle = expenseDto.ExpenseTitle,
                 ExpenseAmount = expenseDto.ExpenseAmount,
@@ -23,7 +24,7 @@ namespace SplitProject.BLL
 
         public Benefiter BenefiterDtoToEntity(BenefiterDTO benefiterDto)
         {
-            Benefiter benefiter = new Benefiter()
+            Benefiter benefiter = new()
             {
                 BenefiterPercent = benefiterDto.BenefiterPercent,
                 UserId = benefiterDto.ExpenseId,
@@ -34,7 +35,7 @@ namespace SplitProject.BLL
 
         public ExpenseDTO ExpenseToDto(Expense expense)
         {
-            List<BenefiterDTO> benefitersDTO = new List<BenefiterDTO>();
+            List<BenefiterDTO> benefitersDTO = new();
             foreach (Benefiter b in expense.Benefiters)
             {
                 benefitersDTO.Add(BenefiterToDto(b));

@@ -1,4 +1,4 @@
-﻿namespace SplitProject.Domain.Models
+﻿namespace SplitProject.BLL.DTO
 {
     public class BenefiterDTO
     {
