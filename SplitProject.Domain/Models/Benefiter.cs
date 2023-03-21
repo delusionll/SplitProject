@@ -2,7 +2,7 @@
 {
     public class Benefiter
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         public int BenefiterPercent { get; set; }
         public Guid UserId { get; set; } 
@@ -11,11 +11,11 @@
         public Expense Expense { get; set; }
         public User User { get; set; }
 
-        public Benefiter(int percent, Guid userToBenefitId)
-        {
-            BenefiterPercent = percent;
-            UserId = userToBenefitId;
-        }
+        //public Benefiter(int percent, Guid userToBenefitId)
+        //{
+        //    BenefiterPercent = percent;
+        //    UserId = userToBenefitId;
+        //}
 
         //public Benefiter()
         //{ }

@@ -14,6 +14,7 @@ namespace SplitProject.API
             IServiceCollection services = builder.Services; //Services collection adding
             services.AddTransient<IExpenseService, ExpenseService>();
             services.AddTransient<IDbCrudService, DbCrudService>();
+            services.AddTransient<IDtoService, DtoService>();
             services.AddDbContext<SplitContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings: Default"],
                 builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 

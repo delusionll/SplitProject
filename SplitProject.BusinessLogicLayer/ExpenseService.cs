@@ -10,12 +10,12 @@ namespace SplitProject.BLL
             _dbCrud = dbCrud;
         }
 
-        public void CountExpense(decimal amount, Guid userIdFrom, List<BenefiterDTO> benefitersList) //Counting expense, updates DB
+        public void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList) //Counting expense, updates DB
         {
             User userFrom = _dbCrud.GetUserById(userIdFrom);
             userFrom.UserBalance += amount;
             int totalPercent = 0;
-            foreach (BenefiterDTO b in benefitersList)
+            foreach (Benefiter b in benefitersList)
             {
                 User userToBenefit = _dbCrud.GetUserById(b.Id);
                 userToBenefit.UserBalance -= amount * b.BenefiterPercent / 100;

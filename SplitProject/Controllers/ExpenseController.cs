@@ -9,18 +9,21 @@ namespace SplitProject.API.Controllers
     {
         private readonly IExpenseService _expenseService;
         private readonly IDbCrudService _dbCrudService;
-        public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService)
+        private readonly IDtoService _dtoService;
+        public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService, IDtoService dtoService)
         {
             _expenseService = expenseService;
             _dbCrudService = dbCrudService;
+            _dtoService = dtoService;
         }
 
         [HttpPost("NewExpense")]
         public Guid NewExpense(ExpenseDTO newExpense)
         {
-            _dbCrudService.AddExpense(newExpense);
-            _expenseService.CountExpense(newExpense.ExpenseAmount, newExpense.UserId, newExpense.Benefiters);
-            return newExpense.Id;
+            Expense entityExpense = _dtoService.ExpenseDtoToEntity(newExpense);
+            _dbCrudService.AddExpense(entityExpense);
+            _expenseService.CountExpense(entityExpense.ExpenseAmount, entityExpense.UserId, entityExpense.Benefiters);
+            return entityExpense.Id;
         }
 
         /*
