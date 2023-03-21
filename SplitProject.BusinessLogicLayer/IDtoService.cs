@@ -11,5 +11,6 @@ namespace SplitProject.BLL
     {
         public Benefiter BenefiterDtoToEntity(BenefiterDTO benefiterDto);
         public Expense ExpenseDtoToEntity(ExpenseDTO expenseDto);
+        public ExpenseDTO ExpenseToDto(Expense expense);
     }
 }

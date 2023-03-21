@@ -26,6 +26,21 @@ namespace SplitProject.API.Controllers
             return entityExpense.Id;
         }
 
+        [HttpGet("GetExpense")]
+        public ExpenseDTO GetExpense(Guid Id)
+        {
+            if(Id != null)
+            {
+                Expense expense = _dbCrudService.GetExpenseById(Id);
+                ExpenseDTO expenseDto = _dtoService.ExpenseToDto(expense);
+                return expenseDto;
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
+
         /*
         [HttpPost("NewExpense")]
         public string NewExpense(string jsonForm)
