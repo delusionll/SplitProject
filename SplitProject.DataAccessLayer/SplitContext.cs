@@ -12,14 +12,14 @@ namespace SplitProject.DAL
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Benefiter> Benefiters { get; set; }
 
-        public SplitContext()
-        { }
+        //public SplitContext()
+        //{ }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    if (optionsBuilder.IsConfigured == false)
         //    {
-        //        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True");
+        //        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True"); //HARDCODE
         //    }
         //}
 
