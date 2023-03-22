@@ -12,8 +12,8 @@ using SplitProject.DAL;
 namespace SplitProject.DAL.Migrations
 {
     [DbContext(typeof(SplitContext))]
-    [Migration("20230322125506_newmigration")]
-    partial class newmigration
+    [Migration("20230322132157_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
