@@ -9,7 +9,6 @@ namespace SplitProject.DAL
 
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Benefiter> Benefiters { get; set; }
 

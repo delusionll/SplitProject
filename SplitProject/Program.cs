@@ -4,7 +4,6 @@ using SplitProject.BLL.IServices;
 using SplitProject.BLL.Services;
 using SplitProject.DAL;
 using SplitProject.Domain.Models;
-using Microsoft.EntityFrameworkCore.Design;
 
 namespace SplitProject.API
 {
@@ -21,7 +20,7 @@ namespace SplitProject.API
             services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
             services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
             services.AddDbContext<SplitContext>
-                (options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True",
+                (options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True", //HARDCODE
                 builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
 
             services.AddControllers(); ////Controllers support adding
