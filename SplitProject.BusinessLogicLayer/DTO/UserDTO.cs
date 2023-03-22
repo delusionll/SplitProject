@@ -2,6 +2,6 @@
 
 public class UserDTO
 {
-    public string? UserName { get; set; }
-    public decimal UserBalance { get; set; } = 0;
+    public string? Name { get; set; }
+    public decimal Balance { get; set; } = 0;
 }

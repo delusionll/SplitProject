@@ -15,8 +15,8 @@ namespace SplitProject.BLL.Services
             }
             Expense entity = new()
             {
-                ExpenseTitle = expenseDto.ExpenseTitle,
-                ExpenseAmount = expenseDto.ExpenseAmount,
+                Title = expenseDto.Title,
+                Amount = expenseDto.Amount,
                 UserId = expenseDto.UserId,
                 Benefiters = benefiters
             };
@@ -27,7 +27,7 @@ namespace SplitProject.BLL.Services
         {
             Benefiter benefiter = new()
             {
-                BenefiterPercent = benefiterDto.BenefiterPercent,
+                Percent = benefiterDto.Percent,
                 UserId = benefiterDto.ExpenseId,
                 ExpenseId = benefiterDto.ExpenseId
             };
@@ -43,8 +43,8 @@ namespace SplitProject.BLL.Services
             }
             return new ExpenseDTO()
             {
-                ExpenseTitle = expense.ExpenseTitle,
-                ExpenseAmount = expense.ExpenseAmount,
+                Title = expense.Title,
+                Amount = expense.Amount,
                 UserId = expense.UserId,
                 Benefiters = benefitersDTO
             };
@@ -54,7 +54,7 @@ namespace SplitProject.BLL.Services
         {
             return new BenefiterDTO()
             {
-                BenefiterPercent = benefiter.BenefiterPercent,
+                Percent = benefiter.Percent,
                 UserId = benefiter.UserId,
                 ExpenseId = benefiter.ExpenseId
             };

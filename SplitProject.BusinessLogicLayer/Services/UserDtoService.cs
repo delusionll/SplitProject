@@ -10,8 +10,8 @@ namespace SplitProject.BLL.Services
         {
             return new UserDTO()
             {
-                UserBalance = user.UserBalance,
-                UserName = user.UserName
+                Balance = user.Balance,
+                Name = user.Name
             };
         }
 
@@ -19,8 +19,8 @@ namespace SplitProject.BLL.Services
         {
             User entity = new()
             {
-                UserName = userDto.UserName,
-                UserBalance = userDto.UserBalance
+                Name = userDto.Name,
+                Balance = userDto.Balance
             };
             return entity;
         }

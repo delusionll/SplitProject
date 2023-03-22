@@ -23,7 +23,7 @@ namespace SplitProject.API.Controllers
         {
             Expense entityExpense = _dtoService.ToEntity(newExpense);
             _dbCrudService.AddExpense(entityExpense);
-            _expenseService.CountExpense(entityExpense.ExpenseAmount, entityExpense.UserId, entityExpense.Benefiters);
+            _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
             return Ok();
         }
 

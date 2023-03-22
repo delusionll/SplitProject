@@ -31,8 +31,8 @@ namespace SplitProject.DAL
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<User>().Property(u => u.UserBalance).HasPrecision(13, 2);
-            modelBuilder.Entity<Expense>().Property(e => e.ExpenseAmount).HasPrecision(13, 2); //12345678901.23
+            modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
+            modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2); //12345678901.23
         }
     }
 }

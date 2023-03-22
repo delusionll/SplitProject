@@ -32,7 +32,7 @@ namespace SplitProject.API.Controllers
             {
                 return BadRequest();
             }
-            User newuser = _dtoService.ToEntity(new UserDTO() { UserName = name });
+            User newuser = _dtoService.ToEntity(new UserDTO() { Name = name });
             _dbCrudService.AddUser(newuser);
             return Ok();
         }

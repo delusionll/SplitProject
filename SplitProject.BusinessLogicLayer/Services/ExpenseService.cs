@@ -14,13 +14,13 @@ namespace SplitProject.BLL.Services
         public void CountExpense(decimal amount, Guid userIdFrom, List<Benefiter> benefitersList) //Counting expense, updates DB
         {
             User userFrom = _dbCrud.GetUserById(userIdFrom);
-            userFrom.UserBalance += amount;
+            userFrom.Balance += amount;
             int totalPercent = 0;
             foreach (Benefiter b in benefitersList)
             {
                 User userToBenefit = _dbCrud.GetUserById(b.Id);
-                userToBenefit.UserBalance -= amount * b.BenefiterPercent / 100;
-                totalPercent += b.BenefiterPercent;
+                userToBenefit.Balance -= amount * b.Percent / 100;
+                totalPercent += b.Percent;
             }
             if (totalPercent == 100)
             {

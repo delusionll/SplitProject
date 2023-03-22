@@ -4,8 +4,8 @@
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public string? UserName { get; set; }
-        public decimal UserBalance { get; set; }
+        public string? Name { get; set; }
+        public decimal Balance { get; set; }
         //
         public List<Expense> Expenses { get; set; }
         public List<Benefiter> Benefiters { get; set; }
