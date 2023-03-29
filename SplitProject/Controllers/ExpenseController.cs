@@ -30,7 +30,7 @@ namespace SplitProject.API.Controllers
         [HttpGet("GetExpense")]
         public ExpenseDTO GetExpense(Guid Id)
         {
-            if (Id != null)
+            if (Id != Guid.Empty)
             {
                 Expense expense = _dbCrudService.GetExpenseById(Id);
                 ExpenseDTO expenseDto = _dtoService.ToDto(expense);

@@ -1,6 +1,5 @@
 ﻿using SplitProject.BLL.IServices;
 using SplitProject.DAL;
-using SplitProject.Domain.Models;
 
 namespace SplitProject.BLL.Services
 {
@@ -12,71 +11,49 @@ namespace SplitProject.BLL.Services
         {
             _context = context;
         }
-
-        public User GetUserById(Guid id)
+        public void AddEntity<T>(T entity) where T : class
         {
-            User entity = _context.Users.Find(id);
-            return entity;
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
         }
 
-        public Expense GetExpenseById(Guid Id)
+        public void DeleteAllEntityes<T>() where T : class
         {
-            Expense entity = _context.Expenses.Find(Id);
-            return entity;
-        }
-
-        public void DeleteUserById(Guid id)
-        {
-            _context.Users.Remove(GetUserById(id));
-            SaveChanges();
-        }
-
-        public void DeleteExpenseById(Guid id)
-        {
-            _context.Expenses.Remove(GetExpenseById(id));
-            SaveChanges();
-        }
-
-        public void DeleteAllUsers()
-        {
-            foreach (User u in _context.Users)
+            foreach (T e in _context.Set<T>())
             {
-                _context.Users.Remove(u);
+                _context.Set<T>().Remove(e);
             }
-            SaveChanges();
+            _context.SaveChanges();
         }
 
-        public virtual void AddExpense(Expense expense)
+        public void DeleteEntityById<T>(Guid Id) where T : class
         {
-            _context.Expenses.Add(expense);
-            SaveChanges();
+            _context.Set<T>().Remove(GetEntityById<T>(Id));
+            _context.SaveChanges();
         }
 
-        public void AddUser(User user)
+        public T GetEntityById<T>(Guid Id) where T : class
         {
-            _context.Users.Add(user);
-            SaveChanges();
-        }
-
-        public void DeleteAllExpenses()
-        {
-            foreach (Expense e in _context.Expenses)
+            if (Id != Guid.Empty)
             {
-                _context.Expenses.Remove(e);
+                T? entity = _context.Set<T>().Find(Id);
+                if (entity != null)
+                {
+                    return entity;
+                }
+                else
+                {
+                    throw new ArgumentException("Wrong Id");
+                }
             }
-            SaveChanges();
+            else
+            {
+                throw new ArgumentException("Wrong Id");
+            }
         }
-
-        public void ClearDataBase()
-        {
-            DeleteAllExpenses();
-            DeleteAllUsers();
-        }
-
         public void SaveChanges()
         {
             _context.SaveChanges();
         }
-
     }
 }
