@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using SplitProject.BLL.DTO;
 using SplitProject.BLL.IServices;
 using SplitProject.BLL.Services;

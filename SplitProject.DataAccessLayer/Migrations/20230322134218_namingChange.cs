@@ -5,7 +5,7 @@
 namespace SplitProject.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class namingChange : Migration
+    public partial class NamingChange : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

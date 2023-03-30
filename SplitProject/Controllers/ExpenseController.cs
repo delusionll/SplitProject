@@ -22,7 +22,7 @@ namespace SplitProject.API.Controllers
         public ActionResult NewExpense(ExpenseDTO newExpense)
         {
             Expense entityExpense = _dtoService.ToEntity(newExpense);
-            _dbCrudService.AddExpense(entityExpense);
+            _dbCrudService.AddEntity<Expense>(entityExpense);
             _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
             return Ok();
         }
@@ -32,7 +32,7 @@ namespace SplitProject.API.Controllers
         {
             if (Id != Guid.Empty)
             {
-                Expense expense = _dbCrudService.GetExpenseById(Id);
+                Expense expense = _dbCrudService.GetEntityById<Expense>(Id);
                 ExpenseDTO expenseDto = _dtoService.ToDto(expense);
                 return expenseDto;
             }

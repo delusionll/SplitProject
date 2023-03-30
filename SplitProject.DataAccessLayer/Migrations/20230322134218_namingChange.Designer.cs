@@ -13,7 +13,7 @@ namespace SplitProject.DAL.Migrations
 {
     [DbContext(typeof(SplitContext))]
     [Migration("20230322134218_namingChange")]
-    partial class namingChange
+    partial class NamingChange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -7,8 +7,8 @@
         public string? Name { get; set; }
         public decimal Balance { get; set; }
         //
-        public List<Expense> Expenses { get; set; }
-        public List<Benefiter> Benefiters { get; set; }
+        public List<Expense> Expenses { get; set; } = new List<Expense>();
+        public List<Benefiter> Benefiters { get; set; } = new List<Benefiter>();
 
         //public User(string username)
         //{

@@ -19,7 +19,7 @@ namespace SplitProject.API.Controllers
         [HttpGet("/GetUserById")]
         public UserDTO GetUserById(Guid id)
         {
-            User entity = _dbCrudService.GetUserById(id);
+            User entity = _dbCrudService.GetEntityById<User>(id);
             UserDTO user = _dtoService.ToDto(entity);
             return user;
         }
@@ -33,14 +33,14 @@ namespace SplitProject.API.Controllers
                 return BadRequest();
             }
             User newuser = _dtoService.ToEntity(new UserDTO() { Name = name });
-            _dbCrudService.AddUser(newuser);
+            _dbCrudService.AddEntity<User>(newuser);
             return Ok();
         }
 
         [HttpDelete("/DeleteAllUsers")]
         public ActionResult DeleteAllUsers()
         {
-            _dbCrudService.DeleteAllUsers();
+            _dbCrudService.DeleteAllEntityes<User>();
             return Ok();
         }
 
@@ -48,9 +48,9 @@ namespace SplitProject.API.Controllers
         [HttpDelete("/DeleteUserById")]
         public ActionResult DeleteUserById(Guid Id)
         {
-            if (_dbCrudService.GetUserById != null)
+            if (_dbCrudService.GetEntityById<User> != null)
             {
-                _dbCrudService.DeleteUserById(Id);
+                _dbCrudService.DeleteEntityById<User>(Id);
                 return Ok();
             }
             else

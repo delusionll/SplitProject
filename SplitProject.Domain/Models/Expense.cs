@@ -9,8 +9,8 @@
         public decimal Amount { get; set; }
         public Guid UserId { get; set; } //Foreign key for Users (byUser)
         //
-        public User User { get; set; }
-        public List<Benefiter> Benefiters { get; set; }
+        public User? User { get; set; }
+        public List<Benefiter> Benefiters { get; set; } = new List<Benefiter>();
 
         //public Expense()
         //{ }
