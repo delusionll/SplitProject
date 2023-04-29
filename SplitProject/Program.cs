@@ -21,9 +21,8 @@ namespace SplitProject.API
 			services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
 			services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
 			services.AddDbContext<SplitContext>
-				(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True", //HARDCODE
+				(options => options.UseSqlServer(builder.Configuration["ConnectionString:Default"],
 				builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
-
 			services.AddControllers(); ////Controllers support adding
 			services.AddSwaggerGen();
 			var app = builder.Build();
