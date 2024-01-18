@@ -1,7 +1,5 @@
-﻿namespace SplitProject.Common
-	{
-	public class Class1
-		{
+﻿namespace SplitProject.Common;
 
-		}
-	}
+public class Class1
+{
+}
