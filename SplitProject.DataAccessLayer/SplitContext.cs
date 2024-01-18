@@ -14,17 +14,6 @@ public class SplitContext : DbContext
 	public DbSet<Expense> Expenses { get; set; }
 	public DbSet<Benefiter> Benefiters { get; set; }
 
-	//public SplitContext()
-	//{ }
-
-	//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-	//{
-	//    if (optionsBuilder.IsConfigured == false)
-	//    {
-	//        optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SplitContext;Integrated Security=True"); //HARDCODE
-	//    }
-	//}
-
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<Benefiter>()
