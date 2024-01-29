@@ -2,6 +2,6 @@
 
 public interface IDtoService<E, D>
 {
-	E ToEntity(D expenseDto);
-	D ToDto(E expense);
+    E ToEntity(D expenseDto);
+    D ToDto(E expense);
 }
