@@ -19,7 +19,7 @@ public class Program
         services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
         services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
         services.AddDbContext<SplitContext>
-        (options => options.UseSqlServer(builder.Configuration["ConnectionString:Default"],
+        (options => options.UseSqlServer(builder.Configuration ["ConnectionString:Default"],
             builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
         services.AddControllers(); ////Controllers support adding
         services.AddSwaggerGen();

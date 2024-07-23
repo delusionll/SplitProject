@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 public class ExpenseController : Controller
 {
     private readonly IDbCrudService _dbCrudService;
+
     private readonly IDtoService<Expense, ExpenseDTO> _dtoService;
+
     private readonly IExpenseService _expenseService;
 
     public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService,
@@ -18,15 +20,6 @@ public class ExpenseController : Controller
         _expenseService = expenseService;
         _dbCrudService = dbCrudService;
         _dtoService = dtoService;
-    }
-
-    [HttpPost("NewExpense")]
-    public ActionResult NewExpense(ExpenseDTO newExpense)
-    {
-        var entityExpense = _dtoService.ToEntity(newExpense);
-        _dbCrudService.AddEntity(entityExpense);
-        _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
-        return Ok();
     }
 
     [HttpGet("GetExpense")]
@@ -40,5 +33,14 @@ public class ExpenseController : Controller
         }
 
         throw new ArgumentException("Wrong Id");
+    }
+
+    [HttpPost("NewExpense")]
+    public ActionResult NewExpense(ExpenseDTO newExpense)
+    {
+        var entityExpense = _dtoService.ToEntity(newExpense);
+        _dbCrudService.AddEntity(entityExpense);
+        _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
+        return Ok();
     }
 }

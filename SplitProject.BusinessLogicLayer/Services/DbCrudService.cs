@@ -20,7 +20,8 @@ public class DbCrudService : IDbCrudService
 
     public void DeleteAllEntityes<T>() where T : class
     {
-        foreach (var e in _context.Set<T>()) _context.Set<T>().Remove(e);
+        foreach (var e in _context.Set<T>())
+            _context.Set<T>().Remove(e);
         _context.SaveChanges();
     }
 

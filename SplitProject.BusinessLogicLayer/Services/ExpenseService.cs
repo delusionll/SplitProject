@@ -1,5 +1,6 @@
 ﻿namespace SplitProject.BLL.Services;
 
+using System.Collections.ObjectModel;
 using Domain.Models;
 using IServices;
 
@@ -13,7 +14,7 @@ public class ExpenseService : IExpenseService
     }
 
     public void CountExpense(decimal amount, Guid userIdFrom,
-        List<Benefiter> benefitersList) //Counting expense, updates DB
+        Collection<Benefiter> benefitersList) //Counting expense, updates DB
     {
         var userFrom = _dbCrud.GetEntityById<User>(userIdFrom);
         userFrom.Balance += amount;

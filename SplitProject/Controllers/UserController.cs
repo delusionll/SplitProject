@@ -9,12 +9,32 @@ using Microsoft.AspNetCore.Mvc;
 public class UserController : Controller
 {
     private readonly IDbCrudService _dbCrudService;
+
     private readonly IDtoService<User, UserDTO> _dtoService;
 
     public UserController(IDbCrudService dbCrudService, IDtoService<User, UserDTO> dtoService)
     {
         _dbCrudService = dbCrudService;
         _dtoService = dtoService;
+    }
+
+    [HttpDelete("/DeleteAllUsers")]
+    public ActionResult DeleteAllUsers()
+    {
+        _dbCrudService.DeleteAllEntityes<User>();
+        return Ok();
+    }
+
+    [HttpDelete("/DeleteUserById")]
+    public ActionResult DeleteUserById(Guid Id)
+    {
+        if (_dbCrudService.GetEntityById<User> != null)
+        {
+            _dbCrudService.DeleteEntityById<User>(Id);
+            return Ok();
+        }
+
+        return BadRequest();
     }
 
     [HttpGet("/GetUserById")]
@@ -24,7 +44,6 @@ public class UserController : Controller
         var user = _dtoService.ToDto(entity);
         return user;
     }
-
 
     [HttpPost("/NewUser")]
     public ActionResult NewUser(string name)
@@ -39,26 +58,6 @@ public class UserController : Controller
         return Ok();
     }
 
-    [HttpDelete("/DeleteAllUsers")]
-    public ActionResult DeleteAllUsers()
-    {
-        _dbCrudService.DeleteAllEntityes<User>();
-        return Ok();
-    }
-
-
-    [HttpDelete("/DeleteUserById")]
-    public ActionResult DeleteUserById(Guid Id)
-    {
-        if (_dbCrudService.GetEntityById<User> != null)
-        {
-            _dbCrudService.DeleteEntityById<User>(Id);
-            return Ok();
-        }
-
-        return BadRequest();
-    }
-
     //[HttpGet]
     //[Route("/NewUser")]
     //public async Task NewUser()
@@ -70,7 +69,6 @@ public class UserController : Controller
     //                    <input type='text' value=''/> </form>";
     //    await Response.WriteAsync(content);
     //}
-
 
     //[HttpGet("/DeleteUserById")]
     //public async Task DeleteUserById()

@@ -1,7 +1,8 @@
 ﻿namespace SplitProject.BLL.IServices;
 
-public interface IDtoService<E, D>
+public interface IDtoService<TE, TD>
 {
-    E ToEntity(D expenseDto);
-    D ToDto(E expense);
+    TD ToDto(TE expense);
+
+    TE ToEntity(TD expenseDto);
 }
