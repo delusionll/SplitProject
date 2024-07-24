@@ -1,26 +1,31 @@
 ﻿namespace SplitProject.BLL.Services;
 
-using Domain.Models;
-using DTO;
-using IServices;
+using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
+/// <summary>
+/// User DTO service.
+/// </summary>
 public class UserDtoService : IDtoService<User, UserDTO>
 {
-    public UserDTO ToDto(User user)
+    /// <inheritdoc/>
+    public UserDTO ToDto(User entity)
     {
         return new UserDTO
         {
-            Balance = user.Balance,
-            Name = user.Name
+            Balance = entity.Balance,
+            Name = entity.Name,
         };
     }
 
-    public User ToEntity(UserDTO userDto)
+    /// <inheritdoc/>
+    public User ToEntity(UserDTO dto)
     {
-        User entity = new ()
+        User entity = new()
         {
-            Name = userDto.Name,
-            Balance = userDto.Balance
+            Name = dto.Name,
+            Balance = dto.Balance,
         };
         return entity;
     }

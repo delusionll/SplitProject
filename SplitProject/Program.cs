@@ -18,7 +18,7 @@ public class Program
 
         var services = builder.Services; // Services collection
         services.AddTransient<IExpenseService, ExpenseService>();
-        services.AddScoped<IDbCrudService, DbCrudService>();
+        services.AddScoped<IDbCrudService, CRUDService>();
         services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
         services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
         services.AddDbContext<SplitContext>(

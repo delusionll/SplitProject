@@ -1,58 +1,50 @@
 ﻿namespace SplitProject.BLL.Services;
 
 using System.Collections.ObjectModel;
-using Domain.Models;
-using DTO;
-using IServices;
+using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
+/// <summary>
+/// Expense DTO.
+/// </summary>
 public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
 {
-    public static Benefiter BenefiterDtoToEntity(BenefiterDTO benefiterDto)
-    {
-        Benefiter benefiter = new ()
-        {
-            Percent = benefiterDto.Percent,
-            UserId = benefiterDto.ExpenseId,
-            ExpenseId = benefiterDto.ExpenseId
-        };
-        return benefiter;
-    }
+    private readonly BenefiterDtoService _benefiterDtoService = new();
 
-    public static BenefiterDTO BenefiterToDto(Benefiter benefiter)
+    /// <inheritdoc/>
+    public ExpenseDTO ToDto(Expense entity)
     {
-        return new BenefiterDTO
+        Collection<BenefiterDTO> benefitersDTO = [];
+        foreach (var b in entity.Benefiters)
         {
-            Percent = benefiter.Percent,
-            UserId = benefiter.UserId,
-            ExpenseId = benefiter.ExpenseId
-        };
-    }
+            benefitersDTO.Add(_benefiterDtoService.ToDto(b));
+        }
 
-    public ExpenseDTO ToDto(Expense expense)
-    {
-        Collection<BenefiterDTO> benefitersDTO = new ();
-        foreach (var b in expense.Benefiters)
-            benefitersDTO.Add(BenefiterToDto(b));
         return new ExpenseDTO
         {
-            Title = expense.Title,
-            Amount = expense.Amount,
-            UserId = expense.UserId,
-            Benefiters = benefitersDTO
+            Title = entity.Title,
+            Amount = entity.Amount,
+            UserId = entity.UserId,
+            Benefiters = benefitersDTO,
         };
     }
 
-    public Expense ToEntity(ExpenseDTO expenseDto)
+    /// <inheritdoc/>
+    public Expense ToEntity(ExpenseDTO dto)
     {
-        Collection<Benefiter> benefiters = new ();
-        foreach (var b in expenseDto.Benefiters)
-            benefiters.Add(BenefiterDtoToEntity(b));
-        Expense entity = new ()
+        Collection<Benefiter> benefiters = [];
+        foreach (var b in dto.Benefiters)
         {
-            Title = expenseDto.Title,
-            Amount = expenseDto.Amount,
-            UserId = expenseDto.UserId,
-            Benefiters = benefiters
+            benefiters.Add(_benefiterDtoService.ToEntity(b));
+        }
+
+        Expense entity = new()
+        {
+            Title = dto.Title,
+            Amount = dto.Amount,
+            UserId = dto.UserId,
+            Benefiters = benefiters,
         };
         return entity;
     }

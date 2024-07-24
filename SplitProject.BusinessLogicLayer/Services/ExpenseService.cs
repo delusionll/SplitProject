@@ -1,20 +1,28 @@
 ﻿namespace SplitProject.BLL.Services;
 
 using System.Collections.ObjectModel;
-using Domain.Models;
-using IServices;
+using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
+/// <summary>
+/// Expense service.
+/// </summary>
 public class ExpenseService : IExpenseService
 {
     private readonly IDbCrudService _dbCrud;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExpenseService"/> class.
+    /// </summary>
+    /// <param name="dbCrud">CRUService instance.</param>
     public ExpenseService(IDbCrudService dbCrud)
     {
         _dbCrud = dbCrud;
     }
 
-    public void CountExpense(decimal amount, Guid userIdFrom,
-        Collection<Benefiter> benefitersList) //Counting expense, updates DB
+    /// <inheritdoc/>
+    public void CountExpense(
+        decimal amount, Guid userIdFrom, Collection<Benefiter> benefitersList) // Counting expense, updates DB
     {
         var userFrom = _dbCrud.GetEntityById<User>(userIdFrom);
         userFrom.Balance += amount;
