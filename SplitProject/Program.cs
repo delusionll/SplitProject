@@ -1,25 +1,29 @@
 namespace SplitProject.API;
 
-using BLL.DTO;
-using BLL.IServices;
-using BLL.Services;
-using DAL;
-using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
+using SplitProject.BLL.Services;
+using SplitProject.DAL;
+using SplitProject.Domain.Models;
 
+/// <summary>
+/// StartPoint.
+/// </summary>
 public class Program
 {
     private static void Main()
     {
         var builder = WebApplication.CreateBuilder();
 
-        var services = builder.Services; //Services collection adding
+        var services = builder.Services; // Services collection
         services.AddTransient<IExpenseService, ExpenseService>();
         services.AddScoped<IDbCrudService, DbCrudService>();
         services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
         services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
-        services.AddDbContext<SplitContext>
-        (options => options.UseSqlServer(builder.Configuration ["ConnectionString:Default"],
+        services.AddDbContext<SplitContext>(
+        options => options.UseSqlServer(
+            builder.Configuration["ConnectionString:Default"],
             builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
         services.AddControllers(); ////Controllers support adding
         services.AddSwaggerGen();
