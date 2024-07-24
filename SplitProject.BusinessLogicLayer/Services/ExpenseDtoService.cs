@@ -21,13 +21,7 @@ public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
             benefitersDTO.Add(_benefiterDtoService.ToDto(b));
         }
 
-        return new ExpenseDTO
-        {
-            Title = entity.Title,
-            Amount = entity.Amount,
-            UserId = entity.UserId,
-            Benefiters = benefitersDTO,
-        };
+        return new ExpenseDTO(entity.Amount, benefitersDTO, entity.Title, entity.UserId);
     }
 
     /// <inheritdoc/>

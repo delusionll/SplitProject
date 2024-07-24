@@ -22,11 +22,6 @@ public class UserDtoService : IDtoService<User, UserDTO>
     /// <inheritdoc/>
     public User ToEntity(UserDTO dto)
     {
-        User entity = new()
-        {
-            Name = dto.Name,
-            Balance = dto.Balance,
-        };
-        return entity;
+        return new User(dto.Balance, dto.Name);
     }
 }

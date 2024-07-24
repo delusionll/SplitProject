@@ -24,11 +24,9 @@ public class BenefiterDtoService : IDtoService<Benefiter, BenefiterDTO>
     /// <inheritdoc/>
     public BenefiterDTO ToDto(Benefiter entity)
     {
-        return new BenefiterDTO
-        {
-            Percent = entity.Percent,
-            UserId = entity.UserId,
-            ExpenseId = entity.ExpenseId,
-        };
+        return new BenefiterDTO(
+            entity.ExpenseId,
+            entity.Percent,
+            entity.UserId);
     }
 }

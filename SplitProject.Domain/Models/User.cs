@@ -4,7 +4,13 @@ using System.Collections.ObjectModel;
 
 public class User
 {
-    public decimal Balance { get; }
+    public User(decimal balance, string? name = null)
+    {
+        Balance = balance;
+        Name = name;
+    }
+
+    public decimal Balance { get; set; }
 
     public Collection<Benefiter> Benefiters { get; } = [];
 
