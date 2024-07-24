@@ -29,7 +29,7 @@ public class UserController : Controller
     /// <summary>
     /// DELETE all users.
     /// </summary>
-    /// <returns>OK if deleted</returns>
+    /// <returns>OK if deleted.</returns>
     [HttpDelete("/DeleteAllUsers")]
     public ActionResult DeleteAllUsers()
     {

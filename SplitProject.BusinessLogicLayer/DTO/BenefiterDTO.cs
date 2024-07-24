@@ -2,9 +2,9 @@
 
 public class BenefiterDTO
 {
-    public Guid ExpenseId { get; set; }
+    public Guid ExpenseId { get; }
 
-    public int Percent { get; set; }
+    public int Percent { get; }
 
-    public Guid UserId { get; set; }
+    public Guid UserId { get; }
 }

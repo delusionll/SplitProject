@@ -6,7 +6,7 @@ public class ExpenseDTO
 {
     public decimal Amount { get; set; }
 
-    public Collection<BenefiterDTO> Benefiters { get; set; } = new();
+    public Collection<BenefiterDTO> Benefiters { get; } = [];
 
     public string? Title { get; set; }
 

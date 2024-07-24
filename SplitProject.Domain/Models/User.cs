@@ -1,14 +1,16 @@
 ﻿namespace SplitProject.Domain.Models;
 
+using System.Collections.ObjectModel;
+
 public class User
 {
-    public decimal Balance { get; set; }
+    public decimal Balance { get; }
 
-    public List<Benefiter> Benefiters { get; set; } = new();
+    public Collection<Benefiter> Benefiters { get; } = [];
 
-    public List<Expense> Expenses { get; set; } = new();
+    public Collection<Expense> Expenses { get; } = [];
 
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; } = Guid.NewGuid();
 
-    public string? Name { get; set; }
+    public string? Name { get; }
 }
