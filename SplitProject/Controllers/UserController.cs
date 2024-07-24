@@ -33,7 +33,7 @@ public class UserController : Controller
     [HttpDelete("/DeleteAllUsers")]
     public ActionResult DeleteAllUsers()
     {
-        _dbCrudService.DeleteAllEntityes<User>();
+        _dbCrudService.DeleteAllEntities<User>();
         return Ok();
     }
 

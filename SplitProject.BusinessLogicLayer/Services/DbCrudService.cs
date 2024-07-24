@@ -18,7 +18,7 @@ public class DbCrudService : IDbCrudService
         _context.SaveChanges();
     }
 
-    public void DeleteAllEntityes<T>() where T : class
+    public void DeleteAllEntities<T>() where T : class
     {
         foreach (var e in _context.Set<T>())
             _context.Set<T>().Remove(e);
