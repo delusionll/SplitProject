@@ -1,10 +1,13 @@
 ﻿namespace SplitProject.API.Controllers;
 
-using BLL.DTO;
-using BLL.IServices;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
+/// <summary>
+/// Expense controller.
+/// </summary>
 [ApiController]
 public class ExpenseController : Controller
 {
@@ -14,20 +17,32 @@ public class ExpenseController : Controller
 
     private readonly IExpenseService _expenseService;
 
-    public ExpenseController(IExpenseService expenseService, IDbCrudService dbCrudService,
-        IDtoService<Expense, ExpenseDTO> dtoService)
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExpenseController"/> class.
+    /// </summary>
+    /// <param name="expenseService">expense service instance.</param>
+    /// <param name="dbCrudService">CRUD service instance.</param>
+    /// <param name="dtoService">DTO service instance.</param>
+    public ExpenseController(
+        IExpenseService expenseService, IDbCrudService dbCrudService, IDtoService<Expense, ExpenseDTO> dtoService)
     {
         _expenseService = expenseService;
         _dbCrudService = dbCrudService;
         _dtoService = dtoService;
     }
 
+    /// <summary>
+    /// Get Expense by expense ID.
+    /// </summary>
+    /// <param name="id">Expense ID.</param>
+    /// <returns>Expense DTO.</returns>
+    /// <exception cref="ArgumentException">wrong ID.</exception>
     [HttpGet("GetExpense")]
-    public ExpenseDTO GetExpense(Guid Id)
+    public ExpenseDTO GetExpense(Guid id)
     {
-        if (Id != Guid.Empty)
+        if (id != Guid.Empty)
         {
-            var expense = _dbCrudService.GetEntityById<Expense>(Id);
+            var expense = _dbCrudService.GetEntityById<Expense>(id);
             var expenseDto = _dtoService.ToDto(expense);
             return expenseDto;
         }
@@ -35,6 +50,11 @@ public class ExpenseController : Controller
         throw new ArgumentException("Wrong Id");
     }
 
+    /// <summary>
+    /// Create a new expense.
+    /// </summary>
+    /// <param name="newExpense">new expense DTO.</param>
+    /// <returns>OK if expense counted.</returns>
     [HttpPost("NewExpense")]
     public ActionResult NewExpense(ExpenseDTO newExpense)
     {
