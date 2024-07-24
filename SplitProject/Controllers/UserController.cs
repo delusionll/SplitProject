@@ -1,10 +1,13 @@
 ﻿namespace SplitProject.API.Controllers;
 
-using BLL.DTO;
-using BLL.IServices;
-using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using SplitProject.BLL.DTO;
+using SplitProject.BLL.IServices;
+using SplitProject.Domain.Models;
 
+/// <summary>
+/// UserController class.
+/// </summary>
 [ApiController]
 public class UserController : Controller
 {
@@ -12,12 +15,21 @@ public class UserController : Controller
 
     private readonly IDtoService<User, UserDTO> _dtoService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserController"/> class.
+    /// </summary>
+    /// <param name="dbCrudService">CRUD service instance.</param>
+    /// <param name="dtoService">DTO service instance.</param>
     public UserController(IDbCrudService dbCrudService, IDtoService<User, UserDTO> dtoService)
     {
         _dbCrudService = dbCrudService;
         _dtoService = dtoService;
     }
 
+    /// <summary>
+    /// DELETE all users.
+    /// </summary>
+    /// <returns>OK if deleted</returns>
     [HttpDelete("/DeleteAllUsers")]
     public ActionResult DeleteAllUsers()
     {
@@ -25,18 +37,28 @@ public class UserController : Controller
         return Ok();
     }
 
+    /// <summary>
+    /// DELETE user by ID.
+    /// </summary>
+    /// <param name="id">User ID.</param>
+    /// <returns>OK.</returns>
     [HttpDelete("/DeleteUserById")]
-    public ActionResult DeleteUserById(Guid Id)
+    public ActionResult DeleteUserById(Guid id)
     {
         if (_dbCrudService.GetEntityById<User> != null)
         {
-            _dbCrudService.DeleteEntityById<User>(Id);
+            _dbCrudService.DeleteEntityById<User>(id);
             return Ok();
         }
 
         return BadRequest();
     }
 
+    /// <summary>
+    /// GET userDTO by ID.
+    /// </summary>
+    /// <param name="id">userID.</param>
+    /// <returns>OK.</returns>
     [HttpGet("/GetUserById")]
     public UserDTO GetUserById(Guid id)
     {
@@ -45,6 +67,11 @@ public class UserController : Controller
         return user;
     }
 
+    /// <summary>
+    /// POST create new user.
+    /// </summary>
+    /// <param name="name">userName.</param>
+    /// <returns>OK or badRequest.</returns>
     [HttpPost("/NewUser")]
     public ActionResult NewUser(string name)
     {
@@ -57,38 +84,4 @@ public class UserController : Controller
         _dbCrudService.AddEntity(newuser);
         return Ok();
     }
-
-    //[HttpGet]
-    //[Route("/NewUser")]
-    //public async Task NewUser()
-    //{
-    //    Response.ContentType = "text/html; charset=utf-8";
-    //    string content = @"<form method = 'post'>
-    //                    <label>Name: </label><br />
-    //                    <input name = 'username' /<br /
-    //                    <input type='text' value=''/> </form>";
-    //    await Response.WriteAsync(content);
-    //}
-
-    //[HttpGet("/DeleteUserById")]
-    //public async Task DeleteUserById()
-    //{
-    //    Response.ContentType = "text/html; charset=utf-8";
-    //    string content = @"<form method = 'post'>
-    //                    <label>UserId: </label><br />
-    //                    <input name = 'userid' /<br /
-    //                    <input type='number' value='Enter User ID (int)'/> </form>";
-    //    await Response.WriteAsync(content);
-    //}
-
-    //[HttpGet("/GetUserById")]
-    //public async Task GetUserById()
-    //{
-    //    Response.ContentType = "text/html; charset=utf-8";
-    //    string content = @"<form method = 'get'>
-    //                    <label>Id: </label><br />
-    //                    <input name = 'id' /<br /
-    //                    <input type='number' value=''/> </form>";
-    //    await Response.WriteAsync(content);
-    //}
 }
