@@ -1,7 +1,4 @@
 ﻿namespace SplitProject.BLL.DTO;
-
-using System.Collections.ObjectModel;
-
 public class ExpenseDTO
 {
     public ExpenseDTO(decimal amount, IEnumerable<KeyValuePair<UserDTO, int>> benefiters, string? title, Guid userId)

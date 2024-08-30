@@ -1,7 +1,4 @@
 ﻿namespace SplitProject.Domain.Models;
-
-using System.Collections.ObjectModel;
-
 public class User
 {
     public User() {}

@@ -1,6 +1,5 @@
 ﻿namespace SplitProject.BLL.IServices;
 
-using System.Collections.ObjectModel;
 using SplitProject.Domain.Models;
 
 /// <summary>
