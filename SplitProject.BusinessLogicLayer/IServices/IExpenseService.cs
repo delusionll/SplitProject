@@ -1,5 +1,7 @@
 ﻿namespace SplitProject.BLL.IServices;
 
+using System;
+using System.Collections.Generic;
 using SplitProject.Domain.Models;
 
 /// <summary>

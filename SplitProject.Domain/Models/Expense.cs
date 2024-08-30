@@ -1,10 +1,14 @@
 ﻿namespace SplitProject.Domain.Models;
 
+using System;
+using System.Collections.Generic;
+
 public class Expense
 {
     public Guid Id { get;private set; } = Guid.NewGuid();
 
     public Expense() { }
+
     public Expense(string? title, decimal amount, Guid userId, IEnumerable<KeyValuePair<User, int>> benefiters)
     {
         Title = title;

@@ -1,5 +1,7 @@
 ﻿namespace SplitProject.BLL.IServices;
 
+using System;
+
 /// <summary>
 /// CRUD <see langword="interface"/>.
 /// </summary>

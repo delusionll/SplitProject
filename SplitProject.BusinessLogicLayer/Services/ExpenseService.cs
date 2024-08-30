@@ -1,5 +1,6 @@
 ﻿namespace SplitProject.BLL.Services;
 
+using System;
 using System.Collections.Generic;
 using SplitProject.BLL.IServices;
 using SplitProject.Domain.Models;
@@ -22,7 +23,7 @@ public class ExpenseService : IExpenseService
 
     /// <inheritdoc/>
     public void CountExpense(
-        decimal amount, Guid userIdFrom, IEnumerable<KeyValuePair<User,int>> benefitersList) // Counting expense, updates DB
+        decimal amount, Guid userIdFrom, IEnumerable<KeyValuePair<User, int>> benefitersList) // Counting expense, updates DB
     {
         var userFrom = _dbCrud.GetEntityById<User>(userIdFrom);
         userFrom.Balance += amount;
