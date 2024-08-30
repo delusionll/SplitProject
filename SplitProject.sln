@@ -40,6 +40,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitProject.Common", "Spli
 		{045F627E-B723-464E-9C2D-71E370BAD207} = {045F627E-B723-464E-9C2D-71E370BAD207}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SplitProject.ViewLayer", "SplitProject.ViewLayer", "{E1DCD867-8A3F-45EA-9CF4-69D94740A49C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsView", "SplitProject.ViewLayer\WindowsView\WindowsView.csproj", "{1AB95FAE-EAA1-4B92-854A-6F09B64B0276}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,11 +74,18 @@ Global
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3492F379-1AA9-4F25-B47A-E6DE22E41E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AB95FAE-EAA1-4B92-854A-6F09B64B0276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB95FAE-EAA1-4B92-854A-6F09B64B0276}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB95FAE-EAA1-4B92-854A-6F09B64B0276}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB95FAE-EAA1-4B92-854A-6F09B64B0276}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74CF193A-07C7-43A4-994A-AAA9A72919A3}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1AB95FAE-EAA1-4B92-854A-6F09B64B0276} = {E1DCD867-8A3F-45EA-9CF4-69D94740A49C}
 	EndGlobalSection
 EndGlobal

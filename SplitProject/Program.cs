@@ -31,6 +31,8 @@ public class Program
             sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+
+                // TODO remove hardcode
                 sqlOptions.MigrationsAssembly("SplitProject.DAL");
             }));
         services.AddControllers(); ////Controllers support adding
