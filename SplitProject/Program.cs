@@ -1,6 +1,10 @@
 namespace SplitProject.API;
 
+using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SplitProject.BLL.DTO;
 using SplitProject.BLL.IServices;
 using SplitProject.BLL.Services;
