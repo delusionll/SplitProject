@@ -14,5 +14,5 @@ public interface IExpenseService
     /// <param name="amount">expense amount.</param>
     /// <param name="userIdFrom">user ID who did the expense.</param>
     /// <param name="benefitersList">list of users to benefit.</param>
-    void CountExpense(decimal amount, Guid userIdFrom, Collection<Benefiter> benefitersList);
+    void CountExpense(decimal amount, Guid userIdFrom, IEnumerable<KeyValuePair<User, int>> benefitersList);
 }

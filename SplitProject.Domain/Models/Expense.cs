@@ -1,20 +1,31 @@
 ﻿namespace SplitProject.Domain.Models;
 
-using System.Collections.ObjectModel;
-
 public class Expense
 {
-    public decimal Amount { get; set;}
+    public Guid Id { get;private set; } = Guid.NewGuid();
 
-    public Collection<Benefiter> Benefiters { get; set;} = [];
+    public Expense() { }
+    public Expense(string? title, decimal amount, Guid userId, IEnumerable<KeyValuePair<User, int>> benefiters)
+    {
+        Title = title;
+        Amount = amount;
+        UserId = userId;
+        Benefiters = benefiters;
+    }
+
+    public decimal Amount { get; set; }
+
+/// <summary>
+/// KVpair user-percent
+/// </summary>
+    public IEnumerable<KeyValuePair<User, int>> Benefiters { get; } = [];
 
     public DateTime Date { get; } = DateTime.Now;
 
-    public Guid Id { get; } = Guid.NewGuid();
-
-    public string? Title { get; set;}
+    public string? Title { get; set; }
 
     public User? User { get; }
 
-    public Guid UserId { get; set;} // Foreign key for Users (byUser)
+    // Foreign key for Users (byUser)
+    public Guid UserId { get; private set; }
 }

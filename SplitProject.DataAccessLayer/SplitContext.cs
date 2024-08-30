@@ -13,11 +13,6 @@ using SplitProject.Domain.Models;
 public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(options)
 {
     /// <summary>
-    /// Gets or sets benefiters.
-    /// </summary>
-    public DbSet<Benefiter> Benefiters { get; set; }
-
-    /// <summary>
     /// Gets or sets expenses.
     /// </summary>
     public DbSet<Expense> Expenses { get; set; }
@@ -30,11 +25,11 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Benefiter>()
-            .HasOne(b => b.User)
-            .WithMany(u => u.Benefiters)
-            .HasForeignKey(b => b.UserId)
-            .OnDelete(DeleteBehavior.NoAction);
+        // modelBuilder.Entity<User>()
+        //     .HasOne(b => b.User)
+        //     .WithMany(u => u.Benefiters)
+        //     .HasForeignKey(b => b.UserId)
+        //     .OnDelete(DeleteBehavior.NoAction);
 
         modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
         modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2); // 12345678901.23

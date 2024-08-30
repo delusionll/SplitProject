@@ -10,15 +10,15 @@ using SplitProject.Domain.Models;
 /// </summary>
 public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
 {
-    private readonly BenefiterDtoService _benefiterDtoService = new();
+    private readonly UserDtoService _userDtoService = new UserDtoService();
 
     /// <inheritdoc/>
     public ExpenseDTO ToDto(Expense entity)
     {
-        Collection<BenefiterDTO> benefitersDTO = [];
+        IList<KeyValuePair<UserDTO, int>> benefitersDTO = [];
         foreach (var b in entity.Benefiters)
         {
-            benefitersDTO.Add(_benefiterDtoService.ToDto(b));
+            benefitersDTO.Add(new KeyValuePair<UserDTO, int>(_userDtoService.ToDto(b.Key), b.Value));
         }
 
         return new ExpenseDTO(entity.Amount, benefitersDTO, entity.Title, entity.UserId);
@@ -27,19 +27,12 @@ public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
     /// <inheritdoc/>
     public Expense ToEntity(ExpenseDTO dto)
     {
-        Collection<Benefiter> benefiters = [];
+        Collection<KeyValuePair<User, int>> benefiters = [];
         foreach (var b in dto.Benefiters)
         {
-            benefiters.Add(_benefiterDtoService.ToEntity(b));
+            benefiters.Add(new KeyValuePair<User, int>(_userDtoService.ToEntity(b.Key), b.Value));
         }
 
-        Expense entity = new()
-        {
-            Title = dto.Title,
-            Amount = dto.Amount,
-            UserId = dto.UserId,
-            Benefiters = benefiters,
-        };
-        return entity;
+        return new Expense(dto.Title, dto.Amount, dto.UserId, benefiters);
     }
 }

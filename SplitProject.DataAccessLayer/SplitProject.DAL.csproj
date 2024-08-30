@@ -33,4 +33,8 @@
     <ProjectReference Include="..\SplitProject.Domain\SplitProject.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

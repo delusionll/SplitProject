@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 public class ExpenseDTO
 {
-    public ExpenseDTO(decimal amount, Collection<BenefiterDTO> benefiters, string? title, Guid userId)
+    public ExpenseDTO(decimal amount, IEnumerable<KeyValuePair<UserDTO, int>> benefiters, string? title, Guid userId)
     {
         Amount = amount;
         Benefiters = benefiters;
@@ -14,7 +14,7 @@ public class ExpenseDTO
 
     public decimal Amount { get; set; }
 
-    public Collection<BenefiterDTO> Benefiters { get; } = [];
+    public IEnumerable<KeyValuePair<UserDTO, int>> Benefiters { get; } = [];
 
     public string? Title { get; set; }
 

@@ -1,6 +1,7 @@
 namespace SplitProject.API;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using SplitProject.BLL.DTO;
 using SplitProject.BLL.IServices;
 using SplitProject.BLL.Services;
@@ -24,7 +25,11 @@ public class Program
         services.AddDbContext<SplitContext>(
         options => options.UseSqlServer(
             builder.Configuration["ConnectionString:Default"],
-            builder => builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null)));
+            sqlOptions =>
+            {
+            sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+            sqlOptions.MigrationsAssembly("SplitProject.DAL");
+            }));
         services.AddControllers(); ////Controllers support adding
         services.AddSwaggerGen();
         var app = builder.Build();
