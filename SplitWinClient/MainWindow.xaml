@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SplitWinClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="SplitProject" Height="450" Width="800"
+        >
     <Grid>
-        
+        <GroupBox Header="Users">
+            <StackPanel>
+            <ListView >
+                <ListViewItem Content="TestUser"/>
+                    <ListViewItem Content="HotTestUser" />
+                    <ListViewItem Content="HotTestUser" />
+                
+                </ListView>
+                <TextBox Text="{Binding NewUserName, Mode=TwoWay}"/>
+                <Button Content="NewUser"
+                        Command="{Binding PostUserCommand}"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </Window>

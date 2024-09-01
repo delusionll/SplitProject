@@ -74,7 +74,7 @@ public class UserController : Controller
     /// <param name="name">userName.</param>
     /// <returns>OK or badRequest.</returns>
     [HttpPost("/NewUser")]
-    public ActionResult NewUser(string name)
+    public ActionResult NewUser([FromBody]string name)
     {
         if (string.IsNullOrEmpty(name))
         {

@@ -25,6 +25,11 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // To create Name column since its nullable property.
+        modelBuilder.Entity<User>()
+            .Property(u => u.Name)
+            .HasColumnName(nameof(User.Name));
+
         // modelBuilder.Entity<User>()
         //     .HasOne(b => b.User)
         //     .WithMany(u => u.Benefiters)
