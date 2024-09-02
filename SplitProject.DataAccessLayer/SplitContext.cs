@@ -1,7 +1,6 @@
 ﻿namespace SplitProject.DAL;
 
 using Microsoft.EntityFrameworkCore;
-using SplitProject.Domain;
 using SplitProject.Domain.Models;
 
 /// <summary>

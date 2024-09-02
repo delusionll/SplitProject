@@ -1,4 +1,4 @@
-namespace SplitProject.Domain;
+namespace SplitProject.Domain.Models;
 
 using System;
 

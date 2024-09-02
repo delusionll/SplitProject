@@ -10,10 +10,7 @@ internal class ApiClientLogger : ILogger
                             EventId eventId,
                             TState state,
                             Exception? exception,
-                            Func<TState, Exception?, string> formatter)
-    {
-        Debug.WriteLine($"{logLevel}, {eventId}, {state}, {exception}, {formatter}");
-    }
+                            Func<TState, Exception?, string> formatter) => Debug.WriteLine($"{logLevel}, {eventId}, {state}, {exception}, {formatter}");
 
     public bool IsEnabled(LogLevel logLevel) => throw new NotImplementedException();
 

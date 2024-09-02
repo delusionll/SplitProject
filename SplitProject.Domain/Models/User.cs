@@ -20,10 +20,7 @@ public class User
     /// Initializes a new instance of the <see cref="User"/> class.
     /// </summary>
     /// <param name="name">User name.</param>
-    public User(string? name = null)
-    {
-        Name = name;
-    }
+    public User(string? name = null) => Name = name;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="User"/> class.
