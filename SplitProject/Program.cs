@@ -25,6 +25,7 @@ public class Program
         services.AddScoped<ICRUDService, CRUDService>();
         services.AddTransient<IDTOService<Expense, ExpenseDTO>, ExpenseDTOService>();
         services.AddTransient<IDTOService<User, UserDTO>, UserDTOService>();
+        services.AddTransient<IDTOService<UserBenefiter, UserBenefiterDTO>>();
         services.AddDbContext<SplitContext>(
         options => options.UseSqlServer(
             builder.Configuration["ConnectionString:Default"],
