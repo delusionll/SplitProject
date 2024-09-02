@@ -9,28 +9,19 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// Expense controller.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="ExpenseController"/> class.
+/// </remarks>
+/// <param name="expenseService">expense service instance.</param>
+/// <param name="crudService">CRUD service instance.</param>
+/// <param name="dtoService">DTO service instance.</param>
 [ApiController]
-public class ExpenseController : Controller
+public class ExpenseController(
+    IExpenseService expenseService, ICRUDService crudService, IDTOService<Expense, ExpenseDTO> dtoService) : Controller
 {
-    private readonly ICRUDService _dbCrudService;
-
-    private readonly IDTOService<Expense, ExpenseDTO> _dtoService;
-
-    private readonly IExpenseService _expenseService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExpenseController"/> class.
-    /// </summary>
-    /// <param name="expenseService">expense service instance.</param>
-    /// <param name="dbCrudService">CRUD service instance.</param>
-    /// <param name="dtoService">DTO service instance.</param>
-    public ExpenseController(
-        IExpenseService expenseService, ICRUDService dbCrudService, IDTOService<Expense, ExpenseDTO> dtoService)
-    {
-        _expenseService = expenseService;
-        _dbCrudService = dbCrudService;
-        _dtoService = dtoService;
-    }
+    private readonly ICRUDService _crudService = crudService;
+    private readonly IDTOService<Expense, ExpenseDTO> _dtoService = dtoService;
+    private readonly IExpenseService _expenseService = expenseService;
 
     /// <summary>
     /// Get Expense by expense ID.
@@ -38,12 +29,12 @@ public class ExpenseController : Controller
     /// <param name="id">Expense ID.</param>
     /// <returns>Expense DTO.</returns>
     /// <exception cref="ArgumentException">wrong ID.</exception>
-    [HttpGet("GetExpense")]
+    [HttpGet("/GetExpense")]
     public ExpenseDTO GetExpense(Guid id)
     {
         if (id != Guid.Empty)
         {
-            var expense = _dbCrudService.GetById<Expense>(id);
+            var expense = _crudService.GetById<Expense>(id);
             var expenseDto = _dtoService.Map(expense);
             return expenseDto;
         }
@@ -56,12 +47,14 @@ public class ExpenseController : Controller
     /// </summary>
     /// <param name="newExpense">new expense DTO.</param>
     /// <returns>OK if expense counted.</returns>
-    [HttpPost("NewExpense")]
+    [HttpPost("/NewExpense")]
     public ActionResult NewExpense(ExpenseDTO newExpense)
     {
         var entityExpense = _dtoService.Map(newExpense);
-        _dbCrudService.Add(entityExpense);
-        _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
+        _crudService.Add(entityExpense);
+
+        // TODO count on expense property change.
+        _expenseService.Count(entityExpense.Amount, entityExpense.User, entityExpense.Benefiters);
         return Ok();
     }
 }

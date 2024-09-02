@@ -8,9 +8,9 @@ using System;
 /// <remarks>
 /// Initializes a new instance of the <see cref="UserDTO"/> class.
 /// </remarks>
-/// <param name="userID">ID.</param>
-/// <param name="balance">Balance.</param>
-/// <param name="name">Name.</param>
+/// <param name="userID">User ID.</param>
+/// <param name="balance">User Balance.</param>
+/// <param name="name">User Name.</param>
 public class UserDTO(Guid userID, decimal balance, string? name)
 {
 

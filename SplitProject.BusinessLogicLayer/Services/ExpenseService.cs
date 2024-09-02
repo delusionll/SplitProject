@@ -8,31 +8,27 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// Expense service.
 /// </summary>
-public class ExpenseService : IExpenseService
+/// <remarks>
+/// Initializes a new instance of the <see cref="ExpenseService"/> class.
+/// </remarks>
+/// <param name="dbCrud">CRUService instance.</param>
+public class ExpenseService(ICRUDService dbCrud) : IExpenseService
 {
-    private readonly ICRUDService _dbCrud;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExpenseService"/> class.
-    /// </summary>
-    /// <param name="dbCrud">CRUService instance.</param>
-    public ExpenseService(ICRUDService dbCrud)
-    {
-        _dbCrud = dbCrud;
-    }
+    private readonly ICRUDService _dbCrud = dbCrud;
 
     /// <inheritdoc/>
+    // TODO update DB dependency
+    // Counting expense, updates DB
     public void Count(
-        decimal amount, Guid userIdFrom, IEnumerable<KeyValuePair<User, int>> benefitersList) // Counting expense, updates DB
+        decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList)
     {
-        var userFrom = _dbCrud.GetById<User>(userIdFrom);
-        userFrom.Balance += amount;
-        var totalPercent = 0;
+        fromUser.Balance += amount;
+        int totalPercent = 0;
         foreach (var b in benefitersList)
         {
-            var userToBenefit = _dbCrud.GetEntityById<User>(b.Key.Id);
-            userToBenefit.Balance -= amount * b.Value / 100;
-            totalPercent += b.Value;
+            var userToBenefit = _dbCrud.GetById<User>(b.User.UserID);
+            userToBenefit.Balance -= amount * b.Share / 100;
+            totalPercent += b.Share;
         }
 
         if (totalPercent == 100)
@@ -41,7 +37,7 @@ public class ExpenseService : IExpenseService
         }
         else
         {
-            throw new ArgumentException("wrong percent Sum");
+            throw new ArgumentException("wrong share Sum");
         }
     }
 }

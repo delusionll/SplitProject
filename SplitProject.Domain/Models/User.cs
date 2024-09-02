@@ -43,15 +43,15 @@ public class User
     /// <summary>
     /// Gets a list of user expenses.
     /// </summary>
-    public IList<Expense> Expenses { get; } = [];
+    public IList<Expense> Expenses { get; private set; } = [];
 
     /// <summary>
-    /// Gets or sets user ID.
+    /// Gets user ID.
     /// </summary>
-    public Guid UserID { get; set; } = Guid.NewGuid();
+    public Guid UserID { get; private set; } = Guid.NewGuid();
 
     /// <summary>
-    /// Gets or sets username.
+    /// Gets username.
     /// </summary>
-    public string? Name { get; set; }
+    public string? Name { get; private set; }
 }

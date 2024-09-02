@@ -6,40 +6,30 @@ namespace SplitProject.Domain.Models;
 /// <remarks>
 /// Initializes a new instance of the <see cref="UserBenefiter"/> class.
 /// </remarks>
-public class UserBenefiter
+/// <param name="user">User as Benefiter.</param>
+/// <param name="amount">amount.</param>
+/// <param name="share">share.</param>
+/// <param name="expense">expense entity.</param>
+public class UserBenefiter(User user, decimal amount, int share, Expense expense)
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UserBenefiter"/> class.
-    /// </summary>
-    /// <param name="user">User as Benefiter.</param>
-    /// <param name="amount">amount.</param>
-    /// <param name="share">share.</param>
-    /// <param name="expense">expense entity.</param>
-    public UserBenefiter(User user, decimal amount, int share, Expense expense)
-    {
-        User = user;
-        Amount = amount;
-        Share = share;
-        Expense = expense;
-    }
 
     /// <summary>
-    /// Gets or sets user.
+    /// Gets user.
     /// </summary>
-    public User User { get; set; }
+    public User User { get; private set; } = user;
 
     /// <summary>
-    /// Gets or sets amount to benefit.
+    /// Gets amount to benefit.
     /// </summary>
-    public decimal Amount { get; set; }
+    public decimal Amount { get; private set; } = amount;
 
     /// <summary>
-    /// Gets or sets benefiter share.
+    /// Gets benefiter share.
     /// </summary>
-    public int Share { get; set; }
+    public int Share { get; private set; } = share;
 
     /// <summary>
-    /// Gets or sets expense. Foreign key for Expense.
+    /// Gets expense. Foreign key for Expense.
     /// </summary>
-    public Expense Expense { get; set; }
+    public Expense Expense { get; private set; } = expense;
 }

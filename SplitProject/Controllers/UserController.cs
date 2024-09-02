@@ -9,23 +9,16 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// UserController class.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="UserController"/> class.
+/// </remarks>
+/// <param name="crudService">CRUD service instance.</param>
+/// <param name="dtoService">DTO service instance.</param>
 [ApiController]
-public class UserController : Controller
+public class UserController(ICRUDService crudService, IDTOService<User, UserDTO> dtoService) : Controller
 {
-    private readonly ICRUDService _dbCrudService;
-
-    private readonly IDTOService<User, UserDTO> _dtoService;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UserController"/> class.
-    /// </summary>
-    /// <param name="dbCrudService">CRUD service instance.</param>
-    /// <param name="dtoService">DTO service instance.</param>
-    public UserController(ICRUDService dbCrudService, IDTOService<User, UserDTO> dtoService)
-    {
-        _dbCrudService = dbCrudService;
-        _dtoService = dtoService;
-    }
+    private readonly ICRUDService _crudService = crudService;
+    private readonly IDTOService<User, UserDTO> _dtoService = dtoService;
 
     /// <summary>
     /// DELETE all users.
@@ -34,7 +27,7 @@ public class UserController : Controller
     [HttpDelete("/DeleteAllUsers")]
     public ActionResult DeleteAllUsers()
     {
-        _dbCrudService.DeleteAll<User>();
+        _crudService.DeleteAll<User>();
         return Ok();
     }
 
@@ -46,9 +39,9 @@ public class UserController : Controller
     [HttpDelete("/DeleteUserById")]
     public ActionResult DeleteUserById(Guid id)
     {
-        if (_dbCrudService.GetEntityById<User> != null)
+        if (_crudService.GetById<User> != null)
         {
-            _dbCrudService.DeleteById<User>(id);
+            _crudService.DeleteById<User>(id);
             return Ok();
         }
 
@@ -63,7 +56,7 @@ public class UserController : Controller
     [HttpGet("/GetUserById")]
     public UserDTO GetUserById(Guid id)
     {
-        var entity = _dbCrudService.GetById<User>(id);
+        var entity = _crudService.GetById<User>(id);
         var user = _dtoService.Map(entity);
         return user;
     }
@@ -74,15 +67,9 @@ public class UserController : Controller
     /// <param name="name">userName.</param>
     /// <returns>OK or badRequest.</returns>
     [HttpPost("/NewUser")]
-    public ActionResult NewUser([FromBody]string name)
+    public ActionResult NewUser([FromBody] string name)
     {
-        if (string.IsNullOrEmpty(name))
-        {
-            return BadRequest();
-        }
-
-        var newuser = _dtoService.Map(new UserDTO { Name = name });
-        _dbCrudService.Add(newuser);
+        _crudService.Add(new User(name));
         return Ok();
     }
 }

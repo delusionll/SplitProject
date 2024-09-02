@@ -32,33 +32,33 @@ public class Expense
     }
 
     /// <summary>
-    /// Gets or sets expense ID.
+    /// Gets expense ID.
     /// </summary>
-    public Guid ExpenseID { get; set; } = Guid.NewGuid();
+    public Guid ExpenseID { get; private set; } = Guid.NewGuid();
 
     /// <summary>
-    /// Gets or sets total amount of expense.
+    /// Gets total amount of expense.
     /// </summary>
-    public decimal Amount { get; set; }
+    public decimal Amount { get; private set; }
 
     /// <summary>
-    /// Gets or sets a list of users to benefit in expense.
+    /// Gets a list of users to benefit in expense.
     /// </summary>
-    public IList<UserBenefiter>? Benefiters { get; set; } = [];
+    public IList<UserBenefiter>? Benefiters { get; private set; } = [];
 
     /// <summary>
-    /// Gets or sets date.
+    /// Gets date.
     /// </summary>
-    public DateTime Date { get; set; } = DateTime.Now;
+    public DateTime Date { get; private set; } = DateTime.Now;
 
     /// <summary>
-    /// Gets or sets title.
+    /// Gets title.
     /// </summary>
-    public string? Title { get; set; }
+    public string? Title { get; private set; }
 
     /// <summary>
-    /// Gets or sets <see cref="User"/>> who did the expense.
+    /// Gets <see cref="User"/>> who did the expense.
     /// </summary>
     // Foreign key for Users (byUser)
-    public User User { get; set; }
+    public User User { get; private set; }
 }
