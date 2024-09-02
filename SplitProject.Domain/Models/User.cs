@@ -27,10 +27,12 @@ public class User
     /// </summary>
     /// <param name="balance">User balance.</param>
     /// <param name="name">User name.</param>
-    public User(decimal balance, string? name = null)
+    /// <param name="userID">User ID.</param>
+    public User(Guid userID, decimal balance, string? name = null)
     {
         Balance = balance;
         Name = name;
+        UserID = userID;
     }
 
     /// <summary>

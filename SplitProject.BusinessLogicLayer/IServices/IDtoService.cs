@@ -12,12 +12,12 @@ public interface IDTOService<TE, TD>
     /// </summary>
     /// <param name="entity">entity instance.</param>
     /// <returns>DTO instance.</returns>
-    TD ToDto(TE entity);
+    TD Map(TE entity);
 
     /// <summary>
     /// transform from DTO to entity.
     /// </summary>
     /// <param name="dto">dtp instance.</param>
     /// <returns>Entity instance.</returns>
-    TE ToEntity(TD dto);
+    TE Map(TD dto);
 }

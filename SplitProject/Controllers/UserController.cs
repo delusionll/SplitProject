@@ -64,7 +64,7 @@ public class UserController : Controller
     public UserDTO GetUserById(Guid id)
     {
         var entity = _dbCrudService.GetById<User>(id);
-        var user = _dtoService.ToDto(entity);
+        var user = _dtoService.Map(entity);
         return user;
     }
 
@@ -81,7 +81,7 @@ public class UserController : Controller
             return BadRequest();
         }
 
-        var newuser = _dtoService.ToEntity(new UserDTO { Name = name });
+        var newuser = _dtoService.Map(new UserDTO { Name = name });
         _dbCrudService.Add(newuser);
         return Ok();
     }

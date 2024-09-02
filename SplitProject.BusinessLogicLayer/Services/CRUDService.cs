@@ -7,18 +7,13 @@ using SplitProject.DAL;
 /// <summary>
 /// Service to operate with DB.
 /// </summary>
-public class CRUDService : ICRUDService
+/// <remarks>
+/// Initializes a new instance of the <see cref="CRUDService"/> class.
+/// </remarks>
+/// <param name="dbContext">DB context.</param>
+public class CRUDService(SplitContext dbContext) : ICRUDService
 {
-    private readonly SplitContext _context;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="CRUDService"/> class.
-    /// </summary>
-    /// <param name="context">DB context.</param>
-    public CRUDService(SplitContext context)
-    {
-        _context = context;
-    }
+    private readonly SplitContext _context = dbContext;
 
     /// <inheritdoc/>
     public void Add<T>(T entity)
@@ -55,20 +50,12 @@ public class CRUDService : ICRUDService
         if (id != Guid.Empty)
         {
             var entity = _context.Set<T>().Find(id);
-            if (entity != null)
-            {
-                return entity;
-            }
-
-            throw new ArgumentException("Wrong Id");
+            return entity != null ? entity : throw new ArgumentException("Wrong Id");
         }
 
         throw new ArgumentException("Wrong Id");
     }
 
     /// <inheritdoc/>
-    public void SaveChanges()
-    {
-        _context.SaveChanges();
-    }
+    public void SaveChanges() => _context.SaveChanges();
 }

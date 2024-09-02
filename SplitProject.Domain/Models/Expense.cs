@@ -60,5 +60,5 @@ public class Expense
     /// Gets or sets <see cref="User"/>> who did the expense.
     /// </summary>
     // Foreign key for Users (byUser)
-    public required User User { get; set; }
+    public User User { get; set; }
 }

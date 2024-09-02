@@ -7,21 +7,11 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// User DTO service.
 /// </summary>
-public class UserDtoService : IDTOService<User, UserDTO>
+public class UserDTOService : IDTOService<User, UserDTO>
 {
     /// <inheritdoc/>
-    public UserDTO ToDto(User entity)
-    {
-        return new UserDTO
-        {
-            Balance = entity.Balance,
-            Name = entity.Name,
-        };
-    }
+    public UserDTO Map(User entity) => new UserDTO(entity.UserID, entity.Balance, entity.Name);
 
     /// <inheritdoc/>
-    public User ToEntity(UserDTO dto)
-    {
-        return new User(dto.Balance, dto.Name);
-    }
+    public User Map(UserDTO dto) => new User(dto.UserID, dto.Balance, dto.Name);
 }

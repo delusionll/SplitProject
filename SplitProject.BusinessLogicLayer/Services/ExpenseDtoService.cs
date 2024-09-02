@@ -10,31 +10,45 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// Expense DTO.
 /// </summary>
-public class ExpenseDtoService : IDTOService<Expense, ExpenseDTO>
+public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> benefiterMapper, ICRUDService crudService)
+    : IDTOService<Expense, ExpenseDTO>
 {
-    private readonly UserDtoService _userDtoService = new UserDtoService();
+    private readonly IDTOService<UserBenefiter, UserBenefiterDTO> _benefiterMapper = benefiterMapper;
+    private readonly ICRUDService _crudService = crudService;
 
     /// <inheritdoc/>
-    public ExpenseDTO ToDto(Expense entity)
+    public ExpenseDTO Map(Expense entity)
     {
-        IList<KeyValuePair<Guid, int>> benefitersDTO = [];
-        foreach (var b in entity.Benefiters)
+        var benefiterDTOs = new Collection<UserBenefiterDTO>();
+        if (entity.Benefiters == null)
         {
-            benefitersDTO.Add(new KeyValuePair<Guid, int>(_userDtoService.ToDto(b.Key).UserID, b.Value));
+            // TODO entity.Benefiters as exception param????
+            throw new ArgumentNullException(nameof(entity));
         }
 
-        return new ExpenseDTO(entity.Amount, benefitersDTO, entity.Title, entity.UserId);
+        foreach (var b in entity.Benefiters)
+        {
+            benefiterDTOs.Add(_benefiterMapper.Map(b));
+        }
+
+        return new ExpenseDTO(entity.Amount, benefiterDTOs, entity.Title, entity.User.UserID);
     }
 
     /// <inheritdoc/>
-    public Expense ToEntity(ExpenseDTO dto)
+    public Expense Map(ExpenseDTO dto)
     {
-        Collection<KeyValuePair<Guid, int>> benefiters = [];
-        foreach (var b in dto.Benefiters)
+        var benefiters = new Collection<UserBenefiter>();
+        if (dto.Benefiters == null)
         {
-            benefiters.Add(new KeyValuePair<Guid, int>(_userDtoService.ToEntity(b.Key), b.Value));
+            // TODO dto.Benefiters as exception param???
+            throw new ArgumentNullException(nameof(dto));
         }
 
-        return new Expense(dto.Title, dto.Amount, dto.UserID, benefiters);
+        foreach (var b in dto.Benefiters)
+        {
+            benefiters.Add(_benefiterMapper.Map(b));
+        }
+
+        return new Expense(dto.Title, dto.Amount, _crudService.GetById<User>(dto.UserID), benefiters);
     }
 }

@@ -44,7 +44,7 @@ public class ExpenseController : Controller
         if (id != Guid.Empty)
         {
             var expense = _dbCrudService.GetById<Expense>(id);
-            var expenseDto = _dtoService.ToDto(expense);
+            var expenseDto = _dtoService.Map(expense);
             return expenseDto;
         }
 
@@ -59,7 +59,7 @@ public class ExpenseController : Controller
     [HttpPost("NewExpense")]
     public ActionResult NewExpense(ExpenseDTO newExpense)
     {
-        var entityExpense = _dtoService.ToEntity(newExpense);
+        var entityExpense = _dtoService.Map(newExpense);
         _dbCrudService.Add(entityExpense);
         _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
         return Ok();
