@@ -34,7 +34,7 @@ public class Expense
     /// <summary>
     /// Gets or sets expense ID.
     /// </summary>
-    public Guid ExpenseId { get; set; } = Guid.NewGuid();
+    public Guid ExpenseID { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// Gets or sets total amount of expense.

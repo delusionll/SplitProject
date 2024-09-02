@@ -7,7 +7,7 @@ using SplitProject.DAL;
 /// <summary>
 /// Service to operate with DB.
 /// </summary>
-public class CRUDService : IDbCrudService
+public class CRUDService : ICRUDService
 {
     private readonly SplitContext _context;
 
@@ -21,7 +21,7 @@ public class CRUDService : IDbCrudService
     }
 
     /// <inheritdoc/>
-    public void AddEntity<T>(T entity)
+    public void Add<T>(T entity)
         where T : class
     {
         _context.Set<T>().Add(entity);
@@ -29,7 +29,7 @@ public class CRUDService : IDbCrudService
     }
 
     /// <inheritdoc/>
-    public void DeleteAllEntities<T>()
+    public void DeleteAll<T>()
         where T : class
     {
         foreach (var e in _context.Set<T>())
@@ -41,15 +41,15 @@ public class CRUDService : IDbCrudService
     }
 
     /// <inheritdoc/>
-    public void DeleteEntityById<T>(Guid id)
+    public void DeleteById<T>(Guid id)
         where T : class
     {
-        _context.Set<T>().Remove(GetEntityById<T>(id));
+        _context.Set<T>().Remove(GetById<T>(id));
         _context.SaveChanges();
     }
 
     /// <inheritdoc/>
-    public T GetEntityById<T>(Guid id)
+    public T GetById<T>(Guid id)
         where T : class
     {
         if (id != Guid.Empty)

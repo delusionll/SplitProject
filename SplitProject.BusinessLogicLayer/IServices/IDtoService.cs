@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TE">Entity type.</typeparam>
 /// <typeparam name="TD">DTO type.</typeparam>
-public interface IDtoService<TE, TD>
+public interface IDTOService<TE, TD>
 {
     /// <summary>
     /// transform from entity to DTO.

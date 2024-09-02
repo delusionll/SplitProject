@@ -46,7 +46,7 @@ public class User
     /// <summary>
     /// Gets or sets user ID.
     /// </summary>
-    public Guid UserId { get; set; } = Guid.NewGuid();
+    public Guid UserID { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// Gets or sets username.

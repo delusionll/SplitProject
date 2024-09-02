@@ -12,9 +12,9 @@ using SplitProject.Domain.Models;
 [ApiController]
 public class ExpenseController : Controller
 {
-    private readonly IDbCrudService _dbCrudService;
+    private readonly ICRUDService _dbCrudService;
 
-    private readonly IDtoService<Expense, ExpenseDTO> _dtoService;
+    private readonly IDTOService<Expense, ExpenseDTO> _dtoService;
 
     private readonly IExpenseService _expenseService;
 
@@ -25,7 +25,7 @@ public class ExpenseController : Controller
     /// <param name="dbCrudService">CRUD service instance.</param>
     /// <param name="dtoService">DTO service instance.</param>
     public ExpenseController(
-        IExpenseService expenseService, IDbCrudService dbCrudService, IDtoService<Expense, ExpenseDTO> dtoService)
+        IExpenseService expenseService, ICRUDService dbCrudService, IDTOService<Expense, ExpenseDTO> dtoService)
     {
         _expenseService = expenseService;
         _dbCrudService = dbCrudService;
@@ -43,7 +43,7 @@ public class ExpenseController : Controller
     {
         if (id != Guid.Empty)
         {
-            var expense = _dbCrudService.GetEntityById<Expense>(id);
+            var expense = _dbCrudService.GetById<Expense>(id);
             var expenseDto = _dtoService.ToDto(expense);
             return expenseDto;
         }
@@ -60,7 +60,7 @@ public class ExpenseController : Controller
     public ActionResult NewExpense(ExpenseDTO newExpense)
     {
         var entityExpense = _dtoService.ToEntity(newExpense);
-        _dbCrudService.AddEntity(entityExpense);
+        _dbCrudService.Add(entityExpense);
         _expenseService.CountExpense(entityExpense.Amount, entityExpense.UserId, entityExpense.Benefiters);
         return Ok();
     }

@@ -2,25 +2,31 @@
 
 using System;
 using System.Collections.Generic;
-
-public class ExpenseDTO
-{
-    public ExpenseDTO(decimal amount, ICollection<KeyValuePair<Guid, int>> benefiters, string? title, Guid userId)
-    {
-        Amount = amount;
-        Benefiters = benefiters;
-        Title = title;
-        UserId = userId;
-    }
-
-    public decimal Amount { get; set; }
+using SplitProject.Bll.DTO;
+using SplitProject.Domain.Models;
 
 /// <summary>
-/// KVPair: UserId, percent
+/// <see cref="Expense"/> DTO.
 /// </summary>
-    public ICollection<KeyValuePair<Guid, int>> Benefiters { get; } = [];
+public class ExpenseDTO
+{
+    /// <summary>
+    /// Gets expense amount.
+    /// </summary>
+    public decimal Amount { get; }
 
-    public string? Title { get; set; }
+    /// <summary>
+    /// Gets users to Benefit.
+    /// </summary>
+    public ICollection<UserBenefiterDTO>? Benefiters { get; }
 
-    public Guid UserId { get; set; }
+    /// <summary>
+    /// Gets expense Title.
+    /// </summary>
+    public string? Title { get; }
+
+    /// <summary>
+    /// Gets expense owner UserID.
+    /// </summary>
+    public Guid UserID { get; }
 }

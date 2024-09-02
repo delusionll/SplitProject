@@ -7,7 +7,7 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// User DTO service.
 /// </summary>
-public class UserDtoService : IDtoService<User, UserDTO>
+public class UserDtoService : IDTOService<User, UserDTO>
 {
     /// <inheritdoc/>
     public UserDTO ToDto(User entity)

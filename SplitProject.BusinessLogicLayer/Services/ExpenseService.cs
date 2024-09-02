@@ -10,22 +10,22 @@ using SplitProject.Domain.Models;
 /// </summary>
 public class ExpenseService : IExpenseService
 {
-    private readonly IDbCrudService _dbCrud;
+    private readonly ICRUDService _dbCrud;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ExpenseService"/> class.
     /// </summary>
     /// <param name="dbCrud">CRUService instance.</param>
-    public ExpenseService(IDbCrudService dbCrud)
+    public ExpenseService(ICRUDService dbCrud)
     {
         _dbCrud = dbCrud;
     }
 
     /// <inheritdoc/>
-    public void CountExpense(
+    public void Count(
         decimal amount, Guid userIdFrom, IEnumerable<KeyValuePair<User, int>> benefitersList) // Counting expense, updates DB
     {
-        var userFrom = _dbCrud.GetEntityById<User>(userIdFrom);
+        var userFrom = _dbCrud.GetById<User>(userIdFrom);
         userFrom.Balance += amount;
         var totalPercent = 0;
         foreach (var b in benefitersList)

@@ -10,7 +10,7 @@ using SplitProject.Domain.Models;
 /// <summary>
 /// Expense DTO.
 /// </summary>
-public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
+public class ExpenseDtoService : IDTOService<Expense, ExpenseDTO>
 {
     private readonly UserDtoService _userDtoService = new UserDtoService();
 
@@ -20,7 +20,7 @@ public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
         IList<KeyValuePair<Guid, int>> benefitersDTO = [];
         foreach (var b in entity.Benefiters)
         {
-            benefitersDTO.Add(new KeyValuePair<Guid, int>(_userDtoService.ToDto(b.Key).Id, b.Value));
+            benefitersDTO.Add(new KeyValuePair<Guid, int>(_userDtoService.ToDto(b.Key).UserID, b.Value));
         }
 
         return new ExpenseDTO(entity.Amount, benefitersDTO, entity.Title, entity.UserId);
@@ -35,6 +35,6 @@ public class ExpenseDtoService : IDtoService<Expense, ExpenseDTO>
             benefiters.Add(new KeyValuePair<Guid, int>(_userDtoService.ToEntity(b.Key), b.Value));
         }
 
-        return new Expense(dto.Title, dto.Amount, dto.UserId, benefiters);
+        return new Expense(dto.Title, dto.Amount, dto.UserID, benefiters);
     }
 }

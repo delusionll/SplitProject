@@ -1,11 +1,24 @@
-﻿using System;
+﻿namespace SplitProject.BLL.DTO;
 
-namespace SplitProject.BLL.DTO;
+using System;
 
+/// <summary>
+/// User DTO.
+/// </summary>
 public class UserDTO
 {
-    public Guid Id { get; set; }
-    public decimal Balance { get; set; } = 0;
+    /// <summary>
+    /// Gets userID.
+    /// </summary>
+    public Guid UserID { get; }
 
-    public string? Name { get; set; }
+    /// <summary>
+    /// Gets user Balance.
+    /// </summary>
+    public decimal Balance { get; }
+
+    /// <summary>
+    /// Gets user Name.
+    /// </summary>
+    public string? Name { get; }
 }

@@ -5,21 +5,21 @@ using System;
 /// <summary>
 /// CRUD <see langword="interface"/>.
 /// </summary>
-public interface IDbCrudService
+public interface ICRUDService
 {
     /// <summary>
     /// Add Entity to DB.
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
     /// <param name="entity">entity instance.</param>
-    void AddEntity<T>(T entity)
+    void Add<T>(T entity)
         where T : class;
 
     /// <summary>
     /// Delete all entities from DB.
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
-    void DeleteAllEntities<T>()
+    void DeleteAll<T>()
         where T : class;
 
     /// <summary>
@@ -27,7 +27,7 @@ public interface IDbCrudService
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
     /// <param name="id">Entity ID.</param>
-    void DeleteEntityById<T>(Guid id)
+    void DeleteById<T>(Guid id)
         where T : class;
 
     /// <summary>
@@ -36,7 +36,7 @@ public interface IDbCrudService
     /// <typeparam name="T">Entity type.</typeparam>
     /// <param name="id">Entity ID.</param>
     /// <returns>T.</returns>
-    T GetEntityById<T>(Guid id)
+    T GetById<T>(Guid id)
         where T : class;
 
     /// <summary>

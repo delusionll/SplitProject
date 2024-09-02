@@ -12,16 +12,16 @@ using SplitProject.Domain.Models;
 [ApiController]
 public class UserController : Controller
 {
-    private readonly IDbCrudService _dbCrudService;
+    private readonly ICRUDService _dbCrudService;
 
-    private readonly IDtoService<User, UserDTO> _dtoService;
+    private readonly IDTOService<User, UserDTO> _dtoService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UserController"/> class.
     /// </summary>
     /// <param name="dbCrudService">CRUD service instance.</param>
     /// <param name="dtoService">DTO service instance.</param>
-    public UserController(IDbCrudService dbCrudService, IDtoService<User, UserDTO> dtoService)
+    public UserController(ICRUDService dbCrudService, IDTOService<User, UserDTO> dtoService)
     {
         _dbCrudService = dbCrudService;
         _dtoService = dtoService;
@@ -34,7 +34,7 @@ public class UserController : Controller
     [HttpDelete("/DeleteAllUsers")]
     public ActionResult DeleteAllUsers()
     {
-        _dbCrudService.DeleteAllEntities<User>();
+        _dbCrudService.DeleteAll<User>();
         return Ok();
     }
 
@@ -48,7 +48,7 @@ public class UserController : Controller
     {
         if (_dbCrudService.GetEntityById<User> != null)
         {
-            _dbCrudService.DeleteEntityById<User>(id);
+            _dbCrudService.DeleteById<User>(id);
             return Ok();
         }
 
@@ -63,7 +63,7 @@ public class UserController : Controller
     [HttpGet("/GetUserById")]
     public UserDTO GetUserById(Guid id)
     {
-        var entity = _dbCrudService.GetEntityById<User>(id);
+        var entity = _dbCrudService.GetById<User>(id);
         var user = _dtoService.ToDto(entity);
         return user;
     }
@@ -82,7 +82,7 @@ public class UserController : Controller
         }
 
         var newuser = _dtoService.ToEntity(new UserDTO { Name = name });
-        _dbCrudService.AddEntity(newuser);
+        _dbCrudService.Add(newuser);
         return Ok();
     }
 }

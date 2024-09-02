@@ -22,9 +22,9 @@ public class Program
 
         var services = builder.Services; // Services collection
         services.AddTransient<IExpenseService, ExpenseService>();
-        services.AddScoped<IDbCrudService, CRUDService>();
-        services.AddTransient<IDtoService<Expense, ExpenseDTO>, ExpenseDtoService>();
-        services.AddTransient<IDtoService<User, UserDTO>, UserDtoService>();
+        services.AddScoped<ICRUDService, CRUDService>();
+        services.AddTransient<IDTOService<Expense, ExpenseDTO>, ExpenseDtoService>();
+        services.AddTransient<IDTOService<User, UserDTO>, UserDtoService>();
         services.AddDbContext<SplitContext>(
         options => options.UseSqlServer(
             builder.Configuration["ConnectionString:Default"],
