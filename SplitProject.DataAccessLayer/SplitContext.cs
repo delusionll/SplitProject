@@ -1,6 +1,7 @@
 ﻿namespace SplitProject.DAL;
 
 using Microsoft.EntityFrameworkCore;
+using SplitProject.Domain;
 using SplitProject.Domain.Models;
 
 /// <summary>
@@ -9,7 +10,7 @@ using SplitProject.Domain.Models;
 /// <remarks>
 /// Initializes a new instance of the <see cref="SplitContext"/> class.
 /// </remarks>
-/// <param name="options">???.</param>
+/// <param name="options">Context options.</param>
 public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(options)
 {
     /// <summary>
@@ -21,6 +22,11 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// Gets or sets users.
     /// </summary>
     public DbSet<User> Users { get; set; }
+
+    /// <summary>
+    /// Gets or sets benefiters.
+    /// </summary>
+    public DbSet<UserBenefiter> UserBenefiters { get; set; }
 
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,7 +42,8 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
         //     .HasForeignKey(b => b.UserId)
         //     .OnDelete(DeleteBehavior.NoAction);
 
+        // 12345678901.23
         modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
-        modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2); // 12345678901.23
+        modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2);
     }
 }

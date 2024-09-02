@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class ExpenseDTO
 {
-    public ExpenseDTO(decimal amount, IEnumerable<KeyValuePair<UserDTO, int>> benefiters, string? title, Guid userId)
+    public ExpenseDTO(decimal amount, ICollection<KeyValuePair<Guid, int>> benefiters, string? title, Guid userId)
     {
         Amount = amount;
         Benefiters = benefiters;
@@ -15,7 +15,10 @@ public class ExpenseDTO
 
     public decimal Amount { get; set; }
 
-    public IEnumerable<KeyValuePair<UserDTO, int>> Benefiters { get; } = [];
+/// <summary>
+/// KVPair: UserId, percent
+/// </summary>
+    public ICollection<KeyValuePair<Guid, int>> Benefiters { get; } = [];
 
     public string? Title { get; set; }
 

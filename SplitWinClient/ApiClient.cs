@@ -7,14 +7,14 @@
     using System.Threading.Tasks;
     using System.Windows;
 
-    public class ApiClient
+    public class ApiClient              
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClient;        
         private readonly ApiClientLogger _logger;
 
-        public ApiClient()
+        public ApiClient()              
         {
-            _httpClient = new HttpClient();
+            _httpClient = new HttpClient();                     
             _logger = new ApiClientLogger();
 
             // TODO NO HARDCODE
