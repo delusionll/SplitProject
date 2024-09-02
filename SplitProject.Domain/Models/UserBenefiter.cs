@@ -1,16 +1,14 @@
 namespace SplitProject.Domain.Models;
 
-using System;
-
 /// <summary>
 /// Benefiter entity.
 /// </summary>
 public class UserBenefiter
 {
     /// <summary>
-    /// Gets or sets user ID.
+    /// Gets or sets user.
     /// </summary>
-    public Guid UserId { get; set; }
+    public required User User { get; set; }
 
     /// <summary>
     /// Gets or sets amount to benefit.
@@ -23,7 +21,7 @@ public class UserBenefiter
     public int Share { get; set; }
 
     /// <summary>
-    /// Gets or sets expense Id. Foreign key for Expense.
+    /// Gets or sets expense. Foreign key for Expense.
     /// </summary>
-    public Guid ExpenseId { get; set; }
+    public required Expense Expense { get; set; }
 }

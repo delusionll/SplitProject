@@ -30,19 +30,14 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // To create Name column since its nullable property.
-        modelBuilder.Entity<User>()
-            .Property(u => u.Name)
-            .HasColumnName(nameof(User.Name));
-
+        //// To create Name column since its nullable property.
         // modelBuilder.Entity<User>()
-        //     .HasOne(b => b.User)
-        //     .WithMany(u => u.Benefiters)
-        //     .HasForeignKey(b => b.UserId)
-        //     .OnDelete(DeleteBehavior.NoAction);
+        //    .Property(u => u.Name)
+        //    .HasColumnName(nameof(User.Name));
 
         // 12345678901.23
         modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
         modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2);
+        modelBuilder.Entity<UserBenefiter>().Property(x => x.Amount).HasPrecision(13, 2);
     }
 }

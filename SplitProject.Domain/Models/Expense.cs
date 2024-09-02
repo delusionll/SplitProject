@@ -21,13 +21,13 @@ public class Expense
     /// </summary>
     /// <param name="title">Title.</param>
     /// <param name="amount">Amount.</param>
-    /// <param name="userId">User ID who did the expense.</param>
+    /// <param name="user">User who did the expense.</param>
     /// <param name="benefiters">A list of users to benefit in this expense.</param>
-    public Expense(string? title, decimal amount, Guid userId, IList<UserBenefiter>? benefiters = null)
+    public Expense(string? title, decimal amount, User user, IList<UserBenefiter>? benefiters = null)
     {
         Title = title;
         Amount = amount;
-        UserId = userId;
+        User = user;
         Benefiters = benefiters;
     }
 
@@ -57,8 +57,8 @@ public class Expense
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets user ID who did the expense.
+    /// Gets or sets <see cref="User"/>> who did the expense.
     /// </summary>
     // Foreign key for Users (byUser)
-    public Guid UserId { get; set; }
+    public required User User { get; set; }
 }
