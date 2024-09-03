@@ -77,8 +77,8 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     [HttpPost("/NewUser")]
     public async Task<ActionResult> NewUserAsync([FromBody] string name)
     {
-        _logger.LogInformation("hi", name);
         await _crudService.AddAsync(new User(name)).ConfigureAwait(false);
+        _logger.LogInformation(DateTime.Now.ToString(), name);
         return Ok();
     }
 }
