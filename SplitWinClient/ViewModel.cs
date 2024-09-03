@@ -1,6 +1,5 @@
 ﻿namespace WinClient;
 
-using System.Windows.Ink;
 using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.ComponentModel;
