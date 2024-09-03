@@ -1,11 +1,11 @@
-﻿namespace SplitProject.BLL.Services;
+﻿namespace BLL.Services;
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using SplitProject.BLL.DTO;
-using SplitProject.BLL.IServices;
-using SplitProject.Domain.Models;
+using BLL.DTO;
+using BLL.IServices;
+using Domain.Models;
 
 /// <summary>
 /// Expense DTO.
@@ -21,10 +21,8 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
     {
         var benefiterDTOs = new Collection<UserBenefiterDTO>();
         if (entity.Benefiters == null)
-        {
             // TODO entity.Benefiters as exception param????
             throw new ArgumentNullException(nameof(entity));
-        }
 
         foreach (var b in entity.Benefiters)
         {
@@ -39,10 +37,8 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
     {
         var benefiters = new List<UserBenefiter>();
         if (dto.Benefiters == null)
-        {
             // TODO dto.Benefiters as exception param???
             throw new ArgumentNullException(nameof(dto));
-        }
 
         foreach (var b in dto.Benefiters)
         {

@@ -1,4 +1,4 @@
-namespace SplitProject.BLL.DTO;
+namespace BLL.DTO;
 
 using System;
 

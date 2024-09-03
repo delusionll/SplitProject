@@ -1,4 +1,4 @@
-﻿namespace SplitProject.Common;
+﻿namespace Common;
 
 public class Class1
 {

@@ -1,4 +1,4 @@
-﻿namespace SplitProject.BLL.IServices;
+﻿namespace BLL.IServices;
 
 /// <summary>
 /// Service to transform to and from DTO.

@@ -1,4 +1,4 @@
-﻿namespace SplitProject.Tests;
+﻿namespace Tests;
 
 public class Tests
 {

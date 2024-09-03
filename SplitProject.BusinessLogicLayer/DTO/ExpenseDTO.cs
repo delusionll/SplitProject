@@ -1,8 +1,8 @@
-﻿namespace SplitProject.BLL.DTO;
+﻿namespace BLL.DTO;
 
 using System;
 using System.Collections.Generic;
-using SplitProject.Domain.Models;
+using Domain.Models;
 
 /// <summary>
 /// <see cref="Expense"/> DTO.

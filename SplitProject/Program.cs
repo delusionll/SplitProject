@@ -1,16 +1,16 @@
-namespace SplitProject.API;
+namespace API;
 
 using System;
+using BLL.DTO;
+using BLL.IServices;
+using BLL.Services;
+using DAL;
+using Domain.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SplitProject.BLL.DTO;
-using SplitProject.BLL.IServices;
-using SplitProject.BLL.Services;
-using SplitProject.DAL;
-using SplitProject.Domain.Models;
 
 /// <summary>
 /// StartPoint.

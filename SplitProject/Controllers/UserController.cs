@@ -1,12 +1,12 @@
-﻿namespace SplitProject.API.Controllers;
+﻿namespace API.Controllers;
 
 using System;
 using System.Threading.Tasks;
+using BLL.DTO;
+using BLL.IServices;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SplitProject.BLL.DTO;
-using SplitProject.BLL.IServices;
-using SplitProject.Domain.Models;
 
 /// <summary>
 /// UserController class.
@@ -63,9 +63,7 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
         var entity = await _crudService.GetByIdAsync<User>(id).ConfigureAwait(false);
 
         if (entity == null)
-        {
             return NotFound();
-        }
 
         var user = _dtoService.Map(entity);
         return user;

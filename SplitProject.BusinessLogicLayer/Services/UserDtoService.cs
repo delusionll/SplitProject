@@ -1,8 +1,8 @@
-﻿namespace SplitProject.BLL.Services;
+﻿namespace BLL.Services;
 
-using SplitProject.BLL.DTO;
-using SplitProject.BLL.IServices;
-using SplitProject.Domain.Models;
+using BLL.DTO;
+using BLL.IServices;
+using Domain.Models;
 
 /// <summary>
 /// User DTO service.

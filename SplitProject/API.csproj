@@ -29,9 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SplitProject.BusinessLogicLayer\SplitProject.BLL.csproj" />
-    <ProjectReference Include="..\SplitProject.DataAccessLayer\SplitProject.DAL.csproj" />
-    <ProjectReference Include="..\SplitProject.Domain\SplitProject.Domain.csproj" />
+    <ProjectReference Include="..\SplitProject.BusinessLogicLayer\BLL.csproj" />
+    <ProjectReference Include="..\SplitProject.DataAccessLayer\DAL.csproj" />
+    <ProjectReference Include="..\SplitProject.Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

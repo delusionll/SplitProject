@@ -1,9 +1,9 @@
-﻿namespace SplitProject.BLL.Services;
+﻿namespace BLL.Services;
 
 using System;
 using System.Collections.Generic;
-using SplitProject.BLL.IServices;
-using SplitProject.Domain.Models;
+using BLL.IServices;
+using Domain.Models;
 
 /// <summary>
 /// Expense service.
@@ -32,9 +32,7 @@ public class ExpenseService(ICRUDService dbCrud) : IExpenseService
         }
 
         if (totalPercent == 100)
-        {
             _dbCrud.SaveChangesAsync();
-        }
         else
         {
             throw new ArgumentException("wrong share Sum");

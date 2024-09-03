@@ -1,4 +1,4 @@
-﻿namespace SplitProject.BLL.IServices;
+﻿namespace BLL.IServices;
 
 using System;
 using System.Threading.Tasks;

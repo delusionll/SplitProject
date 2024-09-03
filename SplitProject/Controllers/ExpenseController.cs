@@ -1,11 +1,11 @@
-﻿namespace SplitProject.API.Controllers;
+﻿namespace API.Controllers;
 
 using System;
 using System.Threading.Tasks;
+using BLL.DTO;
+using BLL.IServices;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using SplitProject.BLL.DTO;
-using SplitProject.BLL.IServices;
-using SplitProject.Domain.Models;
 
 /// <summary>
 /// Expense controller.
@@ -34,15 +34,11 @@ public class ExpenseController(
     public async Task<ActionResult<ExpenseDTO>> GetExpenseAsync(Guid id)
     {
         if (id == Guid.Empty)
-        {
             return BadRequest("Wrong ID");
-        }
 
         var expense = await _crudService.GetByIdAsync<Expense>(id).ConfigureAwait(false);
         if (expense == null)
-        {
             return NotFound($"Expense id {id} not found");
-        }
 
         var expenseDto = _dtoService.Map(expense);
         return expenseDto;
@@ -57,9 +53,7 @@ public class ExpenseController(
     public async Task<ActionResult> NewExpense(ExpenseDTO newExpense)
     {
         if (newExpense == null)
-        {
             return BadRequest("Expense data is required.");
-        }
 
         var expEnt = _dtoService.Map(newExpense);
         await _crudService.AddAsync(expEnt).ConfigureAwait(false);
@@ -68,9 +62,7 @@ public class ExpenseController(
         var user = await _crudService.GetByIdAsync<User>(expEnt.UserID).ConfigureAwait(false);
 
         if (user == null)
-        {
             return NotFound();
-        }
 
         _expenseService.Count(expEnt.Amount, user, expEnt.Benefiters);
         return Ok();

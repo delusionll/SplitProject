@@ -1,7 +1,7 @@
-﻿namespace SplitProject.DAL;
+﻿namespace DAL;
 
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using SplitProject.Domain.Models;
 
 /// <summary>
 /// DB context.

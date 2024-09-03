@@ -1,8 +1,8 @@
-﻿namespace SplitProject.BLL.IServices;
+﻿namespace BLL.IServices;
 
 using System;
 using System.Collections.Generic;
-using SplitProject.Domain.Models;
+using Domain.Models;
 
 /// <summary>
 /// Service to work with expenses.

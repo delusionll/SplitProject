@@ -1,10 +1,10 @@
-﻿namespace SplitProject.BLL.Services;
+﻿namespace BLL.Services;
 
 using System;
 using System.Threading.Tasks;
+using BLL.IServices;
+using DAL;
 using Microsoft.EntityFrameworkCore;
-using SplitProject.BLL.IServices;
-using SplitProject.DAL;
 
 /// <summary>
 /// Service to operate with DB.
@@ -40,9 +40,7 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
     {
         var entity = await GetByIdAsync<T>(id).ConfigureAwait(false);
         if (entity == null)
-        {
             throw new ArgumentException($"entity with id {id} not found.");
-        }
 
         _context.Set<T>().Remove(entity);
         await _context.SaveChangesAsync().ConfigureAwait(false);

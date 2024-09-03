@@ -1,4 +1,4 @@
-﻿namespace SplitWinClient;
+﻿namespace WinClient;
 
 using System;
 using System.Net.Http;

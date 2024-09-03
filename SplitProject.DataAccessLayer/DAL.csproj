@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SplitProject.Domain\SplitProject.Domain.csproj" />
+    <ProjectReference Include="..\SplitProject.Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
