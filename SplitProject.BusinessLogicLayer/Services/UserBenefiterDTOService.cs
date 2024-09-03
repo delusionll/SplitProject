@@ -26,7 +26,7 @@ public class UserBenefiterDTOService(ICRUDService crudService) : IDTOService<Use
         var user = _crudService.GetByIdAsync<User>(dto.UserID).Result;
         var expense = _crudService.GetByIdAsync<Expense>(dto.ExpenseID).Result;
         return user != null && expense != null
-            ? new UserBenefiter(user, dto.Amount, dto.Share, expense.ExpenseID)
+            ? new UserBenefiter(user.Value, dto.Amount, dto.Share, expense.Value.ExpenseID)
             : throw new ArgumentException("User or Expense not found");
     }
 }

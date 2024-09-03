@@ -65,7 +65,7 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
         if (entity == null)
             return NotFound();
 
-        var user = _dtoService.Map(entity);
+        var user = _dtoService.Map(entity.Value);
         return user;
     }
 

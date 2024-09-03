@@ -40,7 +40,7 @@ public class ExpenseController(
         if (expense == null)
             return NotFound($"Expense id {id} not found");
 
-        var expenseDto = _dtoService.Map(expense);
+        var expenseDto = _dtoService.Map(expense.Value);
         return expenseDto;
     }
 
@@ -64,7 +64,7 @@ public class ExpenseController(
         if (user == null)
             return NotFound();
 
-        _expenseService.Count(expEnt.Amount, user, expEnt.Benefiters);
+        await _expenseService.Count(expEnt.Amount, user.Value, expEnt.Benefiters).ConfigureAwait(false);
         return Ok();
     }
 }

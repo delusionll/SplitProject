@@ -1,6 +1,7 @@
 ﻿namespace BLL.IServices;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain.Models;
 
 /// <summary>
@@ -14,5 +15,6 @@ public interface IExpenseService
     /// <param name="amount">expense amount.</param>
     /// <param name="fromUser">user who did the expense.</param>
     /// <param name="benefitersList">list of users to benefit.</param>
-    void Count(decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList);
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    Task Count(decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList);
 }

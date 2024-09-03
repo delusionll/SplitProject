@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BLL.IServices;
 using Domain.Models;
 
@@ -19,21 +20,21 @@ public class ExpenseService(ICRUDService dbCrud) : IExpenseService
     /// <inheritdoc/>
     // TODO update DB dependency
     // Counting expense, updates DB
-    public void Count(
+    public async Task Count(
         decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList)
     {
         fromUser.Balance += amount;
         int totalPercent = 0;
         foreach (var b in benefitersList)
         {
-            var userToBenefit = _dbCrud.GetByIdAsync<User>(b.User.UserID);
-            userToBenefit.Result.Balance -= amount * b.Share / 100;
+            var userToBenefit = await _dbCrud.GetByIdAsync<User>(b.User.UserID).ConfigureAwait(false);
+            userToBenefit.Value.Balance -= amount * b.Share / 100;
             totalPercent += b.Share;
         }
 
         if (totalPercent == 100)
         {
-            _dbCrud.SaveChangesAsync();
+            await _dbCrud.SaveChangesAsync().ConfigureAwait(false);
         }
         else
         {
