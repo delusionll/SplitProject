@@ -1,35 +1,59 @@
 namespace SplitProject.Domain.Models;
 
+using System;
+
 /// <summary>
 /// Benefiter entity.
 /// </summary>
 /// <remarks>
 /// Initializes a new instance of the <see cref="UserBenefiter"/> class.
 /// </remarks>
-/// <param name="user">User as Benefiter.</param>
-/// <param name="amount">amount.</param>
-/// <param name="share">share.</param>
-/// <param name="expense">expense entity.</param>
-public class UserBenefiter(User user, decimal amount, int share, Expense expense)
+public class UserBenefiter
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserBenefiter"/> class. For EF.
+    /// </summary>
+    public UserBenefiter()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserBenefiter"/> class.
+    /// </summary>
+    /// <param name="user">User as Benefiter.</param>
+    /// <param name="amount">amount.</param>
+    /// <param name="share">share.</param>
+    /// <param name="expense">expense entity.</param>
+    public UserBenefiter(User user, decimal amount, int share, Expense expense)
+    {
+        User = user;
+        Amount = amount;
+        Share = share;
+        Expense = expense;
+    }
+
+    /// <summary>
+    /// Gets entity ID.
+    /// </summary>
+    public Guid ID { get; private set; } = Guid.NewGuid();
 
     /// <summary>
     /// Gets user.
     /// </summary>
-    public User User { get; private set; } = user;
+    public User User { get; private set; }
 
     /// <summary>
     /// Gets amount to benefit.
     /// </summary>
-    public decimal Amount { get; private set; } = amount;
+    public decimal Amount { get; private set; }
 
     /// <summary>
     /// Gets benefiter share.
     /// </summary>
-    public int Share { get; private set; } = share;
+    public int Share { get; private set; }
 
     /// <summary>
     /// Gets expense. Foreign key for Expense.
     /// </summary>
-    public Expense Expense { get; private set; } = expense;
+    public Expense Expense { get; private set; }
 }

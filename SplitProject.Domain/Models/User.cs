@@ -36,22 +36,22 @@ public class User
     }
 
     /// <summary>
-    /// Gets or sets user balance.
-    /// </summary>
-    public decimal Balance { get; set; } = 0;
-
-    /// <summary>
-    /// Gets a list of user expenses.
-    /// </summary>
-    public IList<Expense> Expenses { get; private set; } = [];
-
-    /// <summary>
     /// Gets user ID.
     /// </summary>
     public Guid UserID { get; private set; } = Guid.NewGuid();
 
     /// <summary>
+    /// Gets or sets user balance.
+    /// </summary>
+    public decimal Balance { get; set; } = 0;
+
+    /// <summary>
     /// Gets username.
     /// </summary>
     public string? Name { get; private set; }
+
+    /// <summary>
+    /// Gets a list of user expenses.
+    /// </summary>
+    public List<Expense> Expenses { get; private set; } = [];
 }

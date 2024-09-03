@@ -50,11 +50,11 @@ public class ExpenseController(
     [HttpPost("/NewExpense")]
     public ActionResult NewExpense(ExpenseDTO newExpense)
     {
-        var entityExpense = _dtoService.Map(newExpense);
-        _crudService.Add(entityExpense);
+        var expEnt = _dtoService.Map(newExpense);
+        _crudService.Add(expEnt);
 
         // TODO count on expense property change.
-        _expenseService.Count(entityExpense.Amount, entityExpense.User, entityExpense.Benefiters);
+        _expenseService.Count(expEnt.Amount, _crudService.GetById<User>(expEnt.UserID), expEnt.Benefiters);
         return Ok();
     }
 }

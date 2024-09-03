@@ -31,13 +31,13 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
             benefiterDTOs.Add(_benefiterMapper.Map(b));
         }
 
-        return new ExpenseDTO(entity.Amount, benefiterDTOs, entity.Title, entity.User.UserID);
+        return new ExpenseDTO(entity.Amount, benefiterDTOs, entity.Title, entity.UserID);
     }
 
     /// <inheritdoc/>
     public Expense Map(ExpenseDTO dto)
     {
-        var benefiters = new Collection<UserBenefiter>();
+        var benefiters = new List<UserBenefiter>();
         if (dto.Benefiters == null)
         {
             // TODO dto.Benefiters as exception param???
@@ -49,6 +49,6 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
             benefiters.Add(_benefiterMapper.Map(b));
         }
 
-        return new Expense(dto.Title, dto.Amount, _crudService.GetById<User>(dto.UserID), benefiters);
+        return new Expense(dto.Title, dto.Amount, dto.UserID, benefiters);
     }
 }

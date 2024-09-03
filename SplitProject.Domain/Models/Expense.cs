@@ -23,11 +23,11 @@ public class Expense
     /// <param name="amount">Amount.</param>
     /// <param name="user">User who did the expense.</param>
     /// <param name="benefiters">A list of users to benefit in this expense.</param>
-    public Expense(string? title, decimal amount, User user, IList<UserBenefiter>? benefiters = null)
+    public Expense(string? title, decimal amount, Guid byUser, List<UserBenefiter>? benefiters = null)
     {
         Title = title;
         Amount = amount;
-        User = user;
+        UserID = byUser;
         Benefiters = benefiters;
     }
 
@@ -42,11 +42,6 @@ public class Expense
     public decimal Amount { get; private set; }
 
     /// <summary>
-    /// Gets a list of users to benefit in expense.
-    /// </summary>
-    public IList<UserBenefiter>? Benefiters { get; private set; } = [];
-
-    /// <summary>
     /// Gets date.
     /// </summary>
     public DateTime Date { get; private set; } = DateTime.Now;
@@ -57,8 +52,13 @@ public class Expense
     public string? Title { get; private set; }
 
     /// <summary>
-    /// Gets <see cref="User"/>> who did the expense.
+    /// Gets a list of users to benefit in expense.
+    /// </summary>
+    public List<UserBenefiter>? Benefiters { get; private set; } = [];
+
+    /// <summary>
+    /// Gets User ID who did the expense.
     /// </summary>
     // Foreign key for Users (byUser)
-    public User User { get; private set; }
+    public Guid UserID { get; private set; }
 }
