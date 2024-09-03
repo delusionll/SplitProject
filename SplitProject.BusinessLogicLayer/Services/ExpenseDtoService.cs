@@ -10,17 +10,17 @@ using Domain.Models;
 /// <summary>
 /// Expense DTO.
 /// </summary>
-public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> benefiterMapper, ICRUDService crudService)
+public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> benefiterMapper)
     : IDTOService<Expense, ExpenseDTO>
 {
     private readonly IDTOService<UserBenefiter, UserBenefiterDTO> _benefiterMapper = benefiterMapper;
-    private readonly ICRUDService _crudService = crudService;
 
     /// <inheritdoc/>
     public ExpenseDTO Map(Expense entity)
     {
         var benefiterDTOs = new Collection<UserBenefiterDTO>();
         if (entity.Benefiters == null)
+
             // TODO entity.Benefiters as exception param????
             throw new ArgumentNullException(nameof(entity));
 
@@ -37,6 +37,7 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
     {
         var benefiters = new List<UserBenefiter>();
         if (dto.Benefiters == null)
+
             // TODO dto.Benefiters as exception param???
             throw new ArgumentNullException(nameof(dto));
 

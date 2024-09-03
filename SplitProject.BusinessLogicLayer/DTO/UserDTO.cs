@@ -13,7 +13,6 @@ using System;
 /// <param name="name">User Name.</param>
 public class UserDTO(Guid userID, decimal balance, string? name)
 {
-
     /// <summary>
     /// Gets userID.
     /// </summary>

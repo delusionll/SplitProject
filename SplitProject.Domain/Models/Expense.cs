@@ -21,7 +21,7 @@ public class Expense
     /// </summary>
     /// <param name="title">Title.</param>
     /// <param name="amount">Amount.</param>
-    /// <param name="user">User who did the expense.</param>
+    /// <param name="byUser">User who did the expense.</param>
     /// <param name="benefiters">A list of users to benefit in this expense.</param>
     public Expense(string? title, decimal amount, Guid byUser, List<UserBenefiter>? benefiters = null)
     {
