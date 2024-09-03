@@ -33,7 +33,7 @@ public class ExpenseService(ICRUDService dbCrud) : IExpenseService
 
         if (totalPercent == 100)
         {
-            _dbCrud.SaveChanges();
+            _dbCrud.SaveChangesAsync();
         }
         else
         {

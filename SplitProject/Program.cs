@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using SplitProject.BLL.DTO;
 using SplitProject.BLL.IServices;
 using SplitProject.BLL.Services;
@@ -20,7 +21,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder();
 
-        var services = builder.Services; // Services collection
+        var services = builder.Services;
+        builder.Logging.AddConsole();
         services.AddTransient<IExpenseService, ExpenseService>();
         services.AddScoped<ICRUDService, CRUDService>();
         services.AddTransient<IDTOService<Expense, ExpenseDTO>, ExpenseDTOService>();
@@ -36,7 +38,7 @@ public class Program
                 // TODO remove hardcode
                 sqlOptions.MigrationsAssembly("SplitProject.DAL");
             }));
-        services.AddControllers(); ////Controllers support adding
+        services.AddControllers();
         services.AddSwaggerGen();
         var app = builder.Build();
         if (app.Environment.IsDevelopment())

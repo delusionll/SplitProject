@@ -1,6 +1,8 @@
 ﻿namespace SplitProject.BLL.IServices;
 
 using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// CRUD <see langword="interface"/>.
@@ -19,7 +21,8 @@ public interface ICRUDService
     /// Delete all entities from DB.
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
-    void DeleteAll<T>()
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    Task DeleteAllAsync<T>()
         where T : class;
 
     /// <summary>
@@ -42,5 +45,5 @@ public interface ICRUDService
     /// <summary>
     /// Save changes.
     /// </summary>
-    void SaveChanges();
+    Task SaveChangesAsync();
 }

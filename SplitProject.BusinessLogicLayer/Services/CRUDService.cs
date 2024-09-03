@@ -1,6 +1,9 @@
 ﻿namespace SplitProject.BLL.Services;
 
 using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SplitProject.BLL.IServices;
 using SplitProject.DAL;
 
@@ -20,19 +23,16 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
         where T : class
     {
         _context.Set<T>().Add(entity);
-        _context.SaveChanges();
+        _context.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public void DeleteAll<T>()
+    public async Task DeleteAllAsync<T>()
         where T : class
     {
-        foreach (var e in _context.Set<T>())
-        {
-            _context.Set<T>().Remove(e);
-        }
-
-        _context.SaveChanges();
+        var entities = await _context.Set<T>().ToListAsync().ConfigureAwait(false);
+        _context.Set<T>().RemoveRange(entities);
+        await _context.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
@@ -57,5 +57,5 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
     }
 
     /// <inheritdoc/>
-    public void SaveChanges() => _context.SaveChanges();
+    public Task SaveChangesAsync() => _context.SaveChangesAsync();
 }

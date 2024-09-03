@@ -1,7 +1,9 @@
 ﻿namespace SplitProject.API.Controllers;
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SplitProject.BLL.DTO;
 using SplitProject.BLL.IServices;
 using SplitProject.Domain.Models;
@@ -15,19 +17,20 @@ using SplitProject.Domain.Models;
 /// <param name="crudService">CRUD service instance.</param>
 /// <param name="dtoService">DTO service instance.</param>
 [ApiController]
-public class UserController(ICRUDService crudService, IDTOService<User, UserDTO> dtoService) : Controller
+public class UserController(ICRUDService crudService, IDTOService<User, UserDTO> dtoService, ILogger<UserController> logger) : Controller
 {
     private readonly ICRUDService _crudService = crudService;
     private readonly IDTOService<User, UserDTO> _dtoService = dtoService;
+    private readonly ILogger<UserController> _logger = logger;
 
     /// <summary>
     /// DELETE all users.
     /// </summary>
     /// <returns>OK if deleted.</returns>
     [HttpDelete("/DeleteAllUsers")]
-    public ActionResult DeleteAllUsers()
+    public async Task<ActionResult> DeleteAllUsers()
     {
-        _crudService.DeleteAll<User>();
+        await _crudService.DeleteAllAsync<User>();
         return Ok();
     }
 
@@ -69,6 +72,7 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     [HttpPost("/NewUser")]
     public ActionResult NewUser([FromBody] string name)
     {
+        _logger.LogInformation("hi", name);
         _crudService.Add(new User(name));
         return Ok();
     }
