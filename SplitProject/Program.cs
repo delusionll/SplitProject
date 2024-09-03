@@ -23,6 +23,8 @@ public class Program
 
         var services = builder.Services;
         builder.Logging.AddConsole();
+
+        // TODO transient for sure???
         services.AddTransient<IExpenseService, ExpenseService>();
         services.AddScoped<ICRUDService, CRUDService>();
         services.AddTransient<IDTOService<Expense, ExpenseDTO>, ExpenseDTOService>();
