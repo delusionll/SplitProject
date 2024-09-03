@@ -23,13 +23,13 @@ public class UserBenefiter
     /// <param name="user">User as Benefiter.</param>
     /// <param name="amount">amount.</param>
     /// <param name="share">share.</param>
-    /// <param name="expense">expense entity.</param>
-    public UserBenefiter(User user, decimal amount, int share, Expense expense)
+    /// <param name="expenseID">expense entity.</param>
+    public UserBenefiter(User user, decimal amount, int share, Guid expenseID)
     {
         User = user;
         Amount = amount;
         Share = share;
-        Expense = expense;
+        ExpenseID = expenseID;
     }
 
     /// <summary>
@@ -55,5 +55,10 @@ public class UserBenefiter
     /// <summary>
     /// Gets expense. Foreign key for Expense.
     /// </summary>
-    public Expense Expense { get; private set; }
+    public Guid ExpenseID { get; private set; }
+
+    /// <summary>
+    /// Gets user ID. Foreign Key for users.
+    /// </summary>
+    public Guid UserID { get; private set; }
 }

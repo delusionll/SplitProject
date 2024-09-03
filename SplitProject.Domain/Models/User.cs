@@ -54,4 +54,9 @@ public class User
     /// Gets a list of user expenses.
     /// </summary>
     public List<Expense> Expenses { get; private set; } = [];
+
+    /// <summary>
+    /// Gets userbenefiters. navigation prop.
+    /// </summary>
+    public List<UserBenefiter> Benefiters { get; private set; } = [];
 }

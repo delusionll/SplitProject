@@ -18,7 +18,7 @@ public class UserBenefiterDTOService(ICRUDService crudService) : IDTOService<Use
         entity.User.UserID,
         entity.Amount,
         entity.Share,
-        entity.Expense.ExpenseID);
+        entity.ExpenseID);
 
     /// <inheritdoc/>
     public UserBenefiter Map(UserBenefiterDTO dto)
@@ -26,7 +26,7 @@ public class UserBenefiterDTOService(ICRUDService crudService) : IDTOService<Use
         var user = _crudService.GetById<User>(dto.UserID);
         var expense = _crudService.GetById<Expense>(dto.ExpenseID);
         return user != null && expense != null
-            ? new UserBenefiter(user, dto.Amount, dto.Share, expense)
+            ? new UserBenefiter(user, dto.Amount, dto.Share, expense.ExpenseID)
             : throw new ArgumentException("User or Expense not found");
     }
 }

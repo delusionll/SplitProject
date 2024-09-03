@@ -31,11 +31,10 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<UserBenefiter>()
-    .HasOne(b => b.Expense)
-    .WithMany(u => u.Benefiters)
-    .HasForeignKey(b => b.ID)
-    .OnDelete(DeleteBehavior.NoAction); // или DeleteBehavior.NoAction
-
+            .HasOne(b => b.User)
+            .WithMany(u => u.Benefiters)
+            .HasForeignKey(b => b.UserID)
+            .OnDelete(DeleteBehavior.NoAction);
 
         // 12345678901.23
         modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
