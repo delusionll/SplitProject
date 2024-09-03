@@ -1,6 +1,7 @@
 ﻿namespace SplitProject.API.Controllers;
 
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SplitProject.BLL.DTO;
 using SplitProject.BLL.IServices;
@@ -30,16 +31,21 @@ public class ExpenseController(
     /// <returns>Expense DTO.</returns>
     /// <exception cref="ArgumentException">wrong ID.</exception>
     [HttpGet("/GetExpense")]
-    public ExpenseDTO GetExpense(Guid id)
+    public async Task<ActionResult<ExpenseDTO>> GetExpenseAsync(Guid id)
     {
-        if (id != Guid.Empty)
+        if (id == Guid.Empty)
         {
-            var expense = _crudService.GetById<Expense>(id);
-            var expenseDto = _dtoService.Map(expense);
-            return expenseDto;
+            return BadRequest("Wrong ID");
         }
 
-        throw new ArgumentException("Wrong Id");
+        var expense = await _crudService.GetByIdAsync<Expense>(id).ConfigureAwait(false);
+        if (expense == null)
+        {
+            return NotFound($"Expense id {id} not found");
+        }
+
+        var expenseDto = _dtoService.Map(expense);
+        return expenseDto;
     }
 
     /// <summary>
@@ -48,13 +54,25 @@ public class ExpenseController(
     /// <param name="newExpense">new expense DTO.</param>
     /// <returns>OK if expense counted.</returns>
     [HttpPost("/NewExpense")]
-    public ActionResult NewExpense(ExpenseDTO newExpense)
+    public async Task<ActionResult> NewExpense(ExpenseDTO newExpense)
     {
+        if (newExpense == null)
+        {
+            return BadRequest("Expense data is required.");
+        }
+
         var expEnt = _dtoService.Map(newExpense);
-        _crudService.Add(expEnt);
+        await _crudService.AddAsync(expEnt).ConfigureAwait(false);
 
         // TODO count on expense property change.
-        _expenseService.Count(expEnt.Amount, _crudService.GetById<User>(expEnt.UserID), expEnt.Benefiters);
+        var user = await _crudService.GetByIdAsync<User>(expEnt.UserID).ConfigureAwait(false);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        _expenseService.Count(expEnt.Amount, user, expEnt.Benefiters);
         return Ok();
     }
 }

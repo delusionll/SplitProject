@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SplitProject.BLL.IServices;
 using SplitProject.DAL;
@@ -19,11 +18,11 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
     private readonly SplitContext _context = dbContext;
 
     /// <inheritdoc/>
-    public void Add<T>(T entity)
+    public async Task AddAsync<T>(T entity)
         where T : class
     {
-        _context.Set<T>().Add(entity);
-        _context.SaveChangesAsync().ConfigureAwait(false);
+        await _context.Set<T>().AddAsync(entity).ConfigureAwait(false);
+        await _context.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
@@ -36,20 +35,26 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
     }
 
     /// <inheritdoc/>
-    public void DeleteById<T>(Guid id)
+    public async Task DeleteByIdAsync<T>(Guid id)
         where T : class
     {
-        _context.Set<T>().Remove(GetById<T>(id));
-        _context.SaveChanges();
+        var entity = await GetByIdAsync<T>(id).ConfigureAwait(false);
+        if (entity == null)
+        {
+            throw new ArgumentException($"entity with id {id} not found.");
+        }
+
+        _context.Set<T>().Remove(entity);
+        await _context.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public T GetById<T>(Guid id)
+    public async Task<T> GetByIdAsync<T>(Guid id)
         where T : class
     {
         if (id != Guid.Empty)
         {
-            var entity = _context.Set<T>().Find(id);
+            var entity = await _context.Set<T>().FindAsync(id).ConfigureAwait(false);
             return entity != null ? entity : throw new ArgumentException("Wrong Id");
         }
 

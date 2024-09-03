@@ -30,7 +30,7 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     [HttpDelete("/DeleteAllUsers")]
     public async Task<ActionResult> DeleteAllUsers()
     {
-        await _crudService.DeleteAllAsync<User>();
+        await _crudService.DeleteAllAsync<User>().ConfigureAwait(false);
         return Ok();
     }
 
@@ -40,15 +40,16 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     /// <param name="id">User ID.</param>
     /// <returns>OK.</returns>
     [HttpDelete("/DeleteUserById")]
-    public ActionResult DeleteUserById(Guid id)
+    public async Task<ActionResult> DeleteUserByIdAsync(Guid id)
     {
-        if (_crudService.GetById<User> != null)
+        var user = await _crudService.GetByIdAsync<User>(id).ConfigureAwait(false);
+        if (user != null)
         {
-            _crudService.DeleteById<User>(id);
+            await _crudService.DeleteByIdAsync<User>(id).ConfigureAwait(false);
             return Ok();
         }
 
-        return BadRequest();
+        return NotFound();
     }
 
     /// <summary>
@@ -57,9 +58,15 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     /// <param name="id">userID.</param>
     /// <returns>OK.</returns>
     [HttpGet("/GetUserById")]
-    public UserDTO GetUserById(Guid id)
+    public async Task<ActionResult<UserDTO>> GetUserByIdAsync(Guid id)
     {
-        var entity = _crudService.GetById<User>(id);
+        var entity = await _crudService.GetByIdAsync<User>(id).ConfigureAwait(false);
+
+        if (entity == null)
+        {
+            return NotFound();
+        }
+
         var user = _dtoService.Map(entity);
         return user;
     }
@@ -70,10 +77,10 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     /// <param name="name">userName.</param>
     /// <returns>OK or badRequest.</returns>
     [HttpPost("/NewUser")]
-    public ActionResult NewUser([FromBody] string name)
+    public async Task<ActionResult> NewUserAsync([FromBody] string name)
     {
         _logger.LogInformation("hi", name);
-        _crudService.Add(new User(name));
+        await _crudService.AddAsync(new User(name)).ConfigureAwait(false);
         return Ok();
     }
 }

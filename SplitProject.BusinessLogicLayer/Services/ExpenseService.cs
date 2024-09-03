@@ -26,8 +26,8 @@ public class ExpenseService(ICRUDService dbCrud) : IExpenseService
         int totalPercent = 0;
         foreach (var b in benefitersList)
         {
-            var userToBenefit = _dbCrud.GetById<User>(b.User.UserID);
-            userToBenefit.Balance -= amount * b.Share / 100;
+            var userToBenefit = _dbCrud.GetByIdAsync<User>(b.User.UserID);
+            userToBenefit.Result.Balance -= amount * b.Share / 100;
             totalPercent += b.Share;
         }
 

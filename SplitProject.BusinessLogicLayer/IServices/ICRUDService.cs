@@ -2,7 +2,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// CRUD <see langword="interface"/>.
@@ -14,7 +13,8 @@ public interface ICRUDService
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
     /// <param name="entity">entity instance.</param>
-    void Add<T>(T entity)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    Task AddAsync<T>(T entity)
         where T : class;
 
     /// <summary>
@@ -30,7 +30,8 @@ public interface ICRUDService
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
     /// <param name="id">Entity ID.</param>
-    void DeleteById<T>(Guid id)
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    Task DeleteByIdAsync<T>(Guid id)
         where T : class;
 
     /// <summary>
@@ -39,11 +40,12 @@ public interface ICRUDService
     /// <typeparam name="T">Entity type.</typeparam>
     /// <param name="id">Entity ID.</param>
     /// <returns>T.</returns>
-    T GetById<T>(Guid id)
+    Task<T> GetByIdAsync<T>(Guid id)
         where T : class;
 
     /// <summary>
     /// Save changes.
     /// </summary>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     Task SaveChangesAsync();
 }
