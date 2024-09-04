@@ -43,9 +43,7 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
         modelBuilder.Entity<UserBenefiter>().Property(x => x.Amount).HasPrecision(13, 2);
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-            optionsBuilder
+    /// <inheritdoc/>
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
                 .AddInterceptors(new ContextInterceptor());
-    }
 }
