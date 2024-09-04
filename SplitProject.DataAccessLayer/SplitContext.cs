@@ -2,6 +2,7 @@
 
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using SplitProject.DAL;
 
 /// <summary>
 /// DB context.
@@ -40,5 +41,11 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
         modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
         modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2);
         modelBuilder.Entity<UserBenefiter>().Property(x => x.Amount).HasPrecision(13, 2);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+            optionsBuilder
+                .AddInterceptors(new ContextInterceptor());
     }
 }
