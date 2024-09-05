@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BLL.DTO;
 using Domain.Models;
 
 /// <summary>
@@ -16,5 +17,12 @@ public interface IExpenseService
     /// <param name="fromUser">user who did the expense.</param>
     /// <param name="benefitersList">list of users to benefit.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    Task Count(decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList);
+    Task CountAsync(decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList);
+
+    /// <summary>
+    /// Create and count expense.
+    /// </summary>
+    /// <param name="expenseDTO">expense DTO.</param>
+    /// <returns>Expense entity.</returns>
+    Task<Expense> CreateExpenseAsync(ExpenseDTO expenseDTO);
 }

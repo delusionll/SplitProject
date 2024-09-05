@@ -50,21 +50,23 @@ public class ExpenseController(
     /// <param name="newExpense">new expense DTO.</param>
     /// <returns>OK if expense counted.</returns>
     [HttpPost("/NewExpense")]
-    public async Task<ActionResult> NewExpense(ExpenseDTO newExpense)
+    public async Task<IActionResult> NewExpense(ExpenseDTO newExpense)
     {
         if (newExpense == null)
             return BadRequest("Expense data is required.");
 
-        var expEnt = _dtoService.Map(newExpense);
-        await _crudService.AddAsync(expEnt).ConfigureAwait(false);
-
-        // TODO count on expense property change.
-        var user = await _crudService.GetByIdAsync<User>(expEnt.UserID).ConfigureAwait(false);
-
-        if (user == null)
-            return NotFound();
-
-        await _expenseService.Count(expEnt.Amount, user.Value, expEnt.Benefiters).ConfigureAwait(false);
-        return Ok();
+        try
+        {
+            var result = await _expenseService.CreateExpenseAsync(newExpense);
+            return Ok();
+        }
+        catch (ArgumentNullException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception)
+        {
+            return BadRequest("Internal server failure");
+        }
     }
 }
