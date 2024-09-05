@@ -24,5 +24,5 @@ public interface IExpenseService
     /// </summary>
     /// <param name="expenseDTO">expense DTO.</param>
     /// <returns>Expense entity.</returns>
-    Task<Expense> CreateExpenseAsync(ExpenseDTO expenseDTO);
+    Task<Expense> CreateAsync(ExpenseDTO expenseDTO);
 }

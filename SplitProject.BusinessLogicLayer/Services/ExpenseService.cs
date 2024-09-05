@@ -47,7 +47,7 @@ public class ExpenseService(ICRUDService crudService, IDTOService<Expense, Expen
 
     /// <inheritdoc/>
     /// <exception cref="ArgumentNullException">throws if user is null.</exception>
-    public async Task<Expense> CreateExpenseAsync(ExpenseDTO expenseDTO)
+    public async Task<Expense> CreateAsync(ExpenseDTO expenseDTO)
     {
         var expense = _expenseDTOService.Map(expenseDTO);
         await _crudService.AddAsync(expense).ConfigureAwait(false);

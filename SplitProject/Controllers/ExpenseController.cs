@@ -57,7 +57,7 @@ public class ExpenseController(
 
         try
         {
-            var result = await _expenseService.CreateExpenseAsync(newExpense);
+            var result = await _expenseService.CreateAsync(newExpense);
             return Ok();
         }
         catch (ArgumentNullException ex)
