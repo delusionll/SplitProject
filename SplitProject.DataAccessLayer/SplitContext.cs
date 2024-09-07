@@ -2,7 +2,6 @@
 
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using SplitProject.DAL;
 
 /// <summary>
 /// DB context.
@@ -28,6 +27,11 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// </summary>
     public DbSet<UserBenefiter> Benefiters { get; set; }
 
+    /// <summary>
+    /// Gets or sets sqlLogs.
+    /// </summary>
+    public DbSet<SqlLog> SqlLogs { get; set; }
+
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -42,8 +46,4 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
         modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2);
         modelBuilder.Entity<UserBenefiter>().Property(x => x.Amount).HasPrecision(13, 2);
     }
-
-    /// <inheritdoc/>
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
-                .AddInterceptors(new ContextInterceptor());
 }

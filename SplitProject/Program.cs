@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SplitProject.DAL;
 
 /// <summary>
 /// StartPoint.
@@ -39,7 +40,8 @@ public class Program
 
                 // TODO remove hardcode
                 sqlOptions.MigrationsAssembly("SplitProject.DAL");
-            }));
+            })
+            .AddInterceptors(new ContextInterceptor()));
         services.AddControllers();
         services.AddSwaggerGen();
         var app = builder.Build();
