@@ -39,7 +39,7 @@ public class Program
                 sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
 
                 // TODO remove hardcode
-                sqlOptions.MigrationsAssembly("SplitProject.DAL");
+                sqlOptions.MigrationsAssembly("DAL");
             })
             .AddInterceptors(new ContextInterceptor()));
         services.AddControllers();
