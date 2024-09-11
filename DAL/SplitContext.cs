@@ -44,6 +44,5 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
         // 12345678901.23
         modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
         modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2);
-        modelBuilder.Entity<UserBenefiter>().Property(x => x.Amount).HasPrecision(13, 2);
     }
 }

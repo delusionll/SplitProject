@@ -24,10 +24,9 @@ public class UserBenefiter
     /// <param name="amount">amount.</param>
     /// <param name="share">share.</param>
     /// <param name="expenseID">expense entity.</param>
-    public UserBenefiter(User user, decimal amount, int share, Guid expenseID)
+    public UserBenefiter(User user, int share, Guid expenseID)
     {
         User = user;
-        Amount = amount;
         Share = share;
         ExpenseID = expenseID;
     }
@@ -41,11 +40,6 @@ public class UserBenefiter
     /// Gets user.
     /// </summary>
     public User User { get; private set; }
-
-    /// <summary>
-    /// Gets amount to benefit.
-    /// </summary>
-    public decimal Amount { get; private set; }
 
     /// <summary>
     /// Gets benefiter share.
