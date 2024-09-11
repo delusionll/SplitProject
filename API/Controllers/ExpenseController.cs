@@ -37,18 +37,18 @@ public class ExpenseController(
             return BadRequest("Wrong ID");
 
         var expense = await _crudService.GetByIdAsync<Expense>(id).ConfigureAwait(false);
-        if (expense == null)
+        if (expense.Value == null)
             return NotFound($"Expense id {id} not found");
 
         var expenseDto = _dtoService.Map(expense.Value);
-        return expenseDto;
+        return Ok(expenseDto);
     }
 
     /// <summary>
     /// Create a new expense.
     /// </summary>
     /// <param name="newExpense">new expense DTO.</param>
-    /// <returns>OK if expense counted.</returns>
+    /// <returns>OK if expense counted. <see cref="ExpenseDTO"/></returns>
     [HttpPost("/NewExpense")]
     public async Task<IActionResult> NewExpense(ExpenseDTO newExpense)
     {
@@ -58,7 +58,7 @@ public class ExpenseController(
         try
         {
             var result = await _expenseService.CreateAsync(newExpense);
-            return Ok();
+            return Ok(_dtoService.Map(result));
         }
         catch (ArgumentNullException ex)
         {

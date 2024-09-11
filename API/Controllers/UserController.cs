@@ -17,7 +17,9 @@ using Microsoft.Extensions.Logging;
 /// <param name="crudService">CRUD service instance.</param>
 /// <param name="dtoService">DTO service instance.</param>
 [ApiController]
-public class UserController(ICRUDService crudService, IDTOService<User, UserDTO> dtoService, ILogger<UserController> logger) : Controller
+public class UserController(ICRUDService crudService,
+                            IDTOService<User, UserDTO> dtoService,
+                            ILogger<UserController> logger) : Controller
 {
     private readonly ICRUDService _crudService = crudService;
     private readonly IDTOService<User, UserDTO> _dtoService = dtoService;
@@ -46,7 +48,9 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
         if (user != null)
         {
             await _crudService.DeleteByIdAsync<User>(id).ConfigureAwait(false);
-            return Ok();
+            if (user.Value == null)
+                return BadRequest();
+            return Ok(_dtoService.Map(user.Value));
         }
 
         return NotFound();
@@ -62,11 +66,11 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     {
         var entity = await _crudService.GetByIdAsync<User>(id).ConfigureAwait(false);
 
-        if (entity == null)
+        if (entity.Value == null)
             return NotFound();
 
-        var user = _dtoService.Map(entity.Value);
-        return user;
+        var userDTO = _dtoService.Map(entity.Value);
+        return Ok(userDTO);
     }
 
     /// <summary>
@@ -77,8 +81,11 @@ public class UserController(ICRUDService crudService, IDTOService<User, UserDTO>
     [HttpPost("/NewUser")]
     public async Task<ActionResult> NewUserAsync([FromBody] string name)
     {
-        await _crudService.AddAsync(new User(name)).ConfigureAwait(false);
+        var newUser = new User(name);
+        var result = await _crudService.AddAsync(newUser).ConfigureAwait(false);
         _logger.LogInformation(DateTime.Now.ToString(), name);
-        return Ok();
+        if (result == null)
+            return BadRequest();
+        return Ok(newUser);
     }
 }
