@@ -51,6 +51,7 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
         return new OkResult();
     }
 
+    /// <inheritdoc/>
     public async Task<ActionResult<IEnumerable<T>>> GetAllAsync<T>()
         where T : class
     {
@@ -72,12 +73,12 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
     }
 
     /// <inheritdoc/>
-    public async Task<IActionResult> SaveChangesAsync()
+    public async Task<ActionResult<int>> SaveChangesAsync()
     {
         try
         {
-            await _context.SaveChangesAsync().ConfigureAwait(false);
-            return new OkResult();
+            var res = await _context.SaveChangesAsync().ConfigureAwait(false);
+            return new OkObjectResult(res);
         }
         catch (DbUpdateException ex)
         {
@@ -85,7 +86,8 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
         }
     }
 
-    public async Task<IActionResult> UpdateByIdAsync<TE, TP>(Guid id, TP property)
+    /// <inheritdoc/>
+    public async Task<ActionResult<TE>> UpdateByIdAsync<TE, TP>(Guid id, TP property)
         where TE : class
     {
         var entity = await _context.Set<TE>().FindAsync(id).ConfigureAwait(false);
@@ -105,6 +107,6 @@ public class CRUDService(SplitContext dbContext) : ICRUDService
 
         await _context.SaveChangesAsync().ConfigureAwait(false);
 
-        return new OkResult();
+        return new OkObjectResult(entity);
     }
 }

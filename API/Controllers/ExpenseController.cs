@@ -48,7 +48,7 @@ public class ExpenseController(
     /// Create a new expense.
     /// </summary>
     /// <param name="newExpense">new expense DTO.</param>
-    /// <returns>OK if expense counted. <see cref="ExpenseDTO"/></returns>
+    /// <returns>OK if expense counted. <see cref="ExpenseDTO"/>.</returns>
     [HttpPost("/NewExpense")]
     public async Task<IActionResult> NewExpense(ExpenseDTO newExpense)
     {

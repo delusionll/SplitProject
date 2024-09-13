@@ -49,17 +49,30 @@ public interface ICRUDService
     Task<ActionResult<T>> GetByIdAsync<T>(Guid id)
         where T : class;
 
+    /// <summary>
+    /// Update <see langword="property"/>.
+    /// </summary>
+    /// <typeparam name="TE">Entity.</typeparam>
+    /// <typeparam name="TP">Property type to update.</typeparam>
+    /// <param name="id">Entity ID.</param>
+    /// <param name="propertyToUpdate">Property to update.</param>
+    /// <returns>Updated Entity.</returns>
     [HttpPatch]
-    Task<IActionResult> UpdateByIdAsync<TE, TP>(Guid id, TP property)
+    Task<ActionResult<TE>> UpdateByIdAsync<TE, TP>(Guid id, TP propertyToUpdate)
         where TE : class;
 
+    /// <summary>
+    /// Gets all entities.
+    /// </summary>
+    /// <typeparam name="T">Entity type.</typeparam>
+    /// <returns>IEnumerable of T.</returns>
     Task<ActionResult<IEnumerable<T>>> GetAllAsync<T>()
         where T : class;
-
 
     /// <summary>
     /// Save changes.
     /// </summary>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    Task<IActionResult> SaveChangesAsync();
+    /// <returns>A <see cref="Task"/> represents save operation.
+    /// Task result contains the number of entities saved.</returns>
+    Task<ActionResult<int>> SaveChangesAsync();
 }
