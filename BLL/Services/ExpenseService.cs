@@ -31,6 +31,11 @@ public class ExpenseService(ICRUDService crudService, IDTOService<Expense, Expen
         foreach (var b in benefitersList)
         {
             var userToBenefit = await _crudService.GetByIdAsync<User>(b.User.UserID).ConfigureAwait(false);
+            if (userToBenefit == null)
+            {
+                throw new Exception("User not found");
+            }
+
             userToBenefit.Value.Balance -= amount * b.Share / 100;
             totalPercent += b.Share;
         }

@@ -10,6 +10,9 @@ using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
+/// <summary>
+/// <see cref="ExpenseService"/> tests.
+/// </summary>
 [TestFixture]
 public class ExpenseServiceTests
 {
@@ -17,6 +20,9 @@ public class ExpenseServiceTests
     private Mock<IDTOService<Expense, ExpenseDTO>> _expenseDTOServiceMock;
     private ExpenseService _expenseService;
 
+    /// <summary>
+    /// Setup.
+    /// </summary>
     [SetUp]
     public void Setup()
     {
@@ -79,6 +85,11 @@ public class ExpenseServiceTests
         Assert.That(ex.Message, Is.EqualTo("wrong share Sum"));
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
     [Test]
     public async Task CreateAsync_ValidExpense_CreatesExpenseAndUpdatesBalances()
     {
