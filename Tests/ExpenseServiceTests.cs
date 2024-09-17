@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using BLL.DTO;
 using BLL.IServices;
 using BLL.Services;
+using DAL;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 
 /// <summary>
@@ -16,9 +18,10 @@ using Moq;
 [TestFixture]
 public class ExpenseServiceTests
 {
-    private Mock<ICRUDService> _crudServiceMock;
+    private ICRUDService _crudService;
     private Mock<IDTOService<Expense, ExpenseDTO>> _expenseDTOServiceMock;
     private ExpenseService _expenseService;
+    private SplitContext _context;
 
     /// <summary>
     /// Setup.
@@ -26,9 +29,21 @@ public class ExpenseServiceTests
     [SetUp]
     public void Setup()
     {
-        _crudServiceMock = new Mock<ICRUDService>();
+        var options = new DbContextOptionsBuilder<SplitContext>()
+            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .Options;
+
+        _context = new SplitContext(options);
+        _crudService = new CRUDService(_context);
         _expenseDTOServiceMock = new Mock<IDTOService<Expense, ExpenseDTO>>();
-        _expenseService = new ExpenseService(_crudServiceMock.Object, _expenseDTOServiceMock.Object);
+        _expenseService = new ExpenseService(_crudService, _expenseDTOServiceMock.Object);
+    }
+
+    [TearDown]
+    public void TearDownContext()
+    {
+        if (_context != null)
+            _context.Dispose();
     }
 
     /// <summary>
@@ -39,10 +54,13 @@ public class ExpenseServiceTests
     public async Task CountAsync_ValidInput_UpdatesBalances()
     {
         var fromUser1 = new User("testUser1") { Balance = 100 };
+        await _crudService.AddAsync(fromUser1);
         var benefitersList = new List<UserBenefiter>();
         var expense = new Expense("testExpense1", 100, fromUser1.UserID, benefitersList);
         var newUser2 = new User("testUser2") { Balance = 50 };
+        await _crudService.AddAsync(newUser2);
         var newUser3 = new User("testUser3") { Balance = 50 };
+        await _crudService.AddAsync(newUser3);
         var testUserBenefiter2 = new UserBenefiter(newUser2, 50, expense.ExpenseID);
         var testUserBenefiter3 = new UserBenefiter(newUser3, 50, expense.ExpenseID);
         var userBenefiters = new List<UserBenefiter>
@@ -51,15 +69,17 @@ public class ExpenseServiceTests
                 testUserBenefiter3,
             };
         benefitersList.AddRange(userBenefiters);
-        _crudServiceMock.Setup(x => x.GetByIdAsync<User>(testUserBenefiter2.ID)).ReturnsAsync(newUser2);
-        _crudServiceMock.Setup(x => x.GetByIdAsync<User>(testUserBenefiter3.ID)).ReturnsAsync(newUser3);
+        await _crudService.AddAsync(expense);
+
+        Assert.Equals(_crudService.GetByIdAsync<User>(testUserBenefiter2.ID), newUser2);
+        Assert.Equals(_crudService.GetByIdAsync<User>(testUserBenefiter3.ID), newUser3);
 
         await _expenseService.CountAsync(100, fromUser1, benefitersList);
 
         Assert.Equals(200, fromUser1.Balance);
-        _crudServiceMock.Verify(x => x.SaveChangesAsync(), Times.Once);
-        _crudServiceMock.Verify(x => x.GetByIdAsync<User>(newUser2.UserID), Times.Once);
-        _crudServiceMock.Verify(x => x.GetByIdAsync<User>(newUser3.UserID), Times.Once);
+        _crudService.Verify(x => x.SaveChangesAsync(), Times.Once);
+        _crudService.Verify(x => x.GetByIdAsync<User>(newUser2.UserID), Times.Once);
+        _crudService.Verify(x => x.GetByIdAsync<User>(newUser3.UserID), Times.Once);
     }
 
     [Test]
@@ -104,14 +124,14 @@ public class ExpenseServiceTests
 
         _expenseDTOServiceMock.Setup(x => x.Map(expenseDTO)).Returns(expense);
         IActionResult okResult = new OkResult();
-        _crudServiceMock.Setup(x => x.AddAsync(expense)).ReturnsAsync(new OkResult());
-        _crudServiceMock.Setup(x => x.GetByIdAsync<User>(userGuid)).ReturnsAsync(user);
+        _crudService.Setup(x => x.AddAsync(expense)).ReturnsAsync(new OkResult());
+        _crudService.Setup(x => x.GetByIdAsync<User>(userGuid)).ReturnsAsync(user);
 
         var result = await _expenseService.CreateAsync(expenseDTO);
 
         Assert.Equals(expense, result);
         Assert.Equals(100, user.Balance);
-        _crudServiceMock.Verify(x => x.SaveChangesAsync(), Times.Once);
+        _crudService.Verify(x => x.SaveChangesAsync(), Times.Once);
     }
 
     [Test]
@@ -127,8 +147,8 @@ public class ExpenseServiceTests
         var expense = new Expense("testExpenseDTO1", 100, userGuid, benefiters);
 
         _expenseDTOServiceMock.Setup(x => x.Map(expenseDTO)).Returns(expense);
-        _crudServiceMock.Setup(x => x.AddAsync(expense)).ReturnsAsync(new OkResult());
-        _crudServiceMock.Setup(x => x.GetByIdAsync<User>(Guid.NewGuid())).ReturnsAsync(null as User);
+        _crudService.Setup(x => x.AddAsync(expense)).ReturnsAsync(new OkResult());
+        _crudService.Setup(x => x.GetByIdAsync<User>(Guid.NewGuid())).ReturnsAsync(null as User);
 
         var ex = Assert.ThrowsAsync<ArgumentNullException>(async () =>
             await _expenseService.CreateAsync(expenseDTO));
