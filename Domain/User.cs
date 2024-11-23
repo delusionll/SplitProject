@@ -26,8 +26,8 @@ public class User
     /// Initializes a new instance of the <see cref="User"/> class.
     /// </summary>
     /// <param name="balance">User balance.</param>
-    /// <param name="name">User name.</param>
-    /// <param name="userID">User ID.</param>
+    /// <param name="name">   User name.</param>
+    /// <param name="userID"> User ID.</param>
     public User(Guid userID, decimal balance, string name = null)
     {
         Balance = balance;
@@ -36,27 +36,27 @@ public class User
     }
 
     /// <summary>
-    /// Gets user ID.
-    /// </summary>
-    public Guid UserID { get; private set; } = Guid.NewGuid();
-
-    /// <summary>
     /// Gets or sets user balance.
     /// </summary>
     public decimal Balance { get; set; } = 0;
 
     /// <summary>
-    /// Gets username.
+    /// Gets userbenefiters. navigation prop.
     /// </summary>
-    public string Name { get; private set; }
+    public ICollection<UserBenefiter> Benefiters { get; private set; } = [];
 
     /// <summary>
     /// Gets a list of user expenses.
     /// </summary>
-    public List<Expense> Expenses { get; private set; } = [];
+    public ICollection<Expense> Expenses { get; private set; } = [];
 
     /// <summary>
-    /// Gets userbenefiters. navigation prop.
+    /// Gets or sets username.
     /// </summary>
-    public List<UserBenefiter> Benefiters { get; private set; } = [];
+    public string Name { get; set; }
+
+    /// <summary>
+    /// Gets user ID.
+    /// </summary>
+    public Guid UserID { get; private set; } = Guid.NewGuid();
 }

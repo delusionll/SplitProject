@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 /// <see cref="SplitContext"/> class.
 /// </remarks>
 /// <param name="options">Context options.</param>
-public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(options)
+public class SplitContext(
+    DbContextOptions<SplitContext> options) : DbContext(options)
 {
     /// <summary>
     /// Gets or sets benefiters.
@@ -38,7 +39,9 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
             .OnDelete(DeleteBehavior.NoAction);
 
         // 12345678901.23
-        modelBuilder.Entity<User>().Property(u => u.Balance).HasPrecision(13, 2);
-        modelBuilder.Entity<Expense>().Property(e => e.Amount).HasPrecision(13, 2);
+        modelBuilder.Entity<User>().Property(u => u.Balance)
+            .HasPrecision(13, 2);
+        modelBuilder.Entity<Expense>().Property(e => e.Amount)
+            .HasPrecision(13, 2);
     }
 }
