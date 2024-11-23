@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace SplitProject.DAL.Migrations
+namespace API.Migrations
 {
     [DbContext(typeof(SplitContext))]
-    [Migration("20241123192116_nov24")]
-    partial class nov24
+    [Migration("20241123214344_InitMigration2")]
+    partial class InitMigration2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,7 @@ namespace SplitProject.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserID")
@@ -62,6 +63,7 @@ namespace SplitProject.DAL.Migrations
                         .HasColumnType("decimal(13,2)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");

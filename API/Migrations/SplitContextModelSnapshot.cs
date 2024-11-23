@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace SplitProject.DAL.Migrations
+namespace API.Migrations
 {
     [DbContext(typeof(SplitContext))]
     partial class SplitContextModelSnapshot : ModelSnapshot
@@ -36,6 +36,7 @@ namespace SplitProject.DAL.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserID")
@@ -59,6 +60,7 @@ namespace SplitProject.DAL.Migrations
                         .HasColumnType("decimal(13,2)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");

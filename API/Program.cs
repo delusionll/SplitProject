@@ -1,6 +1,7 @@
 namespace API;
 
 using System;
+using System.Reflection;
 using BLL.IServices;
 using BLL.Services;
 using DAL;
@@ -23,9 +24,12 @@ internal sealed class Program
     private static void Main()
     {
         var builder = WebApplication.CreateBuilder();
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Configuration.AddUserSecrets<Program>();
+        }
 
-        string connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("connection string is null");
-        string migrationsAssembly = builder.Configuration["MigrationsAssembly"] ?? throw new InvalidOperationException("migrations assembly is null");
+        string connectionString = builder.Configuration.GetConnectionString("LocalDb") ?? throw new InvalidOperationException("connection string is null");
         var services = builder.Services;
 
         // TODO ???
@@ -44,7 +48,7 @@ internal sealed class Program
                 sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
 
                 // TODO remove hardcode
-                sqlOptions.MigrationsAssembly(migrationsAssembly);
+                sqlOptions.MigrationsAssembly(nameof(API));
             })
             .AddInterceptors(new ContextInterceptor()));
         services.AddControllers();

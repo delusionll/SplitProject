@@ -11,28 +11,22 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <LangVersion>latest</LangVersion>
+        <UserSecretsId>5cdc364b-abb9-483e-93e7-a72bf437ace9</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
-                          Version="9.0.0">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection"
-                          Version="9.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"
-                          Version="9.0.0" />
-        <PackageReference Include="StyleCop.Analyzers"
-                          Version="1.2.0-beta.556">
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger"
-                          Version="7.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen"
-                          Version="7.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI"
-                          Version="7.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.0.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\BLL\BLL.csproj" />
