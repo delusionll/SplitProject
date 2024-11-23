@@ -75,5 +75,5 @@ public interface IRepository
     /// A <see cref="Task"/> represents save operation. Task
     /// result contains the number of entities saved.
     /// </returns>
-    ValueTask<int> SaveChangesAsync();
+    Task<int> SaveChangesAsync();
 }

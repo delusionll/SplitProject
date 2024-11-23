@@ -25,8 +25,8 @@ internal sealed class Program
     private static void Main()
     {
         var builder = WebApplication.CreateBuilder();
-        var connectionString = builder.Configuration.GetConnectionString("Default");
-        var migrationsAssembly = builder.Configuration["MigrationsAssembly"];
+        string connectionString = builder.Configuration.GetConnectionString("Default");
+        string migrationsAssembly = builder.Configuration["MigrationsAssembly"];
         var services = builder.Services;
 
         // TODO ???
@@ -68,7 +68,6 @@ internal sealed class Program
         app.MapControllers();
 
         // TODO add app.UseExceptionHandler(...
-
         _ = app.MapGet(
             "/GetExpense",
             async (

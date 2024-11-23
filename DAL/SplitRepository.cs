@@ -12,10 +12,10 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 /// </summary>
 /// <remarks>
 /// Initializes a new instance of the
-/// <see cref="Repository"/> class.
+/// <see cref="SplitRepository"/> class.
 /// </remarks>
 /// <param name="dbContext">DB context.</param>
-public class Repository(SplitContext dbContext) : IRepository
+public class SplitRepository(SplitContext dbContext) : IRepository
 {
     private readonly DbContext _context = dbContext;
 
@@ -95,7 +95,7 @@ public class Repository(SplitContext dbContext) : IRepository
     }
 
     /// <inheritdoc/>
-    public async ValueTask<int> SaveChangesAsync()
+    public async Task<int> SaveChangesAsync()
     {
         try
         {
