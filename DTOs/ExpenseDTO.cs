@@ -1,13 +1,12 @@
-﻿namespace BLL.DTO;
+﻿namespace DTOs;
 
 using System;
 using System.Collections.Generic;
-using Domain.Models;
 
 /// <summary>
 /// <see cref="Expense"/> DTO.
 /// </summary>
-public class ExpenseDTO(decimal amount, ICollection<UserBenefiterDTO>? benefiters, string? title, Guid userID)
+public class ExpenseDTO(decimal amount, ICollection<UserBenefiterDTO> benefiters, string title, Guid userID)
 {
     /// <summary>
     /// Gets expense amount.
@@ -17,12 +16,12 @@ public class ExpenseDTO(decimal amount, ICollection<UserBenefiterDTO>? benefiter
     /// <summary>
     /// Gets users to Benefit.
     /// </summary>
-    public ICollection<UserBenefiterDTO>? Benefiters { get; } = benefiters;
+    public ICollection<UserBenefiterDTO> Benefiters { get; } = benefiters;
 
     /// <summary>
     /// Gets expense Title.
     /// </summary>
-    public string? Title { get; } = title;
+    public string Title { get; } = title;
 
     /// <summary>
     /// Gets expense owner UserID.

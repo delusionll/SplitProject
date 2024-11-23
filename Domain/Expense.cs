@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain;
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ public class Expense
     /// <param name="amount">Amount.</param>
     /// <param name="byUser">User who did the expense.</param>
     /// <param name="benefiters">A list of users to benefit in this expense.</param>
-    public Expense(string? title, decimal amount, Guid byUser, List<UserBenefiter>? benefiters = null)
+    public Expense(string title, decimal amount, Guid byUser, List<UserBenefiter> benefiters = null)
     {
         Title = title;
         Amount = amount;
@@ -49,12 +49,12 @@ public class Expense
     /// <summary>
     /// Gets title.
     /// </summary>
-    public string? Title { get; private set; }
+    public string Title { get; private set; }
 
     /// <summary>
     /// Gets a list of users to benefit in expense.
     /// </summary>
-    public List<UserBenefiter>? Benefiters { get; private set; } = [];
+    public List<UserBenefiter> Benefiters { get; private set; } = [];
 
     /// <summary>
     /// Gets User ID who did the expense.

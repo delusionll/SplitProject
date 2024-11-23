@@ -1,8 +1,7 @@
 ﻿namespace BLL.Services;
 
-using BLL.DTO;
 using BLL.IServices;
-using Domain.Models;
+using Domain;
 
 /// <summary>
 /// User DTO service.

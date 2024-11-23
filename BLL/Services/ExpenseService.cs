@@ -3,9 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BLL.DTO;
 using BLL.IServices;
-using Domain.Models;
+using Domain;
 
 /// <summary>
 /// Expense service.

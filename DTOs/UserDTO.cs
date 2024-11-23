@@ -1,4 +1,4 @@
-﻿namespace BLL.DTO;
+﻿namespace DTOs;
 
 using System;
 
@@ -11,7 +11,7 @@ using System;
 /// <param name="userID">User ID.</param>
 /// <param name="balance">User Balance.</param>
 /// <param name="name">User Name.</param>
-public class UserDTO(Guid userID, decimal balance, string? name)
+public class UserDTO(Guid userID, decimal balance, string name)
 {
     /// <summary>
     /// Gets userID.
@@ -26,5 +26,5 @@ public class UserDTO(Guid userID, decimal balance, string? name)
     /// <summary>
     /// Gets user Name.
     /// </summary>
-    public string? Name { get; } = name;
+    public string Name { get; } = name;
 }

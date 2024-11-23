@@ -1,4 +1,4 @@
-﻿namespace Domain.Models;
+﻿namespace Domain;
 
 using System;
 using System.Collections.Generic;
@@ -20,7 +20,7 @@ public class User
     /// Initializes a new instance of the <see cref="User"/> class.
     /// </summary>
     /// <param name="name">User name.</param>
-    public User(string? name = null) => Name = name;
+    public User(string name = null) => Name = name;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="User"/> class.
@@ -28,7 +28,7 @@ public class User
     /// <param name="balance">User balance.</param>
     /// <param name="name">User name.</param>
     /// <param name="userID">User ID.</param>
-    public User(Guid userID, decimal balance, string? name = null)
+    public User(Guid userID, decimal balance, string name = null)
     {
         Balance = balance;
         Name = name;
@@ -48,7 +48,7 @@ public class User
     /// <summary>
     /// Gets username.
     /// </summary>
-    public string? Name { get; private set; }
+    public string Name { get; private set; }
 
     /// <summary>
     /// Gets a list of user expenses.

@@ -1,4 +1,4 @@
-namespace SplitProject.DAL;
+namespace DAL;
 
 using System;
 using System.Data.Common;

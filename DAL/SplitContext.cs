@@ -1,6 +1,6 @@
 ﻿namespace DAL;
 
-using Domain.Models;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 
 /// <summary>
@@ -26,11 +26,6 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// Gets or sets benefiters.
     /// </summary>
     public DbSet<UserBenefiter> Benefiters { get; set; }
-
-    /// <summary>
-    /// Gets or sets sqlLogs.
-    /// </summary>
-    public DbSet<SqlLog> SqlLogs { get; set; }
 
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)

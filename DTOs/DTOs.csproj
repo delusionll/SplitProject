@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>disalbe</Nullable>
+        <AnalysisLevel>latest-all</AnalysisLevel>
+
+    </PropertyGroup>
+
+</Project>

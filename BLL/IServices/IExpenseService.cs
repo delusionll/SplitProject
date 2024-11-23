@@ -2,8 +2,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BLL.DTO;
-using Domain.Models;
+using Domain;
 
 /// <summary>
 /// Service to work with expenses.

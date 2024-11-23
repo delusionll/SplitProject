@@ -1,4 +1,4 @@
-namespace BLL.DTO;
+namespace DTOs;
 
 using System;
 
