@@ -52,7 +52,7 @@ public class UserBenefiter
     /// <summary>
     /// Gets user.
     /// </summary>
-    public User User { get; private set; }
+    public User User { get; private set; } = null!;
 
     /// <summary>
     /// Gets user ID. Foreign Key for users.

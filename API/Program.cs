@@ -24,8 +24,8 @@ internal sealed class Program
     {
         var builder = WebApplication.CreateBuilder();
 
-        string connectionString = builder.Configuration.GetConnectionString("Default");
-        string migrationsAssembly = builder.Configuration["MigrationsAssembly"];
+        string connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("connection string is null");
+        string migrationsAssembly = builder.Configuration["MigrationsAssembly"] ?? throw new InvalidOperationException("migrations assembly is null");
         var services = builder.Services;
 
         // TODO ???
@@ -59,6 +59,7 @@ internal sealed class Program
                 options.RoutePrefix = string.Empty;
             });
         }
+
         app.MapControllers();
 
         // TODO add app.UseExceptionHandler(...
@@ -70,7 +71,9 @@ internal sealed class Program
                 [FromServices] IDTOService<Expense, ExpenseDTO> dtoService) =>
         {
             if (id == Guid.Empty)
+            {
                 return Results.BadRequest("Wrong ID");
+            }
 
             var expenseDTO = await expenseService
                 .GetByIdAsync(id).ConfigureAwait(false);
@@ -87,7 +90,9 @@ internal sealed class Program
                 [FromServices] IExpenseService expenseService) =>
         {
             if (newExpense == null)
+            {
                 return Results.BadRequest("Expense data is required.");
+            }
 
             try
             {
@@ -130,12 +135,7 @@ internal sealed class Program
         {
             var userDTO = await userService.GetByIdAsync(id).ConfigureAwait(false);
 
-            if (userDTO == null)
-            {
-                return Results.NotFound();
-            }
-
-            return Results.Ok(userDTO);
+            return userDTO == null ? Results.NotFound() : Results.Ok(userDTO);
         });
 
         _ = app.MapPost("/NewUser", async (

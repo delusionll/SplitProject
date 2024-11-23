@@ -6,6 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
+/// <summary>
+/// TODO.
+/// </summary>
+// TODO todo
 public class ContextInterceptor : DbCommandInterceptor
 {
     // TODO refactor

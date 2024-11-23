@@ -20,7 +20,7 @@ public class User
     /// Initializes a new instance of the <see cref="User"/> class.
     /// </summary>
     /// <param name="name">User name.</param>
-    public User(string name = null) => Name = name;
+    public User(string name) => Name = name;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="User"/> class.
@@ -28,7 +28,7 @@ public class User
     /// <param name="balance">User balance.</param>
     /// <param name="name">   User name.</param>
     /// <param name="userID"> User ID.</param>
-    public User(Guid userID, decimal balance, string name = null)
+    public User(Guid userID, decimal balance, string name)
     {
         Balance = balance;
         Name = name;
@@ -53,7 +53,7 @@ public class User
     /// <summary>
     /// Gets or sets username.
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// Gets user ID.

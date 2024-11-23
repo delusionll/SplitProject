@@ -17,17 +17,17 @@ public class SplitContext(
     /// <summary>
     /// Gets or sets benefiters.
     /// </summary>
-    public DbSet<UserBenefiter> Benefiters { get; set; }
+    public DbSet<UserBenefiter> Benefiters { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets expenses.
     /// </summary>
-    public DbSet<Expense> Expenses { get; set; }
+    public DbSet<Expense> Expenses { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets users.
     /// </summary>
-    public DbSet<User> Users { get; set; }
+    public DbSet<User> Users { get; set; } = null!;
 
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)

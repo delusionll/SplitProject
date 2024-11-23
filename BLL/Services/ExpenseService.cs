@@ -69,6 +69,7 @@ public class ExpenseService(
             expense.Amount, user, expense.Benefiters).ConfigureAwait(false);
     }
 
+    /// <inheritdoc/>
     public async ValueTask<ExpenseDTO?> GetByIdAsync(Guid id)
     {
         var exp = await _repository.GetByIdAsync<Expense>(id)

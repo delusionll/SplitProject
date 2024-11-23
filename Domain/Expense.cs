@@ -31,7 +31,7 @@ public class Expense
         string title,
         decimal amount,
         Guid byUser,
-        ICollection<UserBenefiter> benefiters = null)
+        ICollection<UserBenefiter> benefiters)
     {
         Title = title;
         Amount = amount;
@@ -62,7 +62,7 @@ public class Expense
     /// <summary>
     /// Gets title.
     /// </summary>
-    public string Title { get; private set; }
+    public string Title { get; private set; } = null!;
 
     /// <summary>
     /// Gets User ID who did the expense.

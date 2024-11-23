@@ -43,9 +43,10 @@ public class ExpenseDTOService(
         var benefiters = new List<UserBenefiter>();
         ArgumentNullException.ThrowIfNull(dto);
         if (dto.Benefiters == null)
-
+        {
             // TODO dto.Benefiters as exception param???
             throw new ArgumentNullException(nameof(dto), "dto Benefiters is null.");
+        }
 
         foreach (var b in dto.Benefiters)
         {

@@ -3,6 +3,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <Optimize>true</Optimize>
         <ImplicitUsings>disable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
         <AnalysisLevel>latest-recommended</AnalysisLevel>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

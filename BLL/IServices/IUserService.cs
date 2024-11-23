@@ -4,6 +4,9 @@ using System;
 using System.Threading.Tasks;
 using DTOs;
 
+/// <summary>
+/// Service to work with user instances.
+/// </summary>
 public interface IUserService
 {
     /// <summary>

@@ -25,10 +25,13 @@ public class UserBenefiterDTOService : IDTOService<UserBenefiter, UserBenefiterD
     }
 
     /// <inheritdoc/>
-    public UserBenefiterDTO Map(UserBenefiter entity) => new UserBenefiterDTO(
+    public UserBenefiterDTO Map(UserBenefiter entity)
+    {
+        return new UserBenefiterDTO(
         entity.User.UserID,
         entity.Share,
         entity.ExpenseID);
+    }
 
     /// <inheritdoc/>
     public UserBenefiter Map(UserBenefiterDTO dto)

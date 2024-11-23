@@ -17,6 +17,7 @@ public class UserService(IRepository repository, IDTOService<User, UserDTO> dtoS
     private readonly IDTOService<User, UserDTO> _dtoService = dtoService;
     private readonly IRepository _repository = repository;
 
+    /// <inheritdoc/>
     public async ValueTask<UserDTO?> AddAsync(string name)
     {
         var res = await _repository.AddAsync(new User(name)).ConfigureAwait(false);
@@ -30,6 +31,7 @@ public class UserService(IRepository repository, IDTOService<User, UserDTO> dtoS
         await _repository.SaveChangesAsync().ConfigureAwait(false);
     }
 
+    /// <inheritdoc/>
     public async ValueTask DeleteByIdAsync(Guid id)
     {
         await _repository.DeleteByIdAsync<User>(id).ConfigureAwait(false);
