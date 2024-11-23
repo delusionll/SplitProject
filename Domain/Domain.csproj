@@ -2,8 +2,10 @@
     <PropertyGroup>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>disable</ImplicitUsings>
+        <Optimize>true</Optimize>
         <Nullable>enable</Nullable>
-        <AnalysisLevel>latest-all</AnalysisLevel>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>

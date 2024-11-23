@@ -23,6 +23,7 @@ internal sealed class Program
     private static void Main()
     {
         var builder = WebApplication.CreateBuilder();
+
         string connectionString = builder.Configuration.GetConnectionString("Default");
         string migrationsAssembly = builder.Configuration["MigrationsAssembly"];
         var services = builder.Services;

@@ -6,8 +6,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
-        <AnalysisLevel>latest-all</AnalysisLevel>
+        <AnalysisLevel>latest-recommended</AnalysisLevel>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design"

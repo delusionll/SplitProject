@@ -38,7 +38,7 @@ public class ExpenseService(
                 .GetByIdAsync<User>(b.User.UserID).ConfigureAwait(false);
             if (userToBenefit == null)
             {
-                throw new Exception("User not found");
+                throw new Exception("user not found");
             }
 
             userToBenefit.Balance -= amount * b.Share / 100;
@@ -62,7 +62,7 @@ public class ExpenseService(
             .GetByIdAsync<User>(expense.UserID).ConfigureAwait(false);
         if (user == null)
         {
-            throw new ArgumentNullException(nameof(user));
+            throw new Exception("user not found");
         }
 
         await CountAsync(

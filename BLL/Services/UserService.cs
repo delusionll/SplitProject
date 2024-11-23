@@ -27,13 +27,13 @@ public class UserService(IRepository repository, IDTOService<User, UserDTO> dtoS
     public async ValueTask DeleteAllAsync()
     {
         await _repository.DeleteAllAsync<User>().ConfigureAwait(false);
-        _repository.SaveChangesAsync();
+        await _repository.SaveChangesAsync().ConfigureAwait(false);
     }
 
     public async ValueTask DeleteByIdAsync(Guid id)
     {
         await _repository.DeleteByIdAsync<User>(id).ConfigureAwait(false);
-        _repository.SaveChangesAsync();
+        await _repository.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
