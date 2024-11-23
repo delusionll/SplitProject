@@ -36,6 +36,7 @@ internal sealed class Program
         services.AddTransient<IDTOService<Expense, ExpenseDTO>, ExpenseDTOService>();
         services.AddTransient<IDTOService<User, UserDTO>, UserDTOService>();
         services.AddTransient<IDTOService<UserBenefiter, UserBenefiterDTO>, UserBenefiterDTOService>();
+        services.AddScoped<IRepository, SplitRepository>();
         services.AddDbContext<SplitContext>(
         options => options.UseSqlServer(
             connectionString,
