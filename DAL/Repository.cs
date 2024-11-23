@@ -28,7 +28,6 @@ public class Repository(SplitContext dbContext) : IRepository
         {
             var res = await _context.Set<T>()
                 .AddAsync(entity).ConfigureAwait(false);
-            await _context.SaveChangesAsync().ConfigureAwait(false);
             return res;
         }
         catch (Exception ex)
@@ -40,20 +39,18 @@ public class Repository(SplitContext dbContext) : IRepository
     }
 
     /// <inheritdoc/>
-    public async ValueTask<int> DeleteAllAsync<T>()
+    public async ValueTask DeleteAllAsync<T>()
         where T : class
     {
         try
         {
             _context.Set<T>().RemoveRange(
                 await _context.Set<T>().ToArrayAsync().ConfigureAwait(false));
-            return await _context.SaveChangesAsync().ConfigureAwait(false);
         }
         catch (Exception ex)
         {
             // TODO LOG
             Debug.WriteLine(DateTime.Now + ex.Message);
-            return 0;
         }
     }
 
@@ -63,19 +60,25 @@ public class Repository(SplitContext dbContext) : IRepository
         where T : class
     {
         var entity = await GetByIdAsync<T>(id).ConfigureAwait(false);
-        if (entity == null)
-        {
-            return null;
-        }
-
-        var res = _context.Set<T>().Remove(entity);
-        await _context.SaveChangesAsync().ConfigureAwait(false);
-        return res;
+        return entity == null ? null : _context.Set<T>().Remove(entity);
     }
 
     /// <inheritdoc/>
     public IAsyncEnumerable<T> GetAll<T>()
         where T : class => _context.Set<T>().AsAsyncEnumerable();
+
+    /// <inheritdoc/>
+    public T? GetById<T>(Guid id)
+        where T : class
+    {
+        if (id != Guid.Empty)
+        {
+            var entity = _context.Set<T>().Find(id);
+            return entity != null ? entity : null;
+        }
+
+        return null;
+    }
 
     /// <inheritdoc/>
     public async ValueTask<T?> GetByIdAsync<T>(Guid id)

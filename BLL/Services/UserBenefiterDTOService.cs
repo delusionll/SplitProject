@@ -2,15 +2,27 @@
 
 using System;
 using BLL.IServices;
+using DAL;
 using Domain;
+using DTOs;
 
 /// <summary>
 /// User DTO service.
 /// </summary>
-/// <param name="crudService">CRUD service instance.</param>
-public class UserBenefiterDTOService(ICRUDService crudService) : IDTOService<UserBenefiter, UserBenefiterDTO>
+public class UserBenefiterDTOService : IDTOService<UserBenefiter, UserBenefiterDTO>
 {
-    private readonly ICRUDService _crudService = crudService ?? throw new ArgumentNullException(nameof(crudService));
+    private readonly IRepository _repository;
+
+    /// <summary>
+    /// Initializes a new instance of the
+    /// <see cref="UserBenefiterDTOService"/> class.
+    /// </summary>
+    /// <param name="repository">repo instance.</param>
+    public UserBenefiterDTOService(IRepository repository)
+    {
+        ArgumentNullException.ThrowIfNull(repository, nameof(repository));
+        _repository = repository;
+    }
 
     /// <inheritdoc/>
     public UserBenefiterDTO Map(UserBenefiter entity) => new UserBenefiterDTO(
@@ -21,10 +33,10 @@ public class UserBenefiterDTOService(ICRUDService crudService) : IDTOService<Use
     /// <inheritdoc/>
     public UserBenefiter Map(UserBenefiterDTO dto)
     {
-        var user = _crudService.GetByIdAsync<User>(dto.UserID).Result;
-        var expense = _crudService.GetByIdAsync<Expense>(dto.ExpenseID).Result;
+        var user = _repository.GetById<User>(dto.UserID);
+        var expense = _repository.GetById<Expense>(dto.ExpenseID);
         return user != null && expense != null
-            ? new UserBenefiter(user.Value, dto.Share, expense.Value.ExpenseID)
+            ? new UserBenefiter(user, dto.Share, expense.ExpenseID)
             : throw new ArgumentException("User or Expense not found");
     }
 }

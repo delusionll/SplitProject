@@ -6,6 +6,8 @@
 /// <typeparam name="TE">Entity type.</typeparam>
 /// <typeparam name="TD">DTO type.</typeparam>
 public interface IDTOService<TE, TD>
+    where TE : class
+    where TD : class
 {
     /// <summary>
     /// transform from entity to DTO.

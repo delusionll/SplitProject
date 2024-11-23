@@ -28,7 +28,7 @@ public interface IRepository
     /// <returns>
     /// A <see cref="Task"/> representing the asynchronous operation.
     /// </returns>
-    ValueTask<int> DeleteAllAsync<T>()
+    ValueTask DeleteAllAsync<T>()
         where T : class;
 
     /// <summary>
@@ -48,6 +48,15 @@ public interface IRepository
     /// <typeparam name="T">Entity type.</typeparam>
     /// <returns>IEnumerable of T.</returns>
     IAsyncEnumerable<T> GetAll<T>()
+        where T : class;
+
+    /// <summary>
+    /// GET Entity from DB <see langword="by"/> ID.
+    /// </summary>
+    /// <typeparam name="T">Entity type.</typeparam>
+    /// <param name="id">Entity ID.</param>
+    /// <returns>T.</returns>
+    T? GetById<T>(Guid id)
         where T : class;
 
     /// <summary>

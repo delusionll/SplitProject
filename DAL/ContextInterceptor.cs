@@ -19,7 +19,7 @@ public class ContextInterceptor : DbCommandInterceptor
     {
         Console.WriteLine($"INTERCEPTOR, EXECUTING COMMAND: {command.CommandText}");
 
-        var re = await base.ReaderExecutingAsync(command, eventData, result, cancellationToken);
+        var re = await base.ReaderExecutingAsync(command, eventData, result, cancellationToken).ConfigureAwait(false);
         return re;
     }
 }

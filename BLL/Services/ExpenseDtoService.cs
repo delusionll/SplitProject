@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using BLL.IServices;
 using Domain;
+using DTOs;
 
 /// <summary>
 /// Expense DTO.
 /// </summary>
-public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> benefiterMapper)
+public class ExpenseDTOService(
+    IDTOService<UserBenefiter, UserBenefiterDTO> benefiterMapper)
     : IDTOService<Expense, ExpenseDTO>
 {
     private readonly IDTOService<UserBenefiter, UserBenefiterDTO> _benefiterMapper = benefiterMapper;
@@ -18,10 +20,14 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
     public ExpenseDTO Map(Expense entity)
     {
         var benefiterDTOs = new Collection<UserBenefiterDTO>();
-        if (entity.Benefiters == null)
 
+        ArgumentNullException.ThrowIfNull(entity);
+
+        if (entity.Benefiters == null)
+        {
             // TODO entity.Benefiters as exception param????
-            throw new ArgumentNullException(nameof(entity));
+            throw new ArgumentNullException(nameof(entity), "EntityBenefiters is null");
+        }
 
         foreach (var b in entity.Benefiters)
         {
@@ -35,10 +41,11 @@ public class ExpenseDTOService(IDTOService<UserBenefiter, UserBenefiterDTO> bene
     public Expense Map(ExpenseDTO dto)
     {
         var benefiters = new List<UserBenefiter>();
+        ArgumentNullException.ThrowIfNull(dto);
         if (dto.Benefiters == null)
 
             // TODO dto.Benefiters as exception param???
-            throw new ArgumentNullException(nameof(dto));
+            throw new ArgumentNullException(nameof(dto), "dto Benefiters is null.");
 
         foreach (var b in dto.Benefiters)
         {

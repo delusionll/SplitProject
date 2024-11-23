@@ -4,61 +4,75 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BLL.IServices;
+using DAL;
 using Domain;
+using DTOs;
 
 /// <summary>
 /// Expense service.
 /// </summary>
 /// <remarks>
-/// Initializes a new instance of the <see cref="ExpenseService"/> class.
+/// Initializes a new instance of the
+/// <see cref="ExpenseService"/> class.
 /// </remarks>
-/// <param name="crudService">CRUService instance.</param>
-public class ExpenseService(ICRUDService crudService, IDTOService<Expense, ExpenseDTO> expenseDTOService)
+/// <param name="repository">CRUService instance.</param>
+public class ExpenseService(
+    IRepository repository, IDTOService<Expense, ExpenseDTO> expenseDTOService)
     : IExpenseService
 {
-    private readonly ICRUDService _crudService = crudService;
     private readonly IDTOService<Expense, ExpenseDTO> _expenseDTOService = expenseDTOService;
+    private readonly IRepository _repository = repository;
 
     /// <inheritdoc/>
-    // TODO update DB dependency
-    // Counting expense, updates DB
-    public async Task CountAsync(
-        decimal amount, User fromUser, IEnumerable<UserBenefiter> benefitersList)
+    // TODO update DB dependency;
+    public async ValueTask CountAsync(
+        decimal amount,
+        User fromUser,
+        IEnumerable<UserBenefiter> benefitersList)
     {
         fromUser.Balance += amount;
         int totalPercent = 0;
         foreach (var b in benefitersList)
         {
-            var userToBenefit = await _crudService.GetByIdAsync<User>(b.User.UserID).ConfigureAwait(false);
+            var userToBenefit = await _repository
+                .GetByIdAsync<User>(b.User.UserID).ConfigureAwait(false);
             if (userToBenefit == null)
             {
                 throw new Exception("User not found");
             }
 
-            userToBenefit.Value.Balance -= amount * b.Share / 100;
+            userToBenefit.Balance -= amount * b.Share / 100;
             totalPercent += b.Share;
         }
 
-        if (totalPercent == 100)
-        {
-            await _crudService.SaveChangesAsync().ConfigureAwait(false);
-        }
-        else
-        {
-            throw new ArgumentException("wrong share Sum");
-        }
+        // TODO TEST 100 percent
+        await _repository.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    /// <exception cref="ArgumentNullException">throws if user is null.</exception>
-    public async Task<Expense> CreateAsync(ExpenseDTO expenseDTO)
+    /// <exception cref="ArgumentNullException">
+    /// throws if user is null.
+    /// </exception>
+    public async ValueTask CreateAsync(ExpenseDTO expenseDTO)
     {
         var expense = _expenseDTOService.Map(expenseDTO);
-        await _crudService.AddAsync(expense).ConfigureAwait(false);
-        var user = await _crudService.GetByIdAsync<User>(expense.UserID).ConfigureAwait(false);
-        if (user.Value == null)
+        await _repository.AddAsync(expense).ConfigureAwait(false);
+
+        var user = await _repository
+            .GetByIdAsync<User>(expense.UserID).ConfigureAwait(false);
+        if (user == null)
+        {
             throw new ArgumentNullException(nameof(user));
-        await CountAsync(expense.Amount, user.Value, expense.Benefiters).ConfigureAwait(false);
-        return expense;
+        }
+
+        await CountAsync(
+            expense.Amount, user, expense.Benefiters).ConfigureAwait(false);
+    }
+
+    public async ValueTask<ExpenseDTO?> GetByIdAsync(Guid id)
+    {
+        var exp = await _repository.GetByIdAsync<Expense>(id)
+            .ConfigureAwait(false);
+        return exp == null ? null : _expenseDTOService.Map(exp);
     }
 }

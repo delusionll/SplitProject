@@ -1,47 +1,58 @@
 namespace API;
 
 using System;
+using System.IO;
 using BLL.IServices;
 using BLL.Services;
+using DAL;
 using Domain;
 using DTOs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 /// <summary>
 /// StartPoint.
 /// </summary>
-public class Program
+internal sealed class Program
 {
     private static void Main()
     {
         var builder = WebApplication.CreateBuilder();
-
+        var connectionString = builder.Configuration.GetConnectionString("Default");
+        var migrationsAssembly = builder.Configuration["MigrationsAssembly"];
         var services = builder.Services;
-        builder.Logging.AddConsole();
 
-        // TODO transient ???
+        // TODO ???
+        builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+
         services.AddTransient<IExpenseService, ExpenseService>();
-        services.AddScoped<ICRUDService, CRUDService>();
         services.AddTransient<IDTOService<Expense, ExpenseDTO>, ExpenseDTOService>();
         services.AddTransient<IDTOService<User, UserDTO>, UserDTOService>();
         services.AddTransient<IDTOService<UserBenefiter, UserBenefiterDTO>, UserBenefiterDTOService>();
         services.AddDbContext<SplitContext>(
         options => options.UseSqlServer(
-            builder.Configuration["ConnectionString:Default"],
+            connectionString,
             sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
 
                 // TODO remove hardcode
-                sqlOptions.MigrationsAssembly("DAL");
+                sqlOptions.MigrationsAssembly(migrationsAssembly);
             })
             .AddInterceptors(new ContextInterceptor()));
         services.AddControllers();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(x =>
+        {
+            x.SwaggerDoc("v1", new OpenApiInfo() { Title = "Split", Version = "v1", });
+            x.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SplitApi.xml"));
+        });
         var app = builder.Build();
         if (app.Environment.IsDevelopment())
         {
@@ -56,28 +67,39 @@ public class Program
         });
         app.MapControllers();
 
-        app.MapGet("/GetExpense", async (Guid id, IDTOService<Expense, ExpenseDTO> dtoService) =>
+        // TODO add app.UseExceptionHandler(...
+
+        _ = app.MapGet(
+            "/GetExpense",
+            async (
+                IExpenseService expenseService,
+                Guid id,
+                IDTOService<Expense, ExpenseDTO> dtoService) =>
         {
             if (id == Guid.Empty)
                 return Results.BadRequest("Wrong ID");
 
-            var expense = await crudService.GetByIdAsync<Expense>(id).ConfigureAwait(false);
-            if (expense.Value == null)
-                return Results.NotFound($"Expense id {id} not found");
-
-            var expenseDto = dtoService.Map(expense.Value);
-            return Results.Ok(expenseDto);
+            var expenseDTO = await expenseService
+                .GetByIdAsync(id).ConfigureAwait(false);
+            return expenseDTO == null ?
+                Results.NotFound($"Expense id {id} not found") :
+                Results.Ok(expenseDTO);
         });
 
-        app.MapPost("/NewExpense", async (ExpenseDTO newExpense, IDTOService<Expense, ExpenseDTO> dtoService, IExpenseService expenseService) =>
+        _ = app.MapPost(
+            "/NewExpense",
+            async (
+                ExpenseDTO newExpense,
+                IDTOService<Expense, ExpenseDTO> dtoService,
+                IExpenseService expenseService) =>
         {
             if (newExpense == null)
                 return Results.BadRequest("Expense data is required.");
 
             try
             {
-                var result = await expenseService.CreateAsync(newExpense).ConfigureAwait(false);
-                return Results.Ok(dtoService.Map(result));
+                await expenseService.CreateAsync(newExpense).ConfigureAwait(false);
+                return Results.Ok();
             }
             catch (ArgumentNullException ex)
             {
@@ -89,46 +111,45 @@ public class Program
             }
         });
 
-        app.MapDelete("/DeleteAllUsers", async () =>
+        _ = app.MapDelete("/DeleteAllUsers", async (IUserService service) =>
         {
-            await crudService.DeleteAllAsync<User>().ConfigureAwait(false);
+            await service.DeleteAllAsync().ConfigureAwait(false);
             return Results.Ok();
         });
 
-        app.MapDelete("/DeleteUserById", async (IDTOService<User, UserDTO> dtoService, Guid id) =>
+        _ = app.MapDelete("/DeleteUserById", async (
+                IUserService service, Guid id) =>
         {
-            var user = await crudService.GetByIdAsync<User>(id).ConfigureAwait(false);
-            if (user != null)
+            try
             {
-                await crudService.DeleteByIdAsync<User>(id).ConfigureAwait(false);
-                if (user.Value == null)
-                    return Results.BadRequest();
-
-                return Results.Ok(dtoService.Map(user.Value));
+                await service.DeleteByIdAsync(id).ConfigureAwait(false);
             }
-            return Results.NotFound();
+            catch
+            {
+                return Results.BadRequest();
+            }
+
+            return Results.Ok();
         });
 
-        app.MapGet("/GetUserById", async (IDTOService<User, UserDTO> dtoService, Guid id) =>
+        _ = app.MapGet("/GetUserById", async (
+            IUserService userService, Guid id) =>
         {
-            var entity = await crudService.GetByIdAsync<User>(id).ConfigureAwait(false);
+            var userDTO = await userService.GetByIdAsync(id).ConfigureAwait(false);
 
-            if (entity.Value == null)
+            if (userDTO == null)
+            {
                 return Results.NotFound();
+            }
 
-            var userDTO = dtoService.Map(entity.Value);
             return Results.Ok(userDTO);
         });
 
-        app.MapPost("/NewUser", async (IDTOService<User, UserDTO> dtoService, ILogger<UserController> logger, [FromBody] string name) =>
+        _ = app.MapPost("/NewUser", async (
+            IUserService userService, [FromBody] string name) =>
         {
-            var newUser = new User(name);
-            var result = await crudService.AddAsync(newUser).ConfigureAwait(false);
-            logger.LogInformation(DateTime.Now.ToString(), name);
-            if (result == null)
-                return Results.BadRequest();
-
-            return Results.Ok(newUser);
+            var result = await userService.AddAsync(name).ConfigureAwait(false);
+            return result == null ? Results.BadRequest() : Results.Ok(result);
         });
 
         app.Run();
