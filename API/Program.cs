@@ -52,14 +52,12 @@ internal sealed class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/Swagger/v1/Swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
         }
-
-        app.UseSwaggerUI(options =>
-        {
-            options.SwaggerEndpoint("/Swagger/v1/Swagger.json", "v1");
-            options.RoutePrefix = string.Empty;
-        });
         app.MapControllers();
 
         // TODO add app.UseExceptionHandler(...
