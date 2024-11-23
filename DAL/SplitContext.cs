@@ -7,11 +7,17 @@ using Microsoft.EntityFrameworkCore;
 /// DB context.
 /// </summary>
 /// <remarks>
-/// Initializes a new instance of the <see cref="SplitContext"/> class.
+/// Initializes a new instance of the
+/// <see cref="SplitContext"/> class.
 /// </remarks>
 /// <param name="options">Context options.</param>
 public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(options)
 {
+    /// <summary>
+    /// Gets or sets benefiters.
+    /// </summary>
+    public DbSet<UserBenefiter> Benefiters { get; set; }
+
     /// <summary>
     /// Gets or sets expenses.
     /// </summary>
@@ -21,11 +27,6 @@ public class SplitContext(DbContextOptions<SplitContext> options) : DbContext(op
     /// Gets or sets users.
     /// </summary>
     public DbSet<User> Users { get; set; }
-
-    /// <summary>
-    /// Gets or sets benefiters.
-    /// </summary>
-    public DbSet<UserBenefiter> Benefiters { get; set; }
 
     /// <inheritdoc/>
     protected override void OnModelCreating(ModelBuilder modelBuilder)

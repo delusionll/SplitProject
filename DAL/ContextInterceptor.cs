@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 public class ContextInterceptor : DbCommandInterceptor
 {
+    // TODO refactor
+
     /// <inheritdoc/>
     public override async ValueTask<InterceptionResult<DbDataReader>> ReaderExecutingAsync(
         DbCommand command,

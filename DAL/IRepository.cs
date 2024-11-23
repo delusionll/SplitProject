@@ -47,7 +47,7 @@ public interface IRepository
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
     /// <returns>IEnumerable of T.</returns>
-    ValueTask<IAsyncEnumerable<T>?> GetAllAsync<T>()
+    IAsyncEnumerable<T> GetAll<T>()
         where T : class;
 
     /// <summary>

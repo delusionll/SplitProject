@@ -74,13 +74,8 @@ public class Repository(SplitContext dbContext) : IRepository
     }
 
     /// <inheritdoc/>
-    public async ValueTask<IAsyncEnumerable<T>?> GetAllAsync<T>()
-        where T : class
-    {
-        var entities = _context.Set<T>().AsAsyncEnumerable();
-        return entities == null ?
-            null : entities;
-    }
+    public IAsyncEnumerable<T> GetAll<T>()
+        where T : class => _context.Set<T>().AsAsyncEnumerable();
 
     /// <inheritdoc/>
     public async ValueTask<T?> GetByIdAsync<T>(Guid id)
