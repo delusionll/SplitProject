@@ -8,9 +8,9 @@ using System;
 public class UserBenefiterDTO(Guid userID, int share, Guid expenseID)
 {
     /// <summary>
-    /// Gets user as Benefiter ID.
+    /// Gets expense ID.
     /// </summary>
-    public Guid UserID { get; } = userID;
+    public Guid ExpenseID { get; } = expenseID;
 
     /// <summary>
     /// Gets share percent.
@@ -18,7 +18,7 @@ public class UserBenefiterDTO(Guid userID, int share, Guid expenseID)
     public int Share { get; } = share;
 
     /// <summary>
-    /// Gets expense ID.
+    /// Gets user as Benefiter ID.
     /// </summary>
-    public Guid ExpenseID { get; } = expenseID;
+    public Guid UserID { get; } = userID;
 }

@@ -8,16 +8,11 @@ using System;
 /// <remarks>
 /// Initializes a new instance of the <see cref="UserDTO"/> class.
 /// </remarks>
-/// <param name="userID">User ID.</param>
+/// <param name="userID"> User ID.</param>
 /// <param name="balance">User Balance.</param>
-/// <param name="name">User Name.</param>
+/// <param name="name">   User Name.</param>
 public class UserDTO(Guid userID, decimal balance, string name)
 {
-    /// <summary>
-    /// Gets userID.
-    /// </summary>
-    public Guid UserID { get; } = userID;
-
     /// <summary>
     /// Gets user Balance.
     /// </summary>
@@ -27,4 +22,9 @@ public class UserDTO(Guid userID, decimal balance, string name)
     /// Gets user Name.
     /// </summary>
     public string Name { get; } = name;
+
+    /// <summary>
+    /// Gets userID.
+    /// </summary>
+    public Guid UserID { get; } = userID;
 }
