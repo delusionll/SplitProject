@@ -1,7 +1,6 @@
 namespace API;
 
 using System;
-using System.IO;
 using BLL.IServices;
 using BLL.Services;
 using DAL;
@@ -15,7 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 
 /// <summary>
 /// StartPoint.
@@ -49,11 +47,7 @@ internal sealed class Program
             })
             .AddInterceptors(new ContextInterceptor()));
         services.AddControllers();
-        services.AddSwaggerGen(x =>
-        {
-            x.SwaggerDoc("v1", new OpenApiInfo() { Title = "Split", Version = "v1", });
-            x.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "SplitApi.xml"));
-        });
+        services.AddSwaggerGen();
         var app = builder.Build();
         if (app.Environment.IsDevelopment())
         {
@@ -72,9 +66,9 @@ internal sealed class Program
         _ = app.MapGet(
             "/GetExpense",
             async (
-                IExpenseService expenseService,
-                Guid id,
-                IDTOService<Expense, ExpenseDTO> dtoService) =>
+                [FromServices] IExpenseService expenseService,
+                [FromBody] Guid id,
+                [FromServices] IDTOService<Expense, ExpenseDTO> dtoService) =>
         {
             if (id == Guid.Empty)
                 return Results.BadRequest("Wrong ID");
@@ -89,9 +83,9 @@ internal sealed class Program
         _ = app.MapPost(
             "/NewExpense",
             async (
-                ExpenseDTO newExpense,
-                IDTOService<Expense, ExpenseDTO> dtoService,
-                IExpenseService expenseService) =>
+                [FromBody] ExpenseDTO newExpense,
+                [FromServices] IDTOService<Expense, ExpenseDTO> dtoService,
+                [FromServices] IExpenseService expenseService) =>
         {
             if (newExpense == null)
                 return Results.BadRequest("Expense data is required.");
@@ -111,14 +105,14 @@ internal sealed class Program
             }
         });
 
-        _ = app.MapDelete("/DeleteAllUsers", async (IUserService service) =>
+        _ = app.MapDelete("/DeleteAllUsers", async ([FromServices] IUserService service) =>
         {
             await service.DeleteAllAsync().ConfigureAwait(false);
             return Results.Ok();
         });
 
         _ = app.MapDelete("/DeleteUserById", async (
-                IUserService service, Guid id) =>
+                [FromServices] IUserService service, [FromBody] Guid id) =>
         {
             try
             {
@@ -133,7 +127,7 @@ internal sealed class Program
         });
 
         _ = app.MapGet("/GetUserById", async (
-            IUserService userService, Guid id) =>
+            [FromServices] IUserService userService, [FromBody] Guid id) =>
         {
             var userDTO = await userService.GetByIdAsync(id).ConfigureAwait(false);
 
@@ -146,7 +140,7 @@ internal sealed class Program
         });
 
         _ = app.MapPost("/NewUser", async (
-            IUserService userService, [FromBody] string name) =>
+            [FromServices] IUserService userService, [FromBody] string name) =>
         {
             var result = await userService.AddAsync(name).ConfigureAwait(false);
             return result == null ? Results.BadRequest() : Results.Ok(result);
