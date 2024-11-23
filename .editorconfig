@@ -248,6 +248,7 @@ dotnet_diagnostic.sa1616.severity = suggestion
 dotnet_diagnostic.sa1309.severity = none
 dotnet_diagnostic.ide0022.severity = none
 dotnet_diagnostic.cs8981.severity = suggestion
+dotnet_diagnostic.SA0001.severity = none
 
 
 [*.{cs,vb}]
